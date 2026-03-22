@@ -1,0 +1,204 @@
+- type: entity
+  id: ObstructionBase
+  parent: BaseStructureDynamic
+  name: base Obstruction
+  description: Obstruction
+  abstract: true
+  components:
+  - type: Sprite
+    noRot: true
+  - type: Physics
+    mass: 100
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+# это родитель для всех добавленных препятствий на соти, созданные сурвайвом
+- type: entity
+  id: ObstructionWoodenCrate
+  parent: ObstructionBase
+  name: Big wooden crate
+  description: this crate is quite big
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/WoodenCrate.rsi
+    state: base-0
+# следующие препятствия это ящики на деревяшке
+- type: entity
+  id: ObstructionPalletWoodenCrates
+  parent: ObstructionBase
+  name: wooden crates on pallet
+  description: so much crates
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
+    state: base-0
+
+- type: entity
+  id: ObstructionPalletOneCrate
+  parent: ObstructionBase
+  name: Crate on Pallet
+  description: only one crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
+    state: base-1
+
+- type: entity
+  id: ObstructionPalletGreenCrate
+  parent: ObstructionBase
+  name: green crate on pallet
+  description: green crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
+    state: base-2
+
+- type: entity
+  id: ObstructionPalletRedCrate
+  parent: ObstructionBase
+  name: red crate on pallet
+  description: red crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
+    state: base-3
+
+- type: entity
+  id: ObstructionPalletAmmoCrate
+  parent: ObstructionBase
+  name: Ammunition crate on pallet
+  description: got some ammo
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
+    state: base-4
+
+- type: entity
+  id: ObstructionPalletColoredCrates
+  parent: ObstructionBase
+  name: green and red crate on pallet
+  description: these are colored
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
+    state: base-5
+# ящики на деревяшке 
+
+# стенд с ружьями
+- type: entity
+  id: ObstructionRifleStand
+  parent: ObstructionBase
+  name: Rifle Stand
+  description: got some rifles for soldiers
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/RifleStand.rsi
+    state: base-0
+#
+
+# ящик со снарядами
+- type: entity
+  id: ObstructionShellCrate
+  parent: ObstructionBase
+  name: Crate with Shells
+  description: Crate with shells
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/WeaponCrates.rsi
+    state: base-0
+#
+- type: entity
+  id: ObstructionShellCrateClossed
+  parent: ObstructionBase
+  name: Heavy crate
+  description: heavy crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/WeaponCrates.rsi
+    state: base-1
+#
+
+# железные шкафы
+- type: entity
+  id: ObstructionSteelLockers
+  parent: ObstructionBase
+  name: Steel Lockers
+  description: you can't hide in these
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/SteelLockers.rsi
+    state: base-0
+#
+- type: entity
+  id: ObstructionSteelLockerMiddle
+  parent: ObstructionBase
+  name: Steel Locker on middle
+  description: only one locker
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/SteelLockers.rsi
+    state: base-1
+#
+
+
+# металлические шкафы
+- type: entity
+  id: ObstructionSteelShelfEmpty
+  parent: ObstructionBase
+  name: Steel Shelf
+  description: empty shelf
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
+    state: base-0
+#
+- type: entity
+  id: ObstructionSteelShelfAmmo
+  parent: ObstructionBase
+  name: Steel Shelf with ammo
+  description: got some ammo
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
+    state: base-1
+#
+- type: entity
+  id: ObstructionSteelShelfKitchen
+  parent: ObstructionBase
+  name: Kitchen Steel Shelf
+  description: snacahalo HLEB prigotov
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
+    state: base-2
+#
+- type: entity
+  id: ObstructionSteelShelfBoxes
+  parent: ObstructionBase
+  name: Steel Shelf with boxes
+  description: Steel Shelf with a lot of boxes
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
+    state: base-3
+#
