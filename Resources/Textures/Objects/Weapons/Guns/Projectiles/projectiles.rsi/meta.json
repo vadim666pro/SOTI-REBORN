@@ -11,7 +11,19 @@
       "name": "bolt"
     },
     {
-      "name": "muzzle_bullet"
+      "name": "muzzle_bullet",
+      "delays": [
+        [
+          0.060000002,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
     },
     {
       "name": "muzzle_u_laser",

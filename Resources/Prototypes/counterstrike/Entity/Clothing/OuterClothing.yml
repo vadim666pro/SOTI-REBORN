@@ -249,6 +249,7 @@
     reflectingInHands: false
     
 - type: entity
+  parent: ClothingOuterStorageBase
   id: ClothingOuterBabaTapaRadSuit
   name: BTAPA LP's suit.
   description: devyati shlyapnaya sobaka.
@@ -269,7 +270,7 @@
     damageCoefficient: 0.3
   - type: Storage
     grid:
-    - 0,0,7,1
+    - 0,0,4,2
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
