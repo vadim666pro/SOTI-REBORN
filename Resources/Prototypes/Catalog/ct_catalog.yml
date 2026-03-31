@@ -1,6 +1,16 @@
 #SECONDARY
 
 - type: listing
+  id: UplinkDeagle
+  name: Deagle
+  description: GOLDEN DEAGLE
+  productEntity: WeaponCaseDeagle
+  cost:
+    Telecrystal: 18
+  categories:
+  - UplinkSecondaryCT
+
+- type: listing
   id: UplinkCTPistolUsp
   name: USP-S
   description: not silenced

@@ -1,7 +1,17 @@
 # secondary
 - type: listing
+  id: UplinkDeagleT
+  name: Deagle
+  description: GOLDEN DEAGLE
+  productEntity: WeaponCaseDeagle
+  cost:
+    Telecrystal: 18
+  categories:
+  - UplinkSecondaryT
+
+- type: listing
   id: UplinkGlock
-  name: 
+  name: Glock
   description: buy it now
   productEntity: WeaponCaseGlock
   cost:

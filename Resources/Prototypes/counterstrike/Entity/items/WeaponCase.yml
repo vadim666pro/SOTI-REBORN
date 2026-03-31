@@ -185,3 +185,16 @@
         amount: 1
       - id: MagazinePistol
         amount: 1
+
+- type: entity
+  id: WeaponCaseDeagle
+  parent: WeaponCaseBase
+  name: Case with Deagle
+  description: This case is also golden
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponPistolDeagle
+        amount: 1
+      - id: MagazineMagnum
+        amount: 1
