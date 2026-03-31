@@ -41,32 +41,31 @@
   abstract: true
   components:
   - type: Store
-    name: store-preset-name-uplinkCT
+    name: ZAKUP CT
     categories:
     - UplinkPrimaryCT
     - UplinkSecondaryCT
-    - UplinkEquipmentCS
-    - UplinkGrenadesCS
+    - UplinkEquipmentCSGO
+
     currencyWhitelist:
     - Telecrystal
     balance:
-      Telecrystal: 40
+      Telecrystal: 45
 
 - type: entity
   id: StorePresetUplinkT
   abstract: true
   components:
   - type: Store
-    name: store-preset-name-uplinkT
+    name: ZARUP T
     categories:
     - UplinkPrimaryT
     - UplinkSecondaryT
-    - UplinkEquipmentCS
-    - UplinkGrenadesCS
+    - UplinkEquipmentCSGO
     currencyWhitelist:
     - Telecrystal
     balance:
-      Telecrystal: 40
+      Telecrystal: 45
 
 - type: entity
   id: StorePresetTTT

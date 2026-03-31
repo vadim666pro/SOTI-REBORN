@@ -1,0 +1,187 @@
+- type: entity
+  id: WeaponCaseBase
+  parent: BaseStorageItem
+  name: Weapon Case
+  description: Now you will never take wrong magazines for your guns
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Other/WeaponCase.rsi
+    state: icon
+  - type: Item
+    sprite: Objects/counterstrike/Other/WeaponCase.rsi
+    size: Ginormous
+  - type: Storage
+    maxItemSize: Huge
+    grid:
+    - 0,0,8,4
+
+# оружие для кт
+- type: entity
+  id: WeaponCaseUSP
+  parent: WeaponCaseBase
+  name: Case with USP-S
+  description: there is gun 
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponPistolUSP
+        amount: 1
+      - id: MagazinePistol
+        amount: 1
+
+- type: entity
+  id: WeaponCaseFiveSeven
+  parent: WeaponCaseBase
+  name: Case with Five-Seven
+  description: there is gun 
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponPistolFiveseven
+        amount: 1
+      - id: MagazinePistolHighCapacity
+        amount: 1
+
+- type: entity
+  id: WeaponCaseAug
+  parent: WeaponCaseBase
+  name: Case with AUG
+  description: there is gun 
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponRifleAug
+        amount: 1
+      - id: MagazineLightRifle
+        amount: 1
+
+- type: entity
+  id: WeaponCaseM4
+  parent: WeaponCaseBase
+  name: Case with M4
+  description: there is gun 
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponRifleM4
+        amount: 1
+      - id: MagazineRifle
+        amount: 1
+
+- type: entity
+  id: WeaponCaseP90
+  parent: WeaponCaseBase
+  name: Case with P90
+  description: there is gun 
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponRifleP90
+        amount: 1
+      - id: MagazinePistolSubMachineGun
+        amount: 1
+
+- type: entity
+  id: WeaponCaseNova
+  parent: WeaponCaseBase
+  name: Case with Nova
+  description: there is gun 
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponShotgunNova
+        amount: 1
+      - id: BoxLethalshot
+        amount: 1
+
+- type: entity
+  id: WeaponCaseUMP
+  parent: WeaponCaseBase
+  name: Case with UMP-45
+  description: there is gun 
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponRifleUmp
+        amount: 1
+      - id: MagazineRifle
+        amount: 1
+
+- type: entity
+  id: WeaponCaseBeretta
+  parent: WeaponCaseBase
+  name: Case with Beretta
+  description: where is another one?
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponPistolBeretta
+        amount: 1
+      - id: MagazinePistol
+        amount: 1
+
+# оружие для т
+- type: entity
+  id: WeaponCaseAK47
+  parent: WeaponCaseBase
+  name: Case with AK-47
+  description: There is gun
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponRifleAk47
+        amount: 1
+      - id: MagazineLightRifle
+        amount: 1
+
+- type: entity
+  id: WeaponCaseSG553
+  parent: WeaponCaseBase
+  name: Case with SG553
+  description: There is gun
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponRifleSg553
+        amount: 1
+      - id: MagazineLightRifle
+        amount: 1
+
+- type: entity
+  id: WeaponCaseMac10
+  parent: WeaponCaseBase
+  name: Case with MAC-10
+  description: There is gun
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponRifleMac10
+        amount: 1
+      - id: MagazineRifle
+        amount: 1
+
+- type: entity
+  id: WeaponCaseTec9
+  parent: WeaponCaseBase
+  name: Case with Tec-9
+  description: There is gun
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponPistolTec9
+        amount: 1
+      - id: MagazinePistolHighCapacity
+        amount: 1
+
+- type: entity
+  id: WeaponCaseGlock
+  parent: WeaponCaseBase
+  name: Case with Glock
+  description: There is gun
+  components: 
+    - type: StorageFill
+      contents:
+      - id: WeaponPistolGlock
+        amount: 1
+      - id: MagazinePistol
+        amount: 1

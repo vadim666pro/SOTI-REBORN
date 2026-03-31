@@ -1,130 +1,92 @@
-#SECONDARY
-
+# secondary
 - type: listing
-  id: UplinkTPistolGlock
-  name: Glock-19
-  description: TEC9
-  productEntity: WeaponPistolGlock
+  id: UplinkGlock
+  name: 
+  description: buy it now
+  productEntity: WeaponCaseGlock
   cost:
-    Telecrystal: 5
+    Telecrystal: 9
   categories:
   - UplinkSecondaryT
 
 - type: listing
-  id: UplinkTPistolTec9
-  name: TEC 9
-  description: TEC9
-  productEntity: WeaponPistolTec9
+  id: UplinkTec9
+  name: TEC-9
+  description: buy it now
+  productEntity: WeaponCaseTec9
   cost:
-    Telecrystal: 10
+    Telecrystal: 12
   categories:
   - UplinkSecondaryT
 
-#PRIMARY
-
 - type: listing
-  id: UplinkTAk47
-  name: Ak-47
-  description: .30 rifle
-  icon: { sprite: /Textures/Objects/counterstrike/Weapons/PrimaryT/ak47.rsi, state: icon }
-  productEntity: WeaponRifleAk47
+  id: UplinkBerettaT
+  name: Beretta
+  description: buy it now
+  productEntity: WeaponCaseBeretta
   cost:
-    Telecrystal: 17
+    Telecrystal: 12
+  categories:
+  - UplinkSecondaryT
+
+#primary
+- type: listing
+  id: UplinkAK47
+  name: AK-47
+  description: buy it now
+  productEntity: WeaponCaseAK47
+  cost:
+    Telecrystal: 30
   categories:
   - UplinkPrimaryT
 
 - type: listing
-  id: UplinkTMac10
-  name: Mac-10
-  description: .30 gun
-  icon: { sprite: /Textures/Objects/counterstrike/Weapons/PrimaryT/mac10.rsi, state: icon }
-  productEntity: WeaponRifleMac10
+  id: UplinkMac10
+  name: MAC 10
+  description: buy it now
+  productEntity: WeaponCaseMac10
   cost:
-    Telecrystal: 14
+    Telecrystal: 18
   categories:
   - UplinkPrimaryT
 
 - type: listing
-  id: UplinkTSG553
-  name: SG553
-  description: .30 rifle with optical zoom.
-  icon: { sprite: /Textures/Objects/counterstrike/Weapons/PrimaryT/sg553.rsi, state: icon }
-  productEntity: WeaponRifleSg553
+  id: UplinkSG553
+  name:  SG-553
+  description: buy it now
+  productEntity: WeaponCaseSG553
   cost:
-    Telecrystal: 19
+    Telecrystal: 36
   categories:
   - UplinkPrimaryT
 
-#GRENADES
-
 - type: listing
-  id: UplinkCSSmokeGrenade
-  name: SMOKE GRENADE
-  description: uplink-smoke-grenade-desc
-  productEntity: SmokeGrenade
+  id: UplinkNovaT
+  name: Nova
+  description: buy it now
+  productEntity: WeaponCaseNova
   cost:
-    Telecrystal: 1
+    Telecrystal: 24
   categories:
-  - UplinkGrenadesCS
-
-#EQUIPMENT
+  - UplinkPrimaryT
 
 - type: listing
-  id: UplinkCSlothingOuterVestWeb
-  name: Fat Vest
-  description: uplink-clothing-outer-vest-web-desc
+  id: UplinkP90T
+  name: P90
+  description: buy it now
+  productEntity: WeaponCaseP90
+  cost:
+    Telecrystal: 21
+  categories:
+  - UplinkPrimaryT
+
+# equipment
+- type: listing
+  id: UplinkVest
+  name: Armor Vest
+  description: This body armor was made with crazy Dog's fat
   productEntity: ClothingOuterVestWeb
   cost:
-    Telecrystal: 3
+    Telecrystal: 9
   categories:
-  - UplinkEquipmentCS
-
-- type: listing
-  id: UplinkCSRifleAmmo
-  name: ammo for .20 rifle
-  description: ammo for m4 aug famas galil
-  productEntity: MagazineRifle
-  cost:
-    Telecrystal: 10
-  categories:
-  - UplinkEquipmentCS
-
-- type: listing
-  id: UplinkCSLightRifleAmmo
-  name: ammo for .30 rifle
-  description: ammo for ak47
-  productEntity: MagazineLightRifle
-  cost:
-    Telecrystal: 10
-  categories:
-  - UplinkEquipmentCS
-
-- type: listing
-  id: UplinkCSSMGAmmo
-  name: ammo for .35 smg
-  description: ammo for p90 etc
-  productEntity: MagazinePistolSubMachineGun
-  cost:
-    Telecrystal: 10
-  categories:
-  - UplinkEquipmentCS
-
-- type: listing
-  id: UplinkCSHighPistolAmmo
-  name: ammo for tec9
-  description: ammo for tec9 etc
-  productEntity: MagazinePistolHighCapacity
-  cost:
-    Telecrystal: 7
-  categories:
-  - UplinkEquipmentCS
-
-- type: listing
-  id: UplinkCSMagazinePistol
-  name: ammo for .35 pistols
-  description: ammo for usp etc
-  productEntity: MagazinePistolHighCapacity
-  cost:
-    Telecrystal: 7
-  categories:
-  - UplinkEquipmentCS
+  - UplinkEquipmentCSGO

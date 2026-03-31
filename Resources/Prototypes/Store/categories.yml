@@ -137,14 +137,14 @@
   priority: 1
 
 - type: storeCategory
-  id: UplinkEquipmentCS
-  name: Equipment CS
+  id: UplinkEquipmentCSGO
+  name: Equipment CSGO
   priority: 2
 
-- type: storeCategory
-  id: UplinkGrenadesCS
-  name: Grenades CS
-  priority: 3
+#- type: storeCategory
+#  id: UplinkGrenadesCSGO
+# name: Grenades CSGO
+#  priority: 3
 
 #TTT
 - type: storeCategory
