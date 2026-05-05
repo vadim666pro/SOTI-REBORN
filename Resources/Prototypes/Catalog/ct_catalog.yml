@@ -1,61 +1,109 @@
 #SECONDARY
 
 - type: listing
+  id: UplinkDeagle
+  name: Deagle
+  description: GOLDEN DEAGLE
+  productEntity: WeaponCaseDeagle
+  cost:
+    Telecrystal: 18
+  categories:
+  - UplinkSecondaryCT
+
+- type: listing
   id: UplinkCTPistolUsp
   name: USP-S
-  description: USP
-  productEntity: WeaponPistolUSP
+  description: not silenced
+  productEntity: WeaponCaseUSP
   cost:
-    Telecrystal: 7
+    Telecrystal: 9
   categories:
   - UplinkSecondaryCT
 
 - type: listing
   id: UplinkCTPistolFiveseven
-  name: FiveSeven
-  description: buy it
-  productEntity: WeaponPistolFiveseven
+  name: Five-Seven
+  description: Automatic pistol
+  productEntity: WeaponCaseFiveSeven
   cost:
-    Telecrystal: 10
+    Telecrystal: 12
   categories:
   - UplinkSecondaryCT
+
+- type: listing
+  id: UplinkCTPistolBeretta
+  name: Beretta
+  description: Is there two Berettas?
+  productEntity: WeaponCaseBeretta
+  cost:
+    Telecrystal: 12
+  categories:
+  - UplinkSecondaryCT
+
 
 #PRIMARY
 
 - type: listing
   id: UplinkCTM4
   name: M4
-  description: m4
-  icon: { sprite: /Textures/Objects/counterstrike/Weapons/PrimaryCT/m4.rsi, state: icon }
-  productEntity: WeaponRifleM4
+  description: The best gun ever
+  productEntity: WeaponCaseM4
   cost:
-    Telecrystal: 19
+    Telecrystal: 30
   categories:
   - UplinkPrimaryCT
 
 - type: listing
   id: UplinkCTAUG
   name: Steyr AUG
-  description: aug
-  icon: { sprite: /Textures/Objects/counterstrike/Weapons/PrimaryCT/aug.rsi, state: icon }
-  productEntity: WeaponRifleAug
+  description: gun with scope
+  productEntity: WeaponCaseAug
+  cost:
+    Telecrystal: 36
+  categories:
+  - UplinkPrimaryCT
+
+
+- type: listing
+  id: UplinkCTP90
+  name: P90
+  description: ghez
+  productEntity: WeaponCaseP90
   cost:
     Telecrystal: 21
   categories:
   - UplinkPrimaryCT
 
 - type: listing
-  id: UplinkCTP90
-  name: P90
-  description: ghez
-  icon: { sprite: /Textures/Objects/counterstrike/Weapons/PrimaryCT/p90.rsi, state: icon }
-  productEntity: WeaponRifleP90
+  id: UplinkCTNova
+  name: Nova
+  description: Shotgun
+  productEntity: WeaponCaseNova
   cost:
-    Telecrystal: 15
+    Telecrystal: 24
   categories:
   - UplinkPrimaryCT
 
-#GRENADES
-#EQUIPMENT
+- type: listing
+  id: UplinkCtUMP
+  name: UMP-45
+  description: Good SMG
+  productEntity: WeaponCaseUMP
+  cost:
+    Telecrystal: 18
+  categories:
+  - UplinkPrimaryCT
 
+#GRENADES (их нету)
+
+#EQUIPMENT
+- type: listing
+  id: UplinkVest
+  name: Armor Vest
+  description: This body armor was made with crazy Dog's fat
+  productEntity: ClothingOuterVestWeb
+  cost:
+    Telecrystal: 9
+  categories:
+  - UplinkEquipmentCSGO
 #grenades and equipment не отличается от каталога терров
