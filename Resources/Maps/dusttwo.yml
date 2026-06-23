@@ -71,6 +71,7 @@ entities:
         - AutoRoundEndingRuleCS
         - AutoRoundRestartRuleCS
         - RoundstartPlaySoundCS
+        - RoleReveal
       addInLobby: true
       startOnRoundStart: true
   - uid: 2

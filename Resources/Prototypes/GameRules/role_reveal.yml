@@ -1,0 +1,8 @@
+- type: entity
+  parent: BaseGameRule
+  id: RoleReveal
+  components:
+  - type: RoleRevealRule
+    image: /Textures/Objects/counterstrike/startroundscreen/cs.png
+    displayTime: 4.0
+    fadeTime: 3.0
