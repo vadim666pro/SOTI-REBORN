@@ -550,6 +550,8 @@
       prob: 0.50
       orGroup: monospaceDecals
 
+#ss14
+
 - type: entity
   parent: BaseGameRule
   id: AutoRoundRestart

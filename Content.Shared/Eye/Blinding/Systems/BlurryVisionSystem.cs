@@ -26,20 +26,9 @@ public sealed class BlurryVisionSystem : EntitySystem
         if (!Resolve(ent.Owner, ref ent.Comp, false))
             return;
 
-        var ev = new GetBlurEvent(ent.Comp.EyeDamage);
-        RaiseLocalEvent(ent, ev);
-
-        var blur = Math.Clamp(ev.Blur, 0, BlurryVisionComponent.MaxMagnitude);
-        if (blur <= 0)
-        {
-            RemCompDeferred<BlurryVisionComponent>(ent);
-            return;
-        }
-
-        var blurry = EnsureComp<BlurryVisionComponent>(ent);
-        blurry.Magnitude = blur;
-        blurry.CorrectionPower = ev.CorrectionPower;
-        Dirty(ent, blurry);
+        // Disabled blur effect for TTT mode
+        RemCompDeferred<BlurryVisionComponent>(ent);
+        return;
     }
 
     private void OnGlassesEquipped(Entity<VisionCorrectionComponent> glasses, ref GotEquippedEvent args)

@@ -30,29 +30,8 @@ namespace Content.Shared.Damage
 
         private void OnRefreshMovespeed(EntityUid uid, SlowOnDamageComponent component, RefreshMovementSpeedModifiersEvent args)
         {
-            if (!TryComp<DamageableComponent>(uid, out var damage))
-                return;
-
-            if (damage.TotalDamage == FixedPoint2.Zero)
-                return;
-
-            // Get closest threshold
-            FixedPoint2 closest = FixedPoint2.Zero;
-            var total = damage.TotalDamage;
-            foreach (var thres in component.SpeedModifierThresholds)
-            {
-                if (total >= thres.Key && thres.Key > closest)
-                    closest = thres.Key;
-            }
-
-            if (closest != FixedPoint2.Zero)
-            {
-                var speed = component.SpeedModifierThresholds[closest];
-
-                var ev = new ModifySlowOnDamageSpeedEvent(speed);
-                RaiseLocalEvent(uid, ref ev);
-                args.ModifySpeed(ev.Speed, ev.Speed);
-            }
+            // Disabled slowdown on damage for TTT mode
+            return;
         }
 
         private void OnDamageChanged(EntityUid uid, SlowOnDamageComponent component, DamageChangedEvent args)

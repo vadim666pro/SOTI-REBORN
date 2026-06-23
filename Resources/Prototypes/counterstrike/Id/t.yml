@@ -1,0 +1,9 @@
+- type: entity
+  parent: IDCardStandard
+  id: IDCardT
+  name: Bulunsky Ulus Id Card
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Id/t.rsi
+    layers:
+    - state: bpirat

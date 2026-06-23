@@ -15,7 +15,7 @@
   id: LibrarianGear
   equipment:
     shoes: ClothingShoesBootsJackFilled
-    id: LibrarianPDA
+    id: IDCardCT
     ears: ClothingHeadsetSecurity
     pocket1: BaseUplinkRadioCT # for making named bestsellers
     head: ClothingHeadHelmetBasic

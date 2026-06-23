@@ -80,7 +80,7 @@ namespace Content.Shared.Slippery
         /// Minimum speed entity must be moving to slip.
         /// </summary>
         [DataField]
-        public float RequiredSlipSpeed = 3.5f;
+        public float RequiredSlipSpeed = 2.05f;
 
         /// <summary>
         /// If this is true, any slipping entity loses its friction until
