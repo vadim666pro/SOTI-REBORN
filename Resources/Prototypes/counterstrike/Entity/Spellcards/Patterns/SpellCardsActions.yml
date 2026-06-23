@@ -1,0 +1,11 @@
+- type: entity
+  id: ActionIceshot
+  parent: ActionFireball
+  name: Ice shard Shot
+  description: ice shot
+
+  components:
+  - type: SpeakOnAction
+    sentence: BAKA!
+  - type: ConsumeStaminaOnCast
+    amount: 2.0

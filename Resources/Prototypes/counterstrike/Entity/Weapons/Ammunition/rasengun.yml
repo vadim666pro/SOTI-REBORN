@@ -8,7 +8,14 @@
     sprite: Objects/counterstrike/Weapons/Dota/Radiant/Сhieftain/magic.rsi
     layers:
       - state: rasengun
+  - type: EmitSoundOnSpawn
+    sound:
+      path: /Audio/SotiAudio/Spellcards/rasengun/datebayo.ogg
+      params:
+        volume: 5
+        maxDistance: 10
   - type: Projectile
+
     impactEffect: RasengunImpactEffect
     damage:
       types:

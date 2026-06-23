@@ -4,6 +4,7 @@
   name: Rasengun Action
   description: Fires the Rasengun projectile (customized speech).
   components:
+
   - type: SpeakOnAction
     sentence: DATTEBAYO!
   - type: Action
