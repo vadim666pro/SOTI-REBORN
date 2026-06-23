@@ -1,0 +1,29 @@
+
+- type: entity
+  id: IceShard1
+  name:  SnowFlake
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Spellcards/Bullets.rsi
+    layers:
+      - state: IceShard1
+  - type: EmitSoundOnSpawn
+    sound:
+      path: /Audio/SotiAudio/Spellcards/cirno/cirnobaka1.ogg
+      params:
+        volume: 5
+        maxDistance: 10
+  - type: StunOnCollide
+    stunAmount: 0
+    knockdownAmount: 0.5 # Enough to subdue and follow up with a stun batong
+    slowdownAmount: 2
+    walkSpeedModifier: 0.5
+    sprintSpeedModifier: 0.5
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 5
+        Cold: 5
+    deleteOnCollide: true

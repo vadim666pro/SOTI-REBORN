@@ -5,9 +5,9 @@
   parent: BaseItem
   components:
   - type: Sprite
-    sprite: Objects/Magic/magicactions.rsi
+    sprite: Objects/counterstrike/Spellcards/Cards.rsi
     layers:
-      - state: spell_default
+      - state: Rasenguncard
   - type: Item
     sprite: Objects/Magic/magicactions.rsi
   - type: MagicItem

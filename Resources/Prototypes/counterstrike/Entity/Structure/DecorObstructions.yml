@@ -1,0 +1,41 @@
+- type: entity
+  id: DecorObstructionBase
+  parent: BaseStructureDynamic
+  name: base Decorotive Obstruction
+  description: Decorative obstruction
+  abstract: true
+  components:
+  - type: Sprite
+    noRot: true
+  - type: Physics
+    mass: 100
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.2
+        density: 190
+        mask:
+        - MachineMask
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+# все декорации, созданные сурвайвом, будут работать как препятствия, но при этом не иметь коллизии
+- type: entity
+  id: DecorObstructionOfficeBin
+  parent: DecorObstructionBase
+  name: Office Bin
+  description: Fnaf
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/OfficeBin.rsi
+    state: base
