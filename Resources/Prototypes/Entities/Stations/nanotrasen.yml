@@ -10,23 +10,23 @@
   id: StandardNanotrasenStation
   parent:
     - BaseStation
-    - BaseStationNews
-    - BaseStationCargo
+#   - BaseStationNews
+#   - BaseStationCargo
     - BaseStationJobsSpawning
-    - BaseStationRecords
-    - BaseStationArrivals
-    - BaseStationGateway
-    - BaseStationShuttles
-    - BaseStationCentcomm
-    - BaseStationEvacuation
-    - BaseStationAlertLevels
-    - BaseStationMagnet
-    - BaseStationExpeditions
-    - BaseStationSalvageJobs
-    - BaseStationSiliconLawCrewsimov
-    - BaseStationAllEventsEligible
-    - BaseStationNanotrasen
-    - BaseStationDeliveries
+#   - BaseStationRecords
+#   - BaseStationArrivals
+#   - BaseStationGateway
+#   - BaseStationShuttles
+#   - BaseStationCentcomm
+#   - BaseStationEvacuation
+#   - BaseStationAlertLevels
+#   - BaseStationMagnet
+#   - BaseStationExpeditions
+#   - BaseStationSalvageJobs
+#   - BaseStationSiliconLawCrewsimov
+#   - BaseStationAllEventsEligible
+#   - BaseStationNanotrasen
+#   - BaseStationDeliveries
   categories: [ HideSpawnMenu ]
   components:
     - type: Transform
