@@ -193,9 +193,13 @@ namespace Content.Client.Lobby
                 Lobby!.ObserveButton.Disabled = true;
             }
 
-            if (_gameTicker.ServerInfoBlob != null)
+            if (!string.IsNullOrEmpty(_gameTicker.ServerInfoBlob))
             {
                 Lobby!.ServerInfo.SetInfoBlob(_gameTicker.ServerInfoBlob);
+            }
+            else
+            {
+                Lobby!.ServerInfo.SetInfoBlob("Server info is not available.");
             }
 
             var minutesToday = _playtimeTracking.PlaytimeMinutesToday;
