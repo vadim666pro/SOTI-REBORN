@@ -10,16 +10,10 @@ namespace Content.Shared.Damage.Systems;
 public sealed class DamageSpriteSystem : EntitySystem
 {
     [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly Robust.Shared.Network.INetManager _netManager = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-
-        if (_netManager.IsServer)
-        {
-            SubscribeNetworkEvent<Content.Shared.Damage.Events.AddDamageSpriteRequest>(OnAddDamageSpriteRequest);
-        }
     }
 
     /// <summary>
@@ -64,14 +58,6 @@ public sealed class DamageSpriteSystem : EntitySystem
 
         comp.Sprites.Add(sprite);
         Dirty(uid, comp);
-    }
-
-    private void OnAddDamageSpriteRequest(Content.Shared.Damage.Events.AddDamageSpriteRequest ev, EntitySessionEventArgs args)
-    {
-        // Only run on server; ensure the target is valid server-side and add sprite.
-        var net = ev.NetTarget;
-        var uid = GetEntity(net);
-        AddDamageSprite(uid, TimeSpan.FromMilliseconds(ev.LifetimeMs), ev.Scale);
     }
 
     /// <summary>

@@ -49,7 +49,7 @@
     active: False
   - type: StunVisuals
   - type: DamageSpriteSettings
-    spriteLifetime: 0.5
+    spriteLifetime: 3.5
     spriteScale: 2
 
 - type: entity

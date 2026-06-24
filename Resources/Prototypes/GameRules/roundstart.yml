@@ -589,15 +589,15 @@
       inRoundWarnThreshold: 30
       warnThresholds: [60, 30, 15, 5]
       warnMessages:
-        - "До сосредоточенного авиаудара: {remaining} секунд."
-        - "Внимание! До сосредоточенного авиаудара: {remaining} секунд."
-        - "Срочно! До сосредоточенного авиаудара: {remaining} секунд."
-        - "Последние {remaining} секунд до авиаудара!"
+        - "До конца боя: {remaining} секунд."
+        - "Внимание! До конца боя: {remaining} секунд."
+        - "Срочно! До конца боя: {remaining} секунд."
+        - "Последние {remaining} секунд до конца боя!"
       senderName: "Мировая арена"
       warnMessage: "Стороны не продвигаются в бою. До сосредоточенного авиаудара: {remaining} секунд."
       endMessage: "Авиаудар нанесен. Бой окончен."
       startMessage: "Бой начался"
-      hudLabel: "До авиаудара"
+      hudLabel: "До конца боя"
       hudIconRsi: "Objects/counterstrike/Other/interface.rsi"
       hudIconState: "cs"
 
