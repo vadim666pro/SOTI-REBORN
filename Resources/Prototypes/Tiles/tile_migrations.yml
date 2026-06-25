@@ -18,6 +18,10 @@
   target: FloorAsteroidSand
 
 - type: tileAlias
+  id: FloorPlanetSnow
+  target: FloorSnow
+
+- type: tileAlias
   id: FloorAsteroidSandRocksRed
   target: FloorAsteroidSandRed
 

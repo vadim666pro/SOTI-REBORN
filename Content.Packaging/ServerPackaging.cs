@@ -213,12 +213,6 @@ public static class ServerPackaging
 
         await RobustServerPackaging.WriteServerResources(contentDir, inputPassResources, cancel);
 
-        // Include custom server_config.toml if it exists
-        if (File.Exists("server_config.toml"))
-        {
-            inputPassCore.InjectFileFromDisk("server_config.toml", "server_config.toml");
-        }
-
         if (hybridAcz)
         {
             inputPassCore.InjectFileFromDisk("Content.Client.zip", Path.Combine("release", "SS14.Client.zip"));
