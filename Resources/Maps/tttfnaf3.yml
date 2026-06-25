@@ -42,6 +42,7 @@ entities:
       - RoundstartPlaySoundTTT
       - AutoRoundEndingRuleTTT
       - AutoRoundRestartRuleTTT
+      - RoleRevealTTT
       - Assassin
     - type: PurpleTintMap
       contrast: 1.02

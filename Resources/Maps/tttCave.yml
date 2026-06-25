@@ -38,6 +38,7 @@ entities:
       - RoundstartPlaySoundTTT
       - AutoRoundEndingRuleTTT
       - AutoRoundRestartRuleTTT
+      - RoleRevealTTT
       - Assassin
     - type: OccluderTree
     - type: MapLight

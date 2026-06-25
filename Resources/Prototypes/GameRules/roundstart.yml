@@ -550,7 +550,7 @@
       prob: 0.50
       orGroup: monospaceDecals
 
-#ss14
+#cs ss14
 
 - type: entity
   parent: BaseGameRule
@@ -594,8 +594,8 @@
         - "Срочно! До конца боя: {remaining} секунд."
         - "Последние {remaining} секунд до конца боя!"
       senderName: "Мировая арена"
-      warnMessage: "Стороны не продвигаются в бою. До сосредоточенного авиаудара: {remaining} секунд."
-      endMessage: "Авиаудар нанесен. Бой окончен."
+      warnMessage: "Стороны не продвигаются в бою. До конца боя: {remaining} секунд."
+      endMessage: "Бой окончен."
       startMessage: "Бой начался"
       hudLabel: "До конца боя"
       hudIconRsi: "Objects/counterstrike/Other/interface.rsi"
@@ -606,14 +606,14 @@
   components:
     - type: GameRule
     - type: AutoRoundEndingRule
-      inRoundDelay: 180
+      inRoundDelay: 240
       inRoundWarnThreshold: 30
       warnThresholds: [60, 30]
       warnMessages:
         - "До прибытия полиции: {remaining} секунд."
         - "Внимание! До прибытия полиции: {remaining} секунд."
         - "Срочно! До прибытия полиции: {remaining} секунд."
-        - "Последние {remaining} секунд до авиаудара!"
+        - "До прибытия Полиции: {remaining} секунд."
       senderName: "Полиция"
       warnMessage: "До прибытия полиции: {remaining} секунд."
       endMessage: "Полиция прибыла."

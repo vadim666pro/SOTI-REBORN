@@ -1,7 +1,7 @@
 - type: job
   id: CargoTechnician
-  name: job-name-cargotech
-  description: job-description-cargotech
+  name: Citizen
+  description: be the citizen of puzograd
   playTimeTracker: JobCargoTechnician
   startingGear: CargoTechGear
   icon: "JobIconCargoTechnician"

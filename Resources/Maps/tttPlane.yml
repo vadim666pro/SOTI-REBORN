@@ -69,6 +69,7 @@ entities:
       - RoundstartPlaySoundTTT
       - AutoRoundEndingRuleTTT
       - AutoRoundRestartRuleTTT
+      - RoleRevealTTT
       - Assassin
   - uid: 2
     components:
