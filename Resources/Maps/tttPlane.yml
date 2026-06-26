@@ -71,6 +71,7 @@ entities:
       - AutoRoundRestartRuleTTT
       - RoleRevealTTT
       - Assassin
+      - TTTCivilianItems
   - uid: 2
     components:
     - type: MetaData

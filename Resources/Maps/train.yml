@@ -37,6 +37,14 @@ entities:
   entities:
   - uid: 1
     components:
+    - type: MapAutoGameRule
+      rules:
+        - AutoRoundEndingRuleCS
+        - AutoRoundRestartRuleCS
+        - RoundstartPlaySoundCS
+        - RoleReveal
+      addInLobby: true
+      startOnRoundStart: true
     - type: MetaData
       name: Map Entity
     - type: Transform

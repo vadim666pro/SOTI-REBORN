@@ -40,6 +40,7 @@ entities:
       - AutoRoundRestartRuleTTT
       - RoleRevealTTT
       - Assassin
+      - TTTCivilianItems
     - type: OccluderTree
     - type: MapLight
       ambientLightColor: '#0A0D0FFF'

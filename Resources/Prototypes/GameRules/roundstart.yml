@@ -72,21 +72,9 @@
   - type: RespawnTracker
     respawnDelay: 5
 
-- type: entity
-  id: InactivityTimeRestart
-  parent: BaseGameRule
-  components:
-  - type: InactivityRule
-    inactivityMaxTime: 600
-    roundEndDelay: 10
+# DISABLED: Global inactivity restart disabled; use map-specific AutoRoundRestart rules instead.
 
-- type: entity
-  id: MaxTimeRestart
-  parent: BaseGameRule
-  components:
-  - type: MaxTimeRestartRule
-    roundMaxTime: 300
-    roundEndDelay: 10
+# DISABLED: Global max-time restart disabled; use map-specific AutoRoundRestart rules instead.
 
 - type: entity
   abstract: true
@@ -562,7 +550,7 @@
 - type: entity
   parent: BaseGameRule
   id: AutoRoundEnding
-  name: Auto Round Ending System 
+  name: Auto Round Ending System
   components:
     - type: AutoRoundEndingRule
 
@@ -651,3 +639,27 @@
   - type: RoundstartPlaySoundRule
     sound: "/Audio/Weapons/counterstrike/other/roundstart/ttt.ogg"
     volume: 10
+
+- type: entity
+  parent: BaseGameRule
+  id: TTTCivilianItems
+  name: TTT Civilian Items
+  components:
+  - type: GameRule
+  - type: TTTCivilianItemsRule
+    civilianItems:
+    - FoodSnackChips
+    - FoodSnackCheesie
+    - FoodSnackBoritos
+    - FoodSnackCnDs
+    - FoodSnackRaisins
+    - FoodSnackEnergy
+    - FoodSnackPistachios
+    - FoodSnackPopcorn
+    - FoodSnackSemki
+    - DrinkColaCan
+    - DrinkEnergyDrinkCan
+    - DrinkGrapeCan
+    - DrinkRootBeerCan
+    - DrinkIcedTeaCan
+    - DrinkLemonLimeCan

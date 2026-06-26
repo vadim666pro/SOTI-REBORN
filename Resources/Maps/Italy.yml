@@ -62,7 +62,15 @@ entities:
     - type: GasTileOverlay
     - type: MapLight
       ambientLightColor: '#77E3F2'
-    
+    - type: MapAutoGameRule
+      rules:
+        - AutoRoundEndingRuleCS
+        - AutoRoundRestartRuleCS
+        - RoundstartPlaySoundCS
+        - RoleReveal
+      addInLobby: true
+      startOnRoundStart: true
+
   - uid: 2
     components:
     - type: BecomesStation
