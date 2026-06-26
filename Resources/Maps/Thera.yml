@@ -78,14 +78,6 @@ entities:
       saturation: 1.15
       strength: 0.70
       tintColor: '#fffeab'
-    - type: MapAutoGameRule
-      rules:
-        - AutoRoundEndingRuleCS
-        - AutoRoundRestartRuleCS
-        - RoundstartPlaySoundCS
-        - RoleReveal
-      addInLobby: true
-      startOnRoundStart: true
 
 
   - uid: 2
