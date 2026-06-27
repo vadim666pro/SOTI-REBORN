@@ -29,7 +29,7 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-# все декорации, созданные сурвайвом, будут работать как препятствия, но при этом не иметь коллизии
+# все декорации, созданные по DecorObstructionBase, будут работать как препятствия, но при этом не иметь коллизии
 - type: entity
   id: DecorObstructionOfficeBin
   parent: DecorObstructionBase
@@ -39,3 +39,43 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Decor/OfficeBin.rsi
     state: base
+- type: entity
+  id: DecorObstructionClayPots
+  parent: DecorObstructionBase
+  name: Clay Pots
+  description: made by Clay Master
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/ClayPots.rsi
+    state: ClayPots1
+#
+- type: entity
+  id: DecorObstructionWoddenCoil
+  parent: DecorObstructionBase
+  name: Wooden Coil
+  description: Coil
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/Coil.rsi
+    state: Coil1
+#
+- type: entity
+  id: DecorObstructionWoddenCoilOnSide
+  parent: DecorObstructionBase
+  name: Wooden Coil
+  description: Coil
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/Coil.rsi
+    state: Coil2
+#
+- type: entity
+  id: DecorObstructionPlankedCrate
+  parent: DecorObstructionBase
+  name: Planked Crate
+  description: wooden planked crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/PlankedCrate.rsi
+    state: PlankedCrate1
+#

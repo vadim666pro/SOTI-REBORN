@@ -9,6 +9,8 @@
   "states": [
     { "name": "IceshardVcard" },
     { "name": "Rasenguncard" },
-    { "name": "SpellcardBase" }
+    { "name": "SpellcardBase" },
+    { "name": "IceSnowflakecard" },
+     { "name": "IceShardFan" }
   ]
 }

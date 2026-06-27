@@ -112,3 +112,25 @@
     sprite: Objects/counterstrike/Clothing/Uniform/Dire.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/Dire.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformAnarchistJacket
+  name: Anarchist's jacket
+  description: jacket on legendary collection mark
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Clothing/Uniform/Anarchist.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Clothing/Uniform/Anarchist.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformPoliceOutfit
+  name: Police outfit
+  description: Busted
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Clothing/Uniform/Policeman.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Clothing/Uniform/Policeman.rsi

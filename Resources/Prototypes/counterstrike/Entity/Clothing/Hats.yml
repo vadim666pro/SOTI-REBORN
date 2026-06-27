@@ -232,3 +232,25 @@
         Caustic: 0.95
   - type: ExplosionResistance
     damageCoefficient: 0.4
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatAnarchistMask
+  name: Anarchist Mask
+  description: cool skeleton mask
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Clothing/Hats/AnarchistMask.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Clothing/Hats/AnarchistMask.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatPoliceCap
+  name: Police cap
+  description: Busted
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Clothing/Hats/PolicemanCap.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Clothing/Hats/PolicemanCap.rsi

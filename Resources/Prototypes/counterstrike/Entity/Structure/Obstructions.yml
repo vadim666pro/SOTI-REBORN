@@ -32,7 +32,7 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-# это родитель для всех добавленных препятствий на соти, созданные сурвайвом
+# это родитель для всех добавленных препятствий на соти
 - type: entity
   id: ObstructionWoodenCrate
   parent: ObstructionBase
@@ -201,4 +201,84 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
     state: base-3
+#
+- type: entity
+  id: ObstructionFabricPotClose
+  parent: ObstructionBase
+  name: Fabric pot
+  description: this is closed one
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/FabricPot.rsi
+    state: FabricPotClose
+#
+- type: entity
+  id: ObstructionFabricPotOpen
+  parent: ObstructionBase
+  name: Fabric pot
+  description: this is opened one
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/FabricPot.rsi
+    state: FabricPotOpen
+#
+- type: entity
+  id: ObstructionFabricBagBlueClose
+  parent: ObstructionBase
+  name: Blue Fabric Bag
+  description: Big bag
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/FabricBag.rsi
+    state: FabricBagBlueClose
+#
+- type: entity
+  id: ObstructionFabricBagBlueOpen
+  parent: ObstructionBase
+  name: Blue Fabric Bag
+  description: Big bag
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/FabricBag.rsi
+    state: FabricBagBlueOpen
+#
+- type: entity
+  id: ObstructionTiresOne
+  parent: ObstructionBase
+  name: Tires
+  description: some tires
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
+    state: Tire1
+#
+- type: entity
+  id: ObstructionTiresTwo
+  parent: ObstructionBase
+  name: Tires
+  description: some tires
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
+    state: Tire2
+#
+- type: entity
+  id: ObstructionTiresThree
+  parent: ObstructionBase
+  name: Tires
+  description: some tires
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
+    state: Tire3
+#
+- type: entity
+  id: ObstructionTiresFour
+  parent: ObstructionBase
+  name: Tires
+  description: some tires
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
+    state: Tire4
 #
