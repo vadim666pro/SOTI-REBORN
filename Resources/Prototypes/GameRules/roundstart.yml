@@ -590,6 +590,14 @@
       hudIconState: "cs"
 
 - type: entity
+  parent: BaseGameRule
+  id: CounterStrikeBombAssignRuleCS
+  name: CS Bomb Assign Rule
+  components:
+    - type: CounterStrikeBombAssignRule
+      bombPrototype: CsBomb
+
+- type: entity
   id: AutoRoundEndingRuleTTT
   components:
     - type: GameRule

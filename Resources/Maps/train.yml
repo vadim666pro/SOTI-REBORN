@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/03/2025 12:06:48
-  entityCount: 2491
+  time: 06/27/2026 10:20:34
+  entityCount: 2522
 maps:
 - 1
 grids:
@@ -37,17 +37,16 @@ entities:
   entities:
   - uid: 1
     components:
-    - type: MapAutoGameRule
-      rules:
-        - AutoRoundEndingRuleCS
-        - AutoRoundRestartRuleCS
-        - RoundstartPlaySoundCS
-        - RoleReveal
-      addInLobby: true
-      startOnRoundStart: true
     - type: MetaData
       name: Map Entity
     - type: Transform
+    - type: MapAutoGameRule
+      rules:
+      - AutoRoundEndingRuleCS
+      - AutoRoundRestartRuleCS
+      - RoundstartPlaySoundCS
+      - CounterStrikeBombAssignRuleCS
+      - RoleReveal
     - type: Map
       mapPaused: True
     - type: GridTree
@@ -80,8 +79,7 @@ entities:
       contrast: 1
       saturation: 1.15
       strength: 0.65
-      tintColor: '#400080'
-    
+      tintColor: '#400080FF'
   - uid: 2
     components:
     - type: MetaData
@@ -4880,12 +4878,167 @@ entities:
     - type: Transform
       pos: -0.5,-17.5
       parent: 2
-- proto: CounterStrikeBomb
+- proto: CounterStrikeBombSite
   entities:
   - uid: 2491
     components:
     - type: Transform
-      pos: 45.5,-21.5
+      pos: 53.5,-57.5
+      parent: 2
+  - uid: 2492
+    components:
+    - type: Transform
+      pos: 52.5,-54.5
+      parent: 2
+  - uid: 2493
+    components:
+    - type: Transform
+      pos: 50.5,-54.5
+      parent: 2
+  - uid: 2494
+    components:
+    - type: Transform
+      pos: 50.5,-55.5
+      parent: 2
+  - uid: 2495
+    components:
+    - type: Transform
+      pos: 50.5,-56.5
+      parent: 2
+  - uid: 2496
+    components:
+    - type: Transform
+      pos: 50.5,-57.5
+      parent: 2
+  - uid: 2497
+    components:
+    - type: Transform
+      pos: 51.5,-54.5
+      parent: 2
+  - uid: 2498
+    components:
+    - type: Transform
+      pos: 51.5,-55.5
+      parent: 2
+  - uid: 2499
+    components:
+    - type: Transform
+      pos: 51.5,-56.5
+      parent: 2
+  - uid: 2500
+    components:
+    - type: Transform
+      pos: 51.5,-57.5
+      parent: 2
+  - uid: 2501
+    components:
+    - type: Transform
+      pos: 52.5,-55.5
+      parent: 2
+  - uid: 2502
+    components:
+    - type: Transform
+      pos: 52.5,-56.5
+      parent: 2
+  - uid: 2503
+    components:
+    - type: Transform
+      pos: 52.5,-57.5
+      parent: 2
+  - uid: 2504
+    components:
+    - type: Transform
+      pos: 53.5,-54.5
+      parent: 2
+  - uid: 2505
+    components:
+    - type: Transform
+      pos: 53.5,-55.5
+      parent: 2
+  - uid: 2506
+    components:
+    - type: Transform
+      pos: 53.5,-56.5
+      parent: 2
+  - uid: 2507
+    components:
+    - type: Transform
+      pos: 12.5,-53.5
+      parent: 2
+  - uid: 2508
+    components:
+    - type: Transform
+      pos: 10.5,-53.5
+      parent: 2
+  - uid: 2509
+    components:
+    - type: Transform
+      pos: 9.5,-50.5
+      parent: 2
+  - uid: 2510
+    components:
+    - type: Transform
+      pos: 9.5,-51.5
+      parent: 2
+  - uid: 2511
+    components:
+    - type: Transform
+      pos: 9.5,-52.5
+      parent: 2
+  - uid: 2512
+    components:
+    - type: Transform
+      pos: 9.5,-53.5
+      parent: 2
+  - uid: 2513
+    components:
+    - type: Transform
+      pos: 10.5,-50.5
+      parent: 2
+  - uid: 2514
+    components:
+    - type: Transform
+      pos: 10.5,-51.5
+      parent: 2
+  - uid: 2515
+    components:
+    - type: Transform
+      pos: 10.5,-52.5
+      parent: 2
+  - uid: 2516
+    components:
+    - type: Transform
+      pos: 11.5,-50.5
+      parent: 2
+  - uid: 2517
+    components:
+    - type: Transform
+      pos: 11.5,-51.5
+      parent: 2
+  - uid: 2518
+    components:
+    - type: Transform
+      pos: 11.5,-52.5
+      parent: 2
+  - uid: 2519
+    components:
+    - type: Transform
+      pos: 11.5,-53.5
+      parent: 2
+  - uid: 2520
+    components:
+    - type: Transform
+      pos: 12.5,-50.5
+      parent: 2
+  - uid: 2521
+    components:
+    - type: Transform
+      pos: 12.5,-51.5
+      parent: 2
+  - uid: 2522
+    components:
+    - type: Transform
+      pos: 12.5,-52.5
       parent: 2
 - proto: DebugAPCRecharging
   entities:

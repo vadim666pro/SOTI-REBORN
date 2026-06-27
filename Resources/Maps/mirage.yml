@@ -32,6 +32,7 @@ entities:
         - AutoRoundEndingRuleCS
         - AutoRoundRestartRuleCS
         - RoundstartPlaySoundCS
+        - CounterStrikeBombAssignRuleCS
         - RoleReveal
       addInLobby: true
       startOnRoundStart: true

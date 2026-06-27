@@ -4,8 +4,8 @@ meta:
   engineVersion: 266.0.0
   forkId: ""
   forkVersion: ""
-  time: 09/24/2025 09:58:03
-  entityCount: 2886
+  time: 06/27/2026 10:16:34
+  entityCount: 2939
 maps:
 - 1
 grids:
@@ -61,25 +61,23 @@ entities:
         - 0
     - type: GasTileOverlay
     - type: MapLight
-      ambientLightColor: '#77E3F2'
+      ambientLightColor: '#77E3F2FF'
     - type: MapAutoGameRule
       rules:
-        - AutoRoundEndingRuleCS
-        - AutoRoundRestartRuleCS
-        - RoundstartPlaySoundCS
-        - RoleReveal
-      addInLobby: true
-      startOnRoundStart: true
-
+      - AutoRoundEndingRuleCS
+      - AutoRoundRestartRuleCS
+      - RoundstartPlaySoundCS
+      - CounterStrikeBombAssignRuleCS
+      - RoleReveal
   - uid: 2
     components:
-    - type: BecomesStation
-      id: deItaly
     - type: MetaData
       name: grid
     - type: Transform
       pos: -2.796875,-4.8125
       parent: 1
+    - type: BecomesStation
+      id: deItaly
     - type: MapGrid
       chunks:
         0,0:
@@ -190,7 +188,7 @@ entities:
     - type: Shuttle
       dampingModifier: 0.25
     - type: ImplicitRoof
-      color: '#77E3F2'
+      color: '#77E3F2FF'
     - type: GridPathfinding
     - type: Gravity
       gravityShakeSound: !type:SoundPathSpecifier
@@ -281,6 +279,21 @@ entities:
             37: 7,12
             42: 25,47
             43: 33,68
+        - node:
+            angle: 1.5707963267948966 rad
+            color: '#B00000FF'
+            id: arrow
+          decals:
+            44: 14,57
+        - node:
+            angle: 3.141592653589793 rad
+            color: '#B00000FF'
+            id: arrow
+          decals:
+            45: -3,56
+            46: -4,56
+            47: 33,67
+            48: 24,41
         - node:
             color: '#E60000FF'
             id: arrow
@@ -4322,13 +4335,277 @@ entities:
     - type: Transform
       pos: 39.619045,90.51299
       parent: 2
-- proto: CounterStrikeBomb
+- proto: CounterStrikeBombSite
   entities:
   - uid: 2872
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 22.5,80.5
+      pos: 28.5,26.5
+      parent: 2
+  - uid: 2887
+    components:
+    - type: Transform
+      pos: 29.5,29.5
+      parent: 2
+  - uid: 2888
+    components:
+    - type: Transform
+      pos: 29.5,27.5
+      parent: 2
+  - uid: 2889
+    components:
+    - type: Transform
+      pos: 29.5,26.5
+      parent: 2
+  - uid: 2890
+    components:
+    - type: Transform
+      pos: 28.5,27.5
+      parent: 2
+  - uid: 2891
+    components:
+    - type: Transform
+      pos: 29.5,28.5
+      parent: 2
+  - uid: 2892
+    components:
+    - type: Transform
+      pos: 25.5,29.5
+      parent: 2
+  - uid: 2893
+    components:
+    - type: Transform
+      pos: 25.5,28.5
+      parent: 2
+  - uid: 2894
+    components:
+    - type: Transform
+      pos: 25.5,27.5
+      parent: 2
+  - uid: 2895
+    components:
+    - type: Transform
+      pos: 25.5,26.5
+      parent: 2
+  - uid: 2896
+    components:
+    - type: Transform
+      pos: 26.5,29.5
+      parent: 2
+  - uid: 2897
+    components:
+    - type: Transform
+      pos: 26.5,28.5
+      parent: 2
+  - uid: 2898
+    components:
+    - type: Transform
+      pos: 26.5,27.5
+      parent: 2
+  - uid: 2899
+    components:
+    - type: Transform
+      pos: 26.5,26.5
+      parent: 2
+  - uid: 2900
+    components:
+    - type: Transform
+      pos: 27.5,28.5
+      parent: 2
+  - uid: 2901
+    components:
+    - type: Transform
+      pos: 27.5,27.5
+      parent: 2
+  - uid: 2902
+    components:
+    - type: Transform
+      pos: 27.5,26.5
+      parent: 2
+  - uid: 2903
+    components:
+    - type: Transform
+      pos: 28.5,29.5
+      parent: 2
+  - uid: 2904
+    components:
+    - type: Transform
+      pos: 28.5,28.5
+      parent: 2
+  - uid: 2905
+    components:
+    - type: Transform
+      pos: 27.5,29.5
+      parent: 2
+  - uid: 2906
+    components:
+    - type: Transform
+      pos: -0.5,53.5
+      parent: 2
+  - uid: 2907
+    components:
+    - type: Transform
+      pos: -0.5,52.5
+      parent: 2
+  - uid: 2908
+    components:
+    - type: Transform
+      pos: -0.5,51.5
+      parent: 2
+  - uid: 2909
+    components:
+    - type: Transform
+      pos: -0.5,50.5
+      parent: 2
+  - uid: 2910
+    components:
+    - type: Transform
+      pos: -0.5,49.5
+      parent: 2
+  - uid: 2911
+    components:
+    - type: Transform
+      pos: -0.5,48.5
+      parent: 2
+  - uid: 2912
+    components:
+    - type: Transform
+      pos: 0.5,50.5
+      parent: 2
+  - uid: 2913
+    components:
+    - type: Transform
+      pos: 0.5,49.5
+      parent: 2
+  - uid: 2914
+    components:
+    - type: Transform
+      pos: 0.5,48.5
+      parent: 2
+  - uid: 2915
+    components:
+    - type: Transform
+      pos: 1.5,50.5
+      parent: 2
+  - uid: 2916
+    components:
+    - type: Transform
+      pos: 1.5,49.5
+      parent: 2
+  - uid: 2917
+    components:
+    - type: Transform
+      pos: 1.5,48.5
+      parent: 2
+  - uid: 2918
+    components:
+    - type: Transform
+      pos: 1.5,51.5
+      parent: 2
+  - uid: 2919
+    components:
+    - type: Transform
+      pos: 1.5,50.5
+      parent: 2
+  - uid: 2920
+    components:
+    - type: Transform
+      pos: 1.5,49.5
+      parent: 2
+  - uid: 2921
+    components:
+    - type: Transform
+      pos: 2.5,51.5
+      parent: 2
+  - uid: 2922
+    components:
+    - type: Transform
+      pos: 2.5,50.5
+      parent: 2
+  - uid: 2923
+    components:
+    - type: Transform
+      pos: 2.5,49.5
+      parent: 2
+  - uid: 2924
+    components:
+    - type: Transform
+      pos: 3.5,51.5
+      parent: 2
+  - uid: 2925
+    components:
+    - type: Transform
+      pos: 3.5,50.5
+      parent: 2
+  - uid: 2926
+    components:
+    - type: Transform
+      pos: 3.5,49.5
+      parent: 2
+  - uid: 2927
+    components:
+    - type: Transform
+      pos: 4.5,51.5
+      parent: 2
+  - uid: 2928
+    components:
+    - type: Transform
+      pos: 4.5,50.5
+      parent: 2
+  - uid: 2929
+    components:
+    - type: Transform
+      pos: 4.5,49.5
+      parent: 2
+  - uid: 2930
+    components:
+    - type: Transform
+      pos: 4.5,48.5
+      parent: 2
+  - uid: 2931
+    components:
+    - type: Transform
+      pos: 3.5,48.5
+      parent: 2
+  - uid: 2932
+    components:
+    - type: Transform
+      pos: 4.5,52.5
+      parent: 2
+  - uid: 2933
+    components:
+    - type: Transform
+      pos: 2.5,52.5
+      parent: 2
+  - uid: 2934
+    components:
+    - type: Transform
+      pos: 3.5,52.5
+      parent: 2
+  - uid: 2935
+    components:
+    - type: Transform
+      pos: 4.5,53.5
+      parent: 2
+  - uid: 2936
+    components:
+    - type: Transform
+      pos: 0.5,53.5
+      parent: 2
+  - uid: 2937
+    components:
+    - type: Transform
+      pos: 1.5,53.5
+      parent: 2
+  - uid: 2938
+    components:
+    - type: Transform
+      pos: 2.5,53.5
+      parent: 2
+  - uid: 2939
+    components:
+    - type: Transform
+      pos: 3.5,53.5
       parent: 2
 - proto: CrateMaterialWood
   entities:
@@ -4860,7 +5137,7 @@ entities:
       pos: 11.5,60.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -74.82149
+      secondsUntilStateChange: -260.79877
       state: Opening
   - uid: 1281
     components:

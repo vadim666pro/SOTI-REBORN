@@ -1,5 +1,7 @@
 using Content.Server.Chat.Systems;
+using Content.Server.CounterStrike;
 using Content.Server.Roles.Jobs;
+using Content.Shared.CounterStrike;
 using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
 using Content.Shared.Mind;
@@ -15,6 +17,7 @@ namespace Content.Server.GameTicking.Systems;
 /// <summary>
 /// Ends the round when all players on one Counter-Strike team are eliminated.
 /// Teams are determined by job (CT/T uplink jobs configured in starting gear).
+/// Disabled while a bomb is planted — the round then ends only via bomb explosion or defusal.
 /// </summary>
 public sealed class CounterStrikeTeamEliminationSystem : EntitySystem
 {
@@ -23,22 +26,7 @@ public sealed class CounterStrikeTeamEliminationSystem : EntitySystem
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly JobSystem _jobs = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
-
-    private static readonly HashSet<ProtoId<JobPrototype>> CtJobs =
-    [
-        "Musician",
-        "Janitor",
-        "Reporter",
-        "Librarian",
-    ];
-
-    private static readonly HashSet<ProtoId<JobPrototype>> TJobs =
-    [
-        "Passenger",
-        "Lawyer",
-        "ServiceWorker",
-        "Mime",
-    ];
+    [Dependency] private readonly CounterStrikeRoundStateSystem _csRoundState = default!;
 
     private bool _endingRound;
 
@@ -57,7 +45,7 @@ public sealed class CounterStrikeTeamEliminationSystem : EntitySystem
 
     private void OnMobStateChanged(MobStateChangedEvent args)
     {
-        if (_gameTicker.RunLevel != GameRunLevel.InRound || _endingRound)
+        if (_gameTicker.RunLevel != GameRunLevel.InRound || _endingRound || _csRoundState.BombPlanted)
             return;
 
         if (args.NewMobState == MobState.Alive)
@@ -82,13 +70,13 @@ public sealed class CounterStrikeTeamEliminationSystem : EntitySystem
             if (!_jobs.MindTryGetJobId(mindId, out var jobId) || jobId is null)
                 continue;
 
-            if (CtJobs.Contains(jobId.Value))
+            if (CounterStrikeTeams.CtJobs.Contains(jobId.Value))
             {
                 ctTotal++;
                 if (_mobState.IsAlive(uid, mobState))
                     ctAlive++;
             }
-            else if (TJobs.Contains(jobId.Value))
+            else if (CounterStrikeTeams.TJobs.Contains(jobId.Value))
             {
                 tTotal++;
                 if (_mobState.IsAlive(uid, mobState))
