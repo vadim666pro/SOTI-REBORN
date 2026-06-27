@@ -72,21 +72,9 @@
   - type: RespawnTracker
     respawnDelay: 5
 
-- type: entity
-  id: InactivityTimeRestart
-  parent: BaseGameRule
-  components:
-  - type: InactivityRule
-    inactivityMaxTime: 600
-    roundEndDelay: 10
+# DISABLED: Global inactivity restart disabled; use map-specific AutoRoundRestart rules instead.
 
-- type: entity
-  id: MaxTimeRestart
-  parent: BaseGameRule
-  components:
-  - type: MaxTimeRestartRule
-    roundMaxTime: 300
-    roundEndDelay: 10
+# DISABLED: Global max-time restart disabled; use map-specific AutoRoundRestart rules instead.
 
 - type: entity
   abstract: true
@@ -550,6 +538,8 @@
       prob: 0.50
       orGroup: monospaceDecals
 
+#cs ss14
+
 - type: entity
   parent: BaseGameRule
   id: AutoRoundRestart
@@ -560,7 +550,7 @@
 - type: entity
   parent: BaseGameRule
   id: AutoRoundEnding
-  name: Auto Round Ending System 
+  name: Auto Round Ending System
   components:
     - type: AutoRoundEndingRule
 
@@ -587,31 +577,39 @@
       inRoundWarnThreshold: 30
       warnThresholds: [60, 30, 15, 5]
       warnMessages:
-        - "До сосредоточенного авиаудара: {remaining} секунд."
-        - "Внимание! До сосредоточенного авиаудара: {remaining} секунд."
-        - "Срочно! До сосредоточенного авиаудара: {remaining} секунд."
-        - "Последние {remaining} секунд до авиаудара!"
+        - "До конца боя: {remaining} секунд."
+        - "Внимание! До конца боя: {remaining} секунд."
+        - "Срочно! До конца боя: {remaining} секунд."
+        - "Последние {remaining} секунд до конца боя!"
       senderName: "Мировая арена"
-      warnMessage: "Стороны не продвигаются в бою. До сосредоточенного авиаудара: {remaining} секунд."
-      endMessage: "Авиаудар нанесен. Бой окончен."
+      warnMessage: "Стороны не продвигаются в бою. До конца боя: {remaining} секунд."
+      endMessage: "Бой окончен."
       startMessage: "Бой начался"
-      hudLabel: "До авиаудара"
+      hudLabel: "До конца боя"
       hudIconRsi: "Objects/counterstrike/Other/interface.rsi"
       hudIconState: "cs"
+
+- type: entity
+  parent: BaseGameRule
+  id: CounterStrikeBombAssignRuleCS
+  name: CS Bomb Assign Rule
+  components:
+    - type: CounterStrikeBombAssignRule
+      bombPrototype: CsBomb
 
 - type: entity
   id: AutoRoundEndingRuleTTT
   components:
     - type: GameRule
     - type: AutoRoundEndingRule
-      inRoundDelay: 180
+      inRoundDelay: 240
       inRoundWarnThreshold: 30
       warnThresholds: [60, 30]
       warnMessages:
         - "До прибытия полиции: {remaining} секунд."
         - "Внимание! До прибытия полиции: {remaining} секунд."
         - "Срочно! До прибытия полиции: {remaining} секунд."
-        - "Последние {remaining} секунд до авиаудара!"
+        - "До прибытия Полиции: {remaining} секунд."
       senderName: "Полиция"
       warnMessage: "До прибытия полиции: {remaining} секунд."
       endMessage: "Полиция прибыла."
@@ -649,3 +647,27 @@
   - type: RoundstartPlaySoundRule
     sound: "/Audio/Weapons/counterstrike/other/roundstart/ttt.ogg"
     volume: 10
+
+- type: entity
+  parent: BaseGameRule
+  id: TTTCivilianItems
+  name: TTT Civilian Items
+  components:
+  - type: GameRule
+  - type: TTTCivilianItemsRule
+    civilianItems:
+    - FoodSnackChips
+    - FoodSnackCheesie
+    - FoodSnackBoritos
+    - FoodSnackCnDs
+    - FoodSnackRaisins
+    - FoodSnackEnergy
+    - FoodSnackPistachios
+    - FoodSnackPopcorn
+    - FoodSnackSemki
+    - DrinkColaCan
+    - DrinkEnergyDrinkCan
+    - DrinkGrapeCan
+    - DrinkRootBeerCan
+    - DrinkIcedTeaCan
+    - DrinkLemonLimeCan

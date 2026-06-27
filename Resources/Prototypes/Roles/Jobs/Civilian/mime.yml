@@ -19,7 +19,7 @@
   id: MimeGear
   equipment:
     shoes: ClothingShoesBootsCombatFilled
-    id: MimePDA
+    id: IDCardT
     pocket1: BaseUplinkRadioT
     ears: ClothingHeadsetService
     head: ClothingHeadHatUshanka

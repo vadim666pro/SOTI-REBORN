@@ -117,6 +117,10 @@ public sealed class AutoRoundEndingHudUIController : UIController, IOnStateEnter
         protected override void Draw(DrawingHandleScreen handle)
         {
             base.Draw(handle);
+            // If the role reveal overlay is active, don't draw the HUD so it stays visually below the reveal image.
+            var overlayManager = IoCManager.Resolve<IOverlayManager>();
+            if (overlayManager.HasOverlay<RoleRevealOverlay>())
+                return;
             if (!Visible || _timing == null)
                 return;
 

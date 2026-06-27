@@ -72,6 +72,9 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
     private void OnStrumentGetState(EntityUid uid, InstrumentComponent component, ref ComponentGetState args)
     {
+        var filtered = new bool[RobustMidiEvent.MaxChannels];
+        component.FilteredChannels.CopyTo(filtered, 0);
+
         args.State = new InstrumentComponentState()
         {
             Playing = component.Playing,
@@ -81,7 +84,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             AllowProgramChange = component.AllowProgramChange,
             RespectMidiLimits = component.RespectMidiLimits,
             Master = GetNetEntity(component.Master),
-            FilteredChannels = component.FilteredChannels
+            FilteredChannels = filtered
         };
     }
 

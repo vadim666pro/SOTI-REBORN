@@ -3,7 +3,6 @@
 - type: entity
   save: false
   id: BaseMob
-  abstract: true
   components:
   - type: FovLimiter
     enabled: true
@@ -17,16 +16,15 @@
   - type: Physics
     bodyType: KinematicController
   - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeCircle
-          radius: 0.35
-        density: 50
-        mask:
-        - MobMask
-        layer:
-        - MobLayer
+    fix1:
+      shape:
+        !type:PhysShapeCircle
+        radius: 0.35
+      density: 50
+      mask:
+      - MobMask
+      layer:
+      - MobLayer
   - type: Clickable
   - type: InteractionOutline
   - type: InputMover
@@ -50,6 +48,9 @@
   - type: RequireProjectileTarget
     active: False
   - type: StunVisuals
+  - type: DamageSpriteSettings
+    spriteLifetime: 3.5
+    spriteScale: 2
 
 - type: entity
   save: false

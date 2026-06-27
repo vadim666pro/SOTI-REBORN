@@ -658,14 +658,29 @@ namespace Content.Client.Lobby.UI
                 var title = Loc.GetString(antag.Name);
                 var description = Loc.GetString(antag.Objective);
                 selector.Setup(items, title, 250, description, guides: antag.Guides);
-                selector.Select(Profile?.AntagPreferences.Contains(antag.ID) == true ? 0 : 1);
+
+                // Auto-enable Assassin role for TTT mode
+                if (antag.ID == "Assassin")
+                {
+                    selector.Select(0);
+                    Profile = Profile?.WithAntagPreference(antag.ID, true);
+                    SetDirty();
+                }
+                else
+                {
+                    selector.Select(Profile?.AntagPreferences.Contains(antag.ID) == true ? 0 : 1);
+                }
 
                 var requirements = _entManager.System<SharedRoleSystem>().GetAntagRequirement(antag);
                 if (!_requirements.CheckRoleRequirements(requirements, (HumanoidCharacterProfile?)_preferencesManager.Preferences?.SelectedCharacter, out var reason))
                 {
-                    selector.LockRequirements(reason);
-                    Profile = Profile?.WithAntagPreference(antag.ID, false);
-                    SetDirty();
+                    // Don't lock Assassin role requirements for TTT mode
+                    if (antag.ID != "Assassin")
+                    {
+                        selector.LockRequirements(reason);
+                        Profile = Profile?.WithAntagPreference(antag.ID, false);
+                        SetDirty();
+                    }
                 }
                 else
                 {
@@ -928,6 +943,14 @@ namespace Content.Client.Lobby.UI
                     else
                     {
                         selector.UnlockRequirements();
+                    }
+
+                    // Auto-set all jobs to Medium priority for TTT mode
+                    var currentPriority = Profile?.JobPriorities.GetValueOrDefault(job.ID, JobPriority.Never) ?? JobPriority.Never;
+                    if (currentPriority == JobPriority.Never)
+                    {
+                        Profile = Profile?.WithJobPriority(job.ID, JobPriority.Medium);
+                        SetDirty();
                     }
 
                     selector.OnSelected += selectedPrio =>

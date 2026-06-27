@@ -120,20 +120,8 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
     {
         reason = null;
 
-        if (requirements == null || !_cfg.GetCVar(CCVars.GameRoleTimers))
-            return true;
-
-        var reasons = new List<string>();
-        foreach (var requirement in requirements)
-        {
-            if (requirement.Check(_entManager, _prototypes, profile, _roles, out var jobReason))
-                continue;
-
-            reasons.Add(jobReason.ToMarkup());
-        }
-
-        reason = reasons.Count == 0 ? null : FormattedMessage.FromMarkupOrThrow(string.Join('\n', reasons));
-        return reason == null;
+        // Disabled role time requirements for TTT mode
+        return true;
     }
 
     public bool CheckWhitelist(JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)

@@ -66,13 +66,13 @@ public sealed partial class BloodstreamComponent : Component
     /// How much should bleeding be reduced every update interval?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float BleedReductionAmount = 0.33f;
+    public float BleedReductionAmount = 1.0f;
 
     /// <summary>
     /// How high can <see cref="BleedAmount"/> go?
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float MaxBleedAmount = 10.0f;
+    public float MaxBleedAmount = 2.0f;
 
     /// <summary>
     /// What percentage of current blood is necessary to avoid dealing blood loss damage?

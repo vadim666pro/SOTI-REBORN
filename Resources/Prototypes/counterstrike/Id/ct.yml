@@ -1,0 +1,9 @@
+- type: entity
+  parent: IDCardStandard
+  id: IDCardCT
+  name: BabaTapa Id Card
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Id/ct.rsi
+    layers:
+    - state: btapa

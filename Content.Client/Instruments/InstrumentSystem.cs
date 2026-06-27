@@ -75,7 +75,12 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         component.AllowProgramChange = state.AllowProgramChange;
         component.RespectMidiLimits = state.RespectMidiLimits;
         component.Master = EnsureEntity<InstrumentComponent>(state.Master, uid);
-        component.FilteredChannels = state.FilteredChannels;
+
+        // Convert network bool[] back into a BitArray for local usage.
+        if (state.FilteredChannels != null)
+        {
+            component.FilteredChannels = new System.Collections.BitArray(state.FilteredChannels);
+        }
 
         if (component.Playing)
             SetupRenderer(uid, true, component);

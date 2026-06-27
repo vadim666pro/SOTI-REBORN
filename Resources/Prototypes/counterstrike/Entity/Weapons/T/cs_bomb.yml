@@ -1,0 +1,76 @@
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseCsBomb
+  name: C4
+  description: Explosive device used by Terrorists to destroy objectives.
+  components:
+    - type: Sprite
+      sprite: Objects/counterstrike/Weapons/Bombs/Tbomb.rsi
+      layers:
+        - state: bomb
+          map: [ "enum.TriggerVisualLayers.Base" ]
+    - type: TimerTriggerVisuals
+      unprimedSprite: bomb
+      primingSprite: bomb-active
+    - type: Appearance
+    - type: CsBomb
+      plantTime: 3
+      defuseTime: 10
+    - type: Explosive
+      explosionType: Default
+      totalIntensity: 1000.0
+      intensitySlope: 30
+      maxIntensity: 500
+    - type: ExplodeOnTrigger
+      keysIn:
+      - timer
+    - type: TimerTrigger
+      delay: 40
+      delayOptions:
+        - 40
+      initialBeepDelay: 0
+      beepSound: /Audio/Machines/timer.ogg
+    - type: Item
+      size: Huge
+      shape:
+      - 0,0,2,2
+    - type: Clothing
+      sprite: Objects/counterstrike/Weapons/Bombs/Tbomb.rsi
+      quickEquip: false
+      slots:
+      - Back
+      - suitStorage
+    - type: PointLight
+      enabled: false
+      color: "#FF0000"
+      radius: 1.1
+      softness: 1
+
+- type: entity
+  parent: BaseCsBomb
+  id: CsBomb
+  name: C4
+  components:
+    - type: PointLight
+      enabled: true
+
+- type: entity
+  abstract: true
+  parent: MarkerBase
+  id: BaseCounterStrikeBombSite
+  name: bomb site
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: CsBombSite
+    - type: Sprite
+      sprite: Markers/cross.rsi
+      state: red
+      color: "#FF6600"
+
+- type: entity
+  parent: BaseCounterStrikeBombSite
+  id: CounterStrikeBombSite
+  suffix: CS
+  description: Invisible in-game zone where Terrorists can plant the C4 bomb. Visible while mapping (markers enabled).

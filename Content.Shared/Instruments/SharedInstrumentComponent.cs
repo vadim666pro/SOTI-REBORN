@@ -64,7 +64,8 @@ public sealed class InstrumentComponentState : ComponentState
 
     public NetEntity? Master;
 
-    public BitArray FilteredChannels = default!;
+    // BitArray is not supported by NetSerializer; use a bool array for network state and convert on client/server.
+    public bool[] FilteredChannels = default!;
 }
 
 

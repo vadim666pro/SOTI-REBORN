@@ -34,8 +34,9 @@ enabled = true
 [game]
 hostname = "CS14"
 lobbyenabled = true
-DOTNET_ReadyToRun=0 
-DOTNET_TieredPGO=1 
+defaultpreset = "secret"
+DOTNET_ReadyToRun=0
+DOTNET_TieredPGO=1
 DOTNET_TC_QuickJitForLoops=1
 ROBUST_NUMERICS_AVX = true
 [console]

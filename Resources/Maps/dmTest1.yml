@@ -54,6 +54,7 @@ entities:
         - AutoRoundEndingRuleCS
         - AutoRoundRestartRuleCS
         - RoundstartPlaySoundCS
+        - CounterStrikeBombAssignRuleCS
       addInLobby: true
       startOnRoundStart: true
     - type: MetaData

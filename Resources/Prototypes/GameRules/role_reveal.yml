@@ -1,0 +1,17 @@
+- type: entity
+  parent: BaseGameRule
+  id: RoleReveal #dlya counterstrike
+  components:
+  - type: RoleRevealRule
+    image: /Textures/Objects/counterstrike/startroundscreen/cs.png
+    displayTime: 4.0
+    fadeTime: 3.0
+
+- type: entity
+  parent: BaseGameRule
+  id: RoleRevealTTT
+  components:
+  - type: RoleRevealRule
+    image: /Textures/Objects/counterstrike/startroundscreen/ttt.png
+    displayTime: 4.0
+    fadeTime: 3.0

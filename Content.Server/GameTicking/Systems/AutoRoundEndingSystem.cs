@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server.CounterStrike;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules.Components;
@@ -18,6 +19,7 @@ public sealed class AutoRoundEndingSystem : EntitySystem
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly CounterStrikeRoundStateSystem _csRoundState = default!;
     private static readonly ISawmill Sawmill = Logger.GetSawmill("auto-round-ending");
 
     private TimeSpan? _roundStartTime;
@@ -111,6 +113,9 @@ public sealed class AutoRoundEndingSystem : EntitySystem
         SyncStateWithCurrentRunLevel();
 
         if (!_inRoundActive || _roundStartTime is null)
+            return;
+
+        if (_csRoundState.BombPlanted)
             return;
 
         var now = _gameTiming.CurTime;
