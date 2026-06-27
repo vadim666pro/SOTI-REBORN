@@ -1,0 +1,53 @@
+- type: entity
+  id: FnafGift
+  parent: ObstructionBase
+  name: Gifts
+  description: Gifts from fnaf1
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/FnafDecor/gifts.rsi
+    state: base
+
+- type: entity
+  id: FnafGift
+  parent: ObstructionBase
+  name: Gifts
+  description: Gifts from fnaf1
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/FnafDecor/gifts.rsi
+    state: big
+
+- type: entity
+  id: FnafGift
+  parent: ObstructionBase
+  name: Gifts
+  description: Gifts from fnaf1
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/FnafDecor/gifts.rsi
+    state: base1
+  
+- type: entity
+  id: FnafPartyTable
+  parent: TableFancyBase
+  suffix: White
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/FnafDecor/tables/party.rsi
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/FnafDecor/tables/party.rsi
+    state: full
+
+
+- type: entity
+  name: Party Chair
+  id: FnafPartyChair
+  parent: ChairBase
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/FnafDecor/chairs.rsi
+    state: party
+  - type: Construction
+    graph: Seat
+    node: chair
