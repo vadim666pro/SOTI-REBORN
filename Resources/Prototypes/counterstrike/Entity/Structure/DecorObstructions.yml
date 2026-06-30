@@ -79,3 +79,13 @@
     sprite: Objects/counterstrike/Structures/Decor/PlankedCrate.rsi
     state: PlankedCrate1
 #
+- type: entity
+  id: DecorObstructionGarbageOne
+  parent: DecorObstructionBase
+  name: Garbage bags
+  description: stinky
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/GarbageBags.rsi
+    state: base-0
+#

@@ -282,3 +282,54 @@
     sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
     state: Tire4
 #
+- type: entity
+  id: ObstructionDumpsterBlue
+  parent: ObstructionBase
+  name: Dumpster
+  description: can not be open
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Dumpster.rsi
+    state: blue
+#
+- type: entity
+  id: ObstructionDumpsterGreen
+  parent: ObstructionBase
+  name: Dumpster
+  description: can not be open
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Dumpster.rsi
+    state: green
+#
+- type: entity
+  id: ObstructionPalletBricksConcrete
+  parent: ObstructionBase
+  name: Pallet with bricks
+  description: from mirage
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/PalletBricks.rsi
+    state: base-0
+#
+- type: entity
+  id: ObstructionPalletBricksConcrete
+  parent: ObstructionBase
+  name: Pallet with wood
+  description: from mirage
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/PalletBricks.rsi
+    state: base-1
+#
+- type: entity
+  id: ObstructionMirageBox
+  parent: ObstructionBase
+  name: Mirage Box
+  description: you can't jump on it
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/MirageBox.rsi
+    state: base-0
+#
+
