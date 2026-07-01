@@ -1,3 +1,4 @@
+
 - type: job
   id: Chaplain
   name: job-name-chaplain
@@ -5,33 +6,20 @@
   playTimeTracker: JobChaplain
   startingGear: ChaplainGear
   icon: "JobIconChaplain"
-  supervisors: job-supervisors-hop
+  supervisors: job-supervisors-hire
+  accessGroups:
+  - AllAccess
   access:
-  - Chapel
-  - Maintenance
-  special:
-  - !type:AddComponentSpecial
-    components:
-    - type: BibleUser #Lets them heal with bibles
+  - CentralCommand
 
 - type: startingGear
   id: ChaplainGear
   equipment:
-    shoes: ClothingShoesColorBlack
+    eyes: ClothingEyesGlassesSunglasses
     id: ChaplainPDA
     ears: ClothingHeadsetService
-  storage:
-    back:
-    - RubberStampChaplain
-
-- type: chameleonOutfit
-  id: ChaplainChameleonOutfit
-  job: Chaplain
-  equipment:
-    head: ClothingHeadHatPlaguedoctor
-    eyes: ClothingEyesGlasses
-    mask: ClothingMaskPlague
-    neck: ClothingNeckStoleChaplain
-    outerClothing: ClothingOuterPlagueSuit
-    gloves: ClothingHandsGlovesColorBlack
-
+    pocket1: BaseUplinkRadioT
+    shoes: ClothingShoesBootsCombatFilled
+    head: ClothingHeadHatAnarchistMask
+    jumpsuit: ClothingUniformAnarchistJacket
+    belt: ClothingBeltSecurityWebbing

@@ -23,6 +23,7 @@
     pocket1: BaseUplinkRadioT
     ears: ClothingHeadsetService
     head: ClothingHeadHatUshanka
+    belt: ClothingBeltSecurityWebbing
 
 - type: chameleonOutfit
   id: MimeChameleonOutfit

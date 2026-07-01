@@ -243,7 +243,10 @@
     sprite: Objects/counterstrike/Clothing/Hats/AnarchistMask.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Hats/AnarchistMask.rsi
-
+  - type: HideLayerClothing
+    layers:
+      Hair : HEAD
+        
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatPoliceCap
