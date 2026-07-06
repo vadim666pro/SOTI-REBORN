@@ -1,0 +1,29 @@
+- type: entity
+  parent: PosterBase
+  id: FnafPosterPaperpals
+  name: "Paper Pals"
+  description: "A colorful poster showing the Paper Pals — animatronic companions in their classic paper-craft style."
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/FnafDecor/onwalls.rsi
+    state: paperpals
+
+- type: entity
+  parent: PosterBase
+  id: FnafPosterPizza1
+  name: "Pizza Promo"
+  description: "A retro-style pizza advertisement poster with bold colors and a cheerful slogan."
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/FnafDecor/onwalls.rsi
+    state: pizza1
+
+- type: entity
+  parent: PosterBase
+  id: FnafPosterPizza2
+  name: "Pizza Promo II"
+  description: "Another retro pizza ad, this one slightly faded but still eye-catching."
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/FnafDecor/onwalls.rsi
+    state: pizza2
