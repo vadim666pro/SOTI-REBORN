@@ -9,9 +9,9 @@
     state: base
 
 - type: entity
-  id: FnafGift
+  id: FnafGiftBig
   parent: ObstructionBase
-  name: Gifts
+  name: Gift Big
   description: Gifts from fnaf1
   components:
   - type: Sprite
@@ -19,9 +19,9 @@
     state: big
 
 - type: entity
-  id: FnafGift
+  id: FnafGiftMany
   parent: ObstructionBase
-  name: Gifts
+  name: A lot of gifts
   description: Gifts from fnaf1
   components:
   - type: Sprite

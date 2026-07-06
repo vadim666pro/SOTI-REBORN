@@ -1,0 +1,79 @@
+- type: entity
+  parent: BaseWall
+  id: FnafWall
+  name: Fnaf wall
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/fnafwalls.rsi
+    state: full
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/Walls/fnafwalls.rsi
+  - type: Construction
+    graph: Girder
+    node: goldWall
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger:
+        !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
+      - !type:ChangeConstructionNodeBehavior
+        node: girder
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 4000
+
+- type: entity
+  parent: BaseWall
+  id: FnafWallCorner
+  name: Fnaf wall
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/fnafwallscorner.rsi
+    state: full
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/Walls/fnafwallscorner.rsi
+
+- type: entity
+  parent: BaseWall
+  id: FnafWallCornerT
+  name: Fnaf wall
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/fnafwallscornerT.rsi
+    state: full
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/Walls/fnafwallscornerT.rsi
+
+- type: entity
+  parent: BaseWall
+  id: FnafWallCornerX
+  name: Fnaf wall
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/fnafwallscornerX.rsi
+    state: full
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/Walls/fnafwallscornerX.rsi
