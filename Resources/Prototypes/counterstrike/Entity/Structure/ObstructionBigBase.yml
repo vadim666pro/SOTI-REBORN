@@ -1,0 +1,99 @@
+- type: entity
+  id: ObstructionBigBase
+  parent: BaseStructureDynamic
+  name: base big Obstruction
+  description: Big obstruction
+  abstract: false
+  components:
+  - type: Sprite
+    noRot: false
+  - type: Physics
+    mass: 3000
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.65
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+# это родитель для больших препятствий
+
+
+
+- type: entity
+  id: ObstructionBigWhiteSedan
+  parent: ObstructionBigBase
+  name: White Sedan
+  description: you need keys to drive this car.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/Sedan.rsi
+    state: white
+#
+
+- type: entity
+  id: ObstructionBigRedSedan
+  parent: ObstructionBigBase
+  name: Red Sedan
+  description: you need keys to drive this car.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/Sedan.rsi
+    state: red
+#
+- type: entity
+  id: ObstructionBigYellowSedan
+  parent: ObstructionBigBase
+  name: Yellow Sedan
+  description: you need keys to drive this car.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/Sedan.rsi
+    state: yellow
+#
+- type: entity
+  id: ObstructionBigOrangeSedan
+  parent: ObstructionBigBase
+  name: Orange Sedan
+  description: you need keys to drive this car.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/Sedan.rsi
+    state: orange
+#
+- type: entity
+  id: ObstructionBigPurpleSedan
+  parent: ObstructionBigBase
+  name: Purple Sedan
+  description: Purple guy's car.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/Sedan.rsi
+    state: purple
+#
+- type: entity
+  id: ObstructionBigBlueSedan
+  parent: ObstructionBigBase
+  name: Blue Sedan
+  description: you need keys to drive this car.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/Sedan.rsi
+    state: blue
+#
