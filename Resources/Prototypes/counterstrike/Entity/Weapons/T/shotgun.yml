@@ -3,7 +3,7 @@
   parent: [BaseWeaponShotgun, BaseGunWieldable, BaseSecurityContraband]
   id: WeaponShotgunNova
   description: Nova from CSGO.
-  components: # intend for Kammerer to have tighter choke for slower fire rate and/or manual cycling
+  components:
   - type: Sprite
     sprite: Objects/counterstrike/Weapons/PrimaryT/nova/nova.rsi
   - type: Clothing
@@ -14,7 +14,7 @@
     - suitStorage
   - type: Item
     sprite: Objects/counterstrike/Weapons/PrimaryT/nova/novax64.rsi
-  - type: GunRequiresWield #remove when inaccuracy on spreads is fixed
+  - type: GunRequiresWield
   - type: GunSpreadModifier
     spread: 2
   - type: Gun
@@ -31,6 +31,6 @@
       tags:
       - ShellShotgun
     capacity: 6
-    proto: ShellShotgun
+    proto: ShellCSShotgun
     soundInsert:
       path: /Audio/Weapons/Guns/MagIn/shotgun_insert.ogg

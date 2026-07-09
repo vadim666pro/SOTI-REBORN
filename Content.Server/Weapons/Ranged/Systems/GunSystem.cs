@@ -13,10 +13,13 @@ using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
+using Content.Shared.Weapons.Hitscan.Components;
+using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Reflect;
 using Content.Shared.Damage.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Map;
+using Content.Shared.Physics;
 using Robust.Shared.Physics;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
@@ -110,7 +113,16 @@ public sealed partial class GunSystem : SharedGunSystem
                     if (!cartridge.Spent)
                     {
                         var uid = Spawn(cartridge.Prototype, fromEnt);
-                        CreateAndFireProjectiles(uid, cartridge);
+
+                        // Check if this is a hitscan entity
+                        if (HasComp<HitscanAmmoComponent>(uid))
+                        {
+                            FireHitscanFromEntity(uid, fromMap, fromCoordinates, mapDirection, gun, gunUid, user);
+                        }
+                        else
+                        {
+                            CreateAndFireProjectiles(uid, cartridge);
+                        }
 
                         RaiseLocalEvent(ent!.Value, new AmmoShotEvent()
                         {
@@ -305,6 +317,181 @@ public sealed partial class GunSystem : SharedGunSystem
         }
 
         ShootProjectile(uid, mapDirection, gunVelocity, gunUid, user, gun.ProjectileSpeedModified);
+    }
+
+    /// <summary>
+    /// Fire a hitscan raycast from a spawned hitscan entity.
+    /// </summary>
+    private void FireHitscanFromEntity(EntityUid hitscanUid, MapCoordinates fromMap, EntityCoordinates fromCoordinates,
+        Vector2 mapDirection, GunComponent gun, EntityUid gunUid, EntityUid? user)
+    {
+        var dir = mapDirection.Normalized();
+        var lastUser = user ?? gunUid;
+        EntityUid? lastHit = null;
+        var fromEffect = fromCoordinates;
+        var from = fromMap;
+
+        // Get hitscan components from the entity
+        var maxDistance = 50f;
+        // Default collision mask: Impassable | HighImpassable | MidImpassable | LowImpassable | BulletImpassable
+        var collisionMask = (int)(CollisionGroup.Impassable | CollisionGroup.HighImpassable | CollisionGroup.MidImpassable | CollisionGroup.LowImpassable | CollisionGroup.BulletImpassable);
+
+        if (TryComp<HitscanBasicRaycastComponent>(hitscanUid, out var raycastComp))
+        {
+            maxDistance = raycastComp.MaxDistance;
+            collisionMask = (int) raycastComp.CollisionMask;
+        }
+
+        // Perform raycast - get ALL results to handle glass penetration
+        var ray = new CollisionRay(from.Position, dir, collisionMask);
+        var rayCastResults = Physics.IntersectRay(from.MapId, ray, maxDistance, lastUser, false).ToList();
+
+        if (rayCastResults.Count > 0)
+        {
+            var totalDistance = 0f;
+            EntityUid? finalHit = null;
+
+            foreach (var result in rayCastResults)
+            {
+                var hit = result.HitEntity;
+                if (hit == null)
+                    continue;
+
+                // Check if this is a window/glass that we can penetrate
+                if (TryComp<DamageableComponent>(hit, out var damageable) &&
+                    damageable.DamageContainerID == "StructuralInorganic")
+                {
+                    // This is glass/window - damage it and continue
+                    if (TryComp<HitscanBasicDamageComponent>(hitscanUid, out var damageComp))
+                    {
+                        var dmg = damageComp.Damage;
+                        if (dmg != null && dmg.AnyPositive())
+                        {
+                            // Apply reduced damage to glass (50%)
+                            var glassDmg = dmg * 0.5f;
+                            Damageable.TryChangeDamage(hit, glassDmg, origin: user);
+                        }
+                    }
+
+                    // Continue ray through glass
+                    totalDistance = result.Distance;
+                    continue;
+                }
+
+                // This is a solid hit (wall, mob, etc.)
+                finalHit = hit;
+                totalDistance = result.Distance;
+                break;
+            }
+
+            lastHit = finalHit;
+
+            // Fire visual effects to the final hit point
+            FireHitscanEffects(fromEffect, totalDistance, dir.ToAngle(), hitscanUid);
+
+            // Apply damage to the final hit target
+            if (finalHit != null && TryComp<HitscanBasicDamageComponent>(hitscanUid, out var damageComp2))
+            {
+                var dmg = damageComp2.Damage;
+                if (dmg != null && dmg.AnyPositive())
+                {
+                    Damageable.TryChangeDamage(finalHit, dmg, origin: user);
+
+                    if (user != null)
+                    {
+                        Logs.Add(LogType.HitScanHit,
+                            $"{ToPrettyString(user.Value):user} hit {ToPrettyString(finalHit):target} using hitscan and dealt {dmg.GetTotal():damage} damage");
+                    }
+                }
+            }
+
+            // Apply stamina damage to final target
+            if (finalHit != null && TryComp<HitscanStaminaDamageComponent>(hitscanUid, out var staminaComp))
+            {
+                _stamina.TakeStaminaDamage((EntityUid) finalHit, staminaComp.StaminaDamage, source: user);
+            }
+
+            // Raise hit event for other systems
+            if (finalHit != null)
+            {
+                var hitEvent = new HitscanRaycastFiredEvent
+                {
+                    Data = new HitscanRaycastFiredData
+                    {
+                        ShotDirection = dir,
+                        HitEntity = finalHit,
+                        Gun = gunUid,
+                        Shooter = user,
+                    }
+                };
+                RaiseLocalEvent(hitscanUid, ref hitEvent);
+            }
+        }
+        else
+        {
+            // No hit - just fire effects to max distance
+            FireHitscanEffects(fromEffect, maxDistance, dir.ToAngle(), hitscanUid);
+        }
+
+        Audio.PlayPredicted(gun.SoundGunshotModified, gunUid, user);
+        Del(hitscanUid);
+    }
+
+    /// <summary>
+    /// Fire visual effects for a hitscan shot.
+    /// </summary>
+    private void FireHitscanEffects(EntityCoordinates fromCoordinates, float distance, Angle angle, EntityUid hitscanUid)
+    {
+        var sprites = new List<(NetCoordinates coordinates, Angle angle, SpriteSpecifier sprite, float scale)>();
+        var fromXform = Transform(fromCoordinates.EntityId);
+
+        var gridUid = fromXform.GridUid;
+        if (gridUid != fromCoordinates.EntityId && TryComp(gridUid, out TransformComponent? gridXform))
+        {
+            var (_, gridRot, gridInvMatrix) = TransformSystem.GetWorldPositionRotationInvMatrix(gridXform);
+            var map = TransformSystem.ToMapCoordinates(fromCoordinates);
+            fromCoordinates = new EntityCoordinates(gridUid.Value, Vector2.Transform(map.Position, gridInvMatrix));
+            angle -= gridRot;
+        }
+        else
+        {
+            angle -= TransformSystem.GetWorldRotation(fromXform);
+        }
+
+        if (TryComp<HitscanBasicVisualsComponent>(hitscanUid, out var vizComp))
+        {
+            if (distance >= 1f)
+            {
+                if (vizComp.MuzzleFlash != null)
+                {
+                    var coords = fromCoordinates.Offset(angle.ToVec().Normalized() / 2);
+                    var netCoords = GetNetCoordinates(coords);
+                    sprites.Add((netCoords, angle, vizComp.MuzzleFlash, 1f));
+                }
+
+                if (vizComp.TravelFlash != null)
+                {
+                    var coords = fromCoordinates.Offset(angle.ToVec() * (distance + 0.5f) / 2);
+                    var netCoords = GetNetCoordinates(coords);
+                    sprites.Add((netCoords, angle, vizComp.TravelFlash, distance - 1.5f));
+                }
+            }
+
+            if (vizComp.ImpactFlash != null)
+            {
+                var coords = fromCoordinates.Offset(angle.ToVec() * distance);
+                var netCoords = GetNetCoordinates(coords);
+                sprites.Add((netCoords, angle.FlipPositive(), vizComp.ImpactFlash, 1f));
+            }
+        }
+
+        if (sprites.Count > 0)
+        {
+            RaiseNetworkEvent(new HitscanEvent
+            {
+                Sprites = sprites,
+            }, Filter.Pvs(fromCoordinates, entityMan: EntityManager));
+        }
     }
 
     /// <summary>
