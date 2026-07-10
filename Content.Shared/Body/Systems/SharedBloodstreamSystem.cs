@@ -501,4 +501,12 @@ public abstract class SharedBloodstreamSystem : EntitySystem
 
         return bloodData;
     }
+
+    //starlight start
+    public Color GetBloodColor(Entity<BloodstreamComponent?> ent)
+    {
+        // Default blood color - blood color system varies by species in starlight
+        return Color.Red;
+    }
+    //starlight end
 }

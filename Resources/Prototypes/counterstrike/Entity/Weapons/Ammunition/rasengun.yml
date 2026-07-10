@@ -15,7 +15,6 @@
         volume: 5
         maxDistance: 10
   - type: Projectile
-
     impactEffect: RasengunImpactEffect
     damage:
       types:

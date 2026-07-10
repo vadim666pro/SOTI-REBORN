@@ -1,0 +1,188 @@
+# CS Hitscan Projectiles - Base entities
+
+- type: entity
+  id: BasicCSHitscanNoBeam
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanAmmo
+  - type: HitscanBasicRaycast
+  - type: HitscanReflect
+  - type: HitscanBasicEffects
+
+- type: entity
+  id: BasicCSHitscan
+  parent: BasicCSHitscanNoBeam
+  name: basic cs laser ray
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicVisuals
+    muzzleFlash:
+      sprite: _Starlight/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: muzzle
+    travelFlash:
+      sprite: _Starlight/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: trace
+    impactFlash:
+      sprite: _Starlight/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: impact
+
+# Pistol hitscan projectiles
+
+- type: entity
+  id: BulletCSSPistol
+  parent: BasicCSHitscan
+  name: cs pistol bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 20
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSSPistolHighDamage
+  parent: BasicCSHitscan
+  name: cs pistol bullet (high damage)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 35
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+# Rifle hitscan projectiles
+
+- type: entity
+  id: BulletCSRifle
+  parent: BasicCSHitscan
+  name: cs rifle bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 25
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSRifleHighDamage
+  parent: BasicCSHitscan
+  name: cs rifle bullet (high damage)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 30
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+# SMG hitscan projectiles
+
+- type: entity
+  id: BulletCSSMG
+  parent: BasicCSHitscan
+  name: cs smg bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 15
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+# Shotgun hitscan projectiles
+
+- type: entity
+  id: PelletCSShotgun
+  parent: BasicCSHitscan
+  name: cs shotgun pellet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 8
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: buckshot
+
+- type: entity
+  id: PelletCSShotgunSlug
+  parent: BasicCSHitscan
+  name: cs shotgun slug
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 40
+        Structural: 15
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: slug
+
+# Spread variants for shotguns
+
+- type: entity
+  id: PelletCSShotgunSpread
+  parent: PelletCSShotgun
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ProjectileSpread
+    proto: PelletCSShotgun
+    count: 8
+    spread: 12
+
+- type: entity
+  id: PelletCSShotgunSlugSpread
+  parent: PelletCSShotgunSlug
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ProjectileSpread
+    proto: PelletCSShotgunSlug
+    count: 1
+    spread: 0
+
+# Deagle hitscan (high damage pistol)
+
+- type: entity
+  id: BulletCSDeagle
+  parent: BasicCSHitscan
+  name: cs deagle bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 45
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet

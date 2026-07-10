@@ -97,13 +97,4 @@
 #GRENADES (их нету)
 
 #EQUIPMENT
-- type: listing
-  id: UplinkVest
-  name: Armor Vest
-  description: This body armor was made with crazy Dog's fat
-  productEntity: ClothingOuterVestWeb
-  cost:
-    Telecrystal: 9
-  categories:
-  - UplinkEquipmentCSGO
 #grenades and equipment не отличается от каталога терров

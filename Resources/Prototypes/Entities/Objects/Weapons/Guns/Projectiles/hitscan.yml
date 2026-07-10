@@ -16,6 +16,34 @@
       - HideContextMenu
   - type: AnimationPlayer
 
+# Base hitscan entities for Starlight system
+- type: entity
+  id: BasicHitscanNoBeam
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanAmmo
+  - type: HitscanBasicRaycast
+  - type: HitscanReflect
+  - type: HitscanBasicEffects
+
+- type: entity
+  id: BasicHitscan
+  parent: BasicHitscanNoBeam
+  name: basic laser ray
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicVisuals
+    muzzleFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: muzzle_laser
+    travelFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: beam
+    impactFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: impact_laser
+
+# Legacy hitscan prototypes (kept for backwards compatibility)
 - type: hitscan
   id: RedLaser
   damage:
