@@ -5,6 +5,7 @@ using Content.Shared.Database;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Ranged.Systems;
+using Content.Shared.Tag;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
@@ -20,6 +21,7 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly ISharedAdminLogManager _log = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly TagSystem _tag = default!;
 
     private EntityQuery<HitscanBasicVisualsComponent> _visualsQuery;
 
@@ -46,26 +48,37 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
             return;
         }
 
-        var result = rayCastResults[0];
+        // Find first solid hit, apply damage to glass along the way
+        EntityUid? hitEntity = null;
+        var distanceTried = 0f;
 
-        if (!_container.IsEntityOrParentInContainer(shooter))
+        foreach (var collide in rayCastResults)
         {
-            foreach (var collide in rayCastResults)
+            if (collide.HitEntity == null)
+                continue;
+
+            // Glass/window or passthrough entity: apply damage and continue ray
+            if (HasComp<HitscanPassthroughComponent>(collide.HitEntity) || _tag.HasTag(collide.HitEntity, "Window"))
             {
-                // Skip entities that require specific targeting (simplified - no RequireProjectileTargetComponent)
-                result = collide;
-                break;
+                distanceTried = collide.Distance;
+                continue;
             }
+
+            // First solid hit (wall, mob, etc.) - stop here
+            hitEntity = collide.HitEntity;
+            distanceTried = collide.Distance;
+            break;
         }
 
-        var distanceTried = result.Distance;
+        if (hitEntity == null && distanceTried == 0)
+            distanceTried = rayCastResults[0].Distance;
 
         FireEffects(args.FromCoordinates, distanceTried, args.ShotDirection.ToAngle(), ent.Owner);
 
-        if (result.HitEntity != null)
+        if (hitEntity != null)
         {
             _log.Add(LogType.HitScanHit,
-                $"{ToPrettyString(shooter):user} hit {ToPrettyString(result.HitEntity):target}"
+                $"{ToPrettyString(shooter):user} hit {ToPrettyString(hitEntity):target}"
                 + $" using {ToPrettyString(args.Gun):entity}.");
         }
 
@@ -74,7 +87,7 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
             ShotDirection = args.ShotDirection,
             Gun = args.Gun,
             Shooter = args.Shooter,
-            HitEntity = result.HitEntity,
+            HitEntity = hitEntity,
         };
 
         var attemptEvent = new AttemptHitscanRaycastFiredEvent { Data = data };

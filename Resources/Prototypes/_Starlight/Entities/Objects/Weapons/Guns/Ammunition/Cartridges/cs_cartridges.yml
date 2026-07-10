@@ -121,7 +121,7 @@
   - type: CartridgeAmmo
     proto: PelletCSShotgunSpread
   - type: SpentAmmoVisuals
-    state: "shell"
+    state: "base"
 
 # Magazine definitions for CS weapons
 

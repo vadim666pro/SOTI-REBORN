@@ -325,15 +325,12 @@ public sealed partial class GunSystem : SharedGunSystem
     private void FireHitscanFromEntity(EntityUid hitscanUid, MapCoordinates fromMap, EntityCoordinates fromCoordinates,
         Vector2 mapDirection, GunComponent gun, EntityUid gunUid, EntityUid? user)
     {
-        var dir = mapDirection.Normalized();
         var lastUser = user ?? gunUid;
-        EntityUid? lastHit = null;
         var fromEffect = fromCoordinates;
         var from = fromMap;
 
         // Get hitscan components from the entity
         var maxDistance = 50f;
-        // Default collision mask: Impassable | HighImpassable | MidImpassable | LowImpassable | BulletImpassable
         var collisionMask = (int)(CollisionGroup.Impassable | CollisionGroup.HighImpassable | CollisionGroup.MidImpassable | CollisionGroup.LowImpassable | CollisionGroup.BulletImpassable);
 
         if (TryComp<HitscanBasicRaycastComponent>(hitscanUid, out var raycastComp))
@@ -342,52 +339,67 @@ public sealed partial class GunSystem : SharedGunSystem
             collisionMask = (int) raycastComp.CollisionMask;
         }
 
-        // Perform raycast - get ALL results to handle glass penetration
-        var ray = new CollisionRay(from.Position, dir, collisionMask);
-        var rayCastResults = Physics.IntersectRay(from.MapId, ray, maxDistance, lastUser, false).ToList();
+        // Calculate spread angles - same logic as CreateAndFireProjectiles
+        var mapAngle = mapDirection.ToAngle();
+        Angle[] angles;
 
-        if (rayCastResults.Count > 0)
+        if (TryComp<ProjectileSpreadComponent>(hitscanUid, out var spreadComp) && spreadComp.Count > 1)
         {
-            var totalDistance = 0f;
+            var spreadEvent = new GunGetAmmoSpreadEvent(spreadComp.Spread);
+            RaiseLocalEvent(gunUid, ref spreadEvent);
+
+            angles = LinearSpread(mapAngle - spreadEvent.Spread / 2,
+                mapAngle + spreadEvent.Spread / 2, spreadComp.Count);
+        }
+        else
+        {
+            angles = new[] { mapAngle };
+        }
+
+        // Fire a ray for each spread angle
+        foreach (var angle in angles)
+        {
+            var dir = angle.ToVec().Normalized();
+            var ray = new CollisionRay(from.Position, dir, collisionMask);
+            var rayCastResults = Physics.IntersectRay(from.MapId, ray, maxDistance, lastUser, false).ToList();
+
             EntityUid? finalHit = null;
+            var totalDistance = 0f;
 
-            foreach (var result in rayCastResults)
+            if (rayCastResults.Count > 0)
             {
-                var hit = result.HitEntity;
-                if (hit == null)
-                    continue;
-
-                // Check if this is a window/glass that we can penetrate
-                if (TryComp<DamageableComponent>(hit, out var damageable) &&
-                    damageable.DamageContainerID == "StructuralInorganic")
+                foreach (var result in rayCastResults)
                 {
-                    // This is glass/window - damage it and continue
-                    if (TryComp<HitscanBasicDamageComponent>(hitscanUid, out var damageComp))
+                    var hit = result.HitEntity;
+                    if (hit == null)
+                        continue;
+
+                    // Glass/window or passthrough entity: apply damage and continue ray
+                    if (HasComp<HitscanPassthroughComponent>(hit) || TagSystem.HasTag(hit, "Window"))
                     {
-                        var dmg = damageComp.Damage;
-                        if (dmg != null && dmg.AnyPositive())
+                        // Glass takes 200% damage, tables/railings take none
+                        if (TagSystem.HasTag(hit, "Window"))
                         {
-                            // Apply reduced damage to glass (50%)
-                            var glassDmg = dmg * 0.5f;
-                            Damageable.TryChangeDamage(hit, glassDmg, origin: user);
+                            if (TryComp<HitscanBasicDamageComponent>(hitscanUid, out var glassDmgComp))
+                            {
+                                var glassDmg = glassDmgComp.Damage;
+                                if (glassDmg != null && glassDmg.AnyPositive())
+                                    Damageable.TryChangeDamage(hit, glassDmg * 2f, origin: user);
+                            }
                         }
+                        totalDistance = result.Distance;
+                        continue;
                     }
 
-                    // Continue ray through glass
+                    // First solid hit (wall, mob, etc.) - stop here
+                    finalHit = hit;
                     totalDistance = result.Distance;
-                    continue;
+                    break;
                 }
-
-                // This is a solid hit (wall, mob, etc.)
-                finalHit = hit;
-                totalDistance = result.Distance;
-                break;
             }
 
-            lastHit = finalHit;
-
             // Fire visual effects to the final hit point
-            FireHitscanEffects(fromEffect, totalDistance, dir.ToAngle(), hitscanUid);
+            FireHitscanEffects(fromEffect, totalDistance, angle, hitscanUid);
 
             // Apply damage to the final hit target
             if (finalHit != null && TryComp<HitscanBasicDamageComponent>(hitscanUid, out var damageComp2))
@@ -426,11 +438,6 @@ public sealed partial class GunSystem : SharedGunSystem
                 };
                 RaiseLocalEvent(hitscanUid, ref hitEvent);
             }
-        }
-        else
-        {
-            // No hit - just fire effects to max distance
-            FireHitscanEffects(fromEffect, maxDistance, dir.ToAngle(), hitscanUid);
         }
 
         Audio.PlayPredicted(gun.SoundGunshotModified, gunUid, user);
