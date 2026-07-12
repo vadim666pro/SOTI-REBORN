@@ -1,112 +1,148 @@
-// Bodycam post-process shader (SWSL)
-// Applies scanlines, vignette, slight chromatic aberration, subtle distortion, optional grain.
+// Bodycam v2 — fisheye + glitch + red damage distortion + grain
+// Tuned for a gritty GoPro / body-worn camera look.
 
 uniform sampler2D SCREEN_TEXTURE;
 
-// Uniforms configurable from C#
-uniform lowp float time;                // seconds
-uniform lowp float scanlineStrength;    // 0..1
-uniform lowp float vignetteStrength;    // 0..1
-uniform lowp float aberrationStrength;  // ~pixels, scaled internally
-uniform lowp float grainStrength;       // 0..1
-uniform lowp float distortionStrength;  // 0..1
+// Core
+uniform highp float time;              // seconds
+uniform highp float deltaTime;         // frame delta
 
-// Rounded corners mask controls
-uniform lowp float cornerRadius;        // 0..0.2 in UV, 0 = off
-uniform lowp float cornerFeather;       // 0..0.1 feather for smooth edge
+// Fisheye
+uniform lowp float fisheyeStrength;    // 0..1, ~0.15 is a good starting point
 
-// GoPro-like controls
-uniform lowp float fisheyeStrength;     // 0..1, low ~0.2
-uniform lowp float edgeBlurStrength;    // 0..1, small values ~0.1
+// Film grain
+uniform lowp float grainStrength;      // 0..1
 
-lowp float hash(lowp vec2 co){
-    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+// Edge blur
+uniform lowp float edgeBlurStrength;   // 0..1
+
+// Rounded corners
+uniform lowp float cornerRadius;       // 0..0.2 in UV
+uniform lowp float cornerFeather;      // 0..0.1
+
+// Health / damage (0 = healthy, 1 = critical)
+uniform lowp float damageLevel;        // 0..1 overall damage
+uniform lowp float damageFlash;        // 0..1 instantaneous hit flash
+
+// Glitch (horizontal tear / offset)
+uniform lowp float glitchIntensity;    // 0..1
+
+// ── helpers ────────────────────────────────────────────────────────────────
+
+lowp float hash21(lowp vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
 }
 
-void fragment(){
-    lowp vec2 uv = UV;
-    lowp vec2 uvScreen = UV; // preserve screen-space UV for straight scanlines
-    lowp vec2 center = vec2(0.5, 0.5);
+lowp float noise2d(lowp vec2 p) {
+    lowp vec2 i = floor(p);
+    lowp vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    lowp float a = hash21(i);
+    lowp float b = hash21(i + vec2(1.0, 0.0));
+    lowp float c = hash21(i + vec2(0.0, 1.0));
+    lowp float d = hash21(i + vec2(1.0, 1.0));
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
 
-    // Fisheye mapping (low strength)
-    {
+// ── main ───────────────────────────────────────────────────────────────────
+
+void fragment() {
+    lowp vec2 uv = UV;
+    lowp vec2 center = vec2(0.5);
+
+    // ── 1. Fisheye ──────────────────────────────────────────────────────────
+    if (fisheyeStrength > 0.0) {
         lowp vec2 ruv = uv - center;
         lowp float r = length(ruv);
-        // Normalize radius to [0,1] using max radius to corner (~0.7071)
         lowp float rn = min(r / 0.70710678, 1.0);
-        // Curve from linear to sin curve as fisheyeStrength increases
-        lowp float curved = mix(rn, sin(rn * 1.57079633), clamp(fisheyeStrength, 0.0, 1.0));
-        // Avoid divide by zero (use if to avoid ternary bool->float issues)
-        lowp float scale = 1.0;
-        if (r > 0.00001)
-        {
-            scale = curved / rn;
-        }
+        // Barrel distortion: push pixels outward from center
+        lowp float distorted = rn + (rn * rn * rn) * fisheyeStrength * 0.8;
+        distorted = min(distorted, 1.2);
+        lowp float scale = (r > 0.0001) ? distorted / rn : 1.0;
         uv = center + ruv * scale;
     }
 
-    // Chromatic aberration: offset channels slightly in UV space
-    lowp float ab = aberrationStrength * 0.0015; // convert rough pixels to UV scale
-    // Sample with distorted UV to keep world content consistent
-    lowp float r = zTextureSpec(SCREEN_TEXTURE, uv + vec2(+ab, 0.0)).r;
-    lowp float g = zTextureSpec(SCREEN_TEXTURE, uv).g;
-    lowp float b = zTextureSpec(SCREEN_TEXTURE, uv + vec2(-ab, 0.0)).b;
-    lowp vec3 col = vec3(r, g, b);
+    // ── 2. Glitch — horizontal tear bands ───────────────────────────────────
+    if (glitchIntensity > 0.0) {
+        // Pseudo-random band selection based on time
+        lowp float t = time * 7.3;
+        lowp float bandY = fract(t * 0.13);
+        lowp float bandH = 0.02 + 0.06 * hash21(vec2(floor(t), 0.0));
 
-    // Edge blur to mimic lens softness
-    if (edgeBlurStrength > 0.0){
+        // Only tear within the band
+        if (uv.y > bandY && uv.y < bandY + bandH) {
+            lowp float offset = (hash21(vec2(floor(t), 1.0)) - 0.5) * 0.08 * glitchIntensity;
+            uv.x += offset;
+        }
+
+        // Occasional full-screen shift
+        lowp float fullShift = step(0.92, hash21(vec2(floor(t * 3.0), 2.0)));
+        uv.x += fullShift * (hash21(vec2(floor(t), 3.0)) - 0.5) * 0.04 * glitchIntensity;
+    }
+
+    // ── 3. Sample screen ─────────────────────────────────────────────────────
+    lowp vec3 col = zTextureSpec(SCREEN_TEXTURE, uv).rgb;
+
+    // ── 4. Edge blur ─────────────────────────────────────────────────────────
+    if (edgeBlurStrength > 0.0) {
         lowp vec2 ruv2 = uv - center;
         lowp float rn2 = min(length(ruv2) / 0.70710678, 1.0);
-        lowp float w = smoothstep(0.75, 1.0, rn2) * edgeBlurStrength; // only near edges
-        if (w > 0.0){
-            // Small blur radius in UV space
-            lowp float rad = 0.0015 * edgeBlurStrength; // very subtle
+        lowp float w = smoothstep(0.7, 1.0, rn2) * edgeBlurStrength;
+        if (w > 0.0) {
+            lowp float rad = 0.002 * edgeBlurStrength;
             lowp vec3 acc = col;
             acc += zTextureSpec(SCREEN_TEXTURE, uv + vec2( rad,  0.0)).rgb;
             acc += zTextureSpec(SCREEN_TEXTURE, uv + vec2(-rad,  0.0)).rgb;
             acc += zTextureSpec(SCREEN_TEXTURE, uv + vec2( 0.0,  rad)).rgb;
             acc += zTextureSpec(SCREEN_TEXTURE, uv + vec2( 0.0, -rad)).rgb;
-            acc *= 0.2; // average 5 samples
+            acc *= 0.2;
             col = mix(col, acc, w);
         }
     }
 
-    // Scanlines (horizontal) in screen space, straight (non-sine) bands
-    if (scanlineStrength > 0.0){
-        // Create alternating bands at roughly 720 rows regardless of resolution
-        lowp float band = step(0.5, fract(uvScreen.y * 720.0)); // 0 or 1
-        lowp float mod = mix(1.0, 0.85, band); // darken every other line
-        col *= mix(1.0, mod, clamp(scanlineStrength, 0.0, 1.0));
+    // ── 5. Damage — red tint + desaturation + pulsing ────────────────────────
+    if (damageLevel > 0.01) {
+        // Desaturate toward red (subtle)
+        lowp float lum = dot(col, vec3(0.299, 0.587, 0.114));
+        lowp vec3 desat = mix(col, vec3(lum, lum * 0.3, lum * 0.2), damageLevel * 0.35);
+        col = desat;
+
+        // Red overlay pulsing (weaker)
+        lowp float pulse = 0.15 + 0.1 * sin(time * 4.0 + damageLevel * 6.28);
+        lowp float redOverlay = damageLevel * pulse;
+        col = mix(col, vec3(0.8, 0.1, 0.05), redOverlay);
+
+        // Vignette darkening at edges (subtle)
+        lowp float d = length(uv - center);
+        lowp float vig = smoothstep(0.4, 0.95, d);
+        col *= mix(1.0, 1.0 - vig * 0.35, damageLevel);
     }
 
-    // Vignette
-    if (vignetteStrength > 0.0){
-        lowp float d = distance(uv, center);
-        lowp float vig = smoothstep(0.6, 0.9, d);
-        col *= mix(1.0, 1.0 - vig * 0.35, clamp(vignetteStrength, 0.0, 1.0));
+    // ── 6. Damage flash — bright strobe on hit (weaker) ─────────────────────
+    if (damageFlash > 0.01) {
+        lowp float flashColor = 0.5 + 0.5 * sin(time * 30.0);
+        col = mix(col, vec3(1.0, 0.3, 0.1), damageFlash * flashColor * 0.35);
+
+        // Random scanline corruption on flash
+        lowp float scanCorrupt = step(0.7, noise2d(vec2(uv.y * 200.0, time * 50.0)));
+        col += vec3(0.15, 0.0, 0.0) * scanCorrupt * damageFlash;
     }
 
-    // Grain
-    if (grainStrength > 0.0){
-        lowp float n = hash(uv * vec2(1920.0, 1080.0) + time * 12.345);
-        lowp float g2 = (n - 0.5) * 0.07;
-        col += g2 * clamp(grainStrength, 0.0, 1.0);
+    // ── 7. Film grain ────────────────────────────────────────────────────────
+    if (grainStrength > 0.0) {
+        lowp float n = hash21(uv * vec2(1920.0, 1080.0) + time * 12.345);
+        col += (n - 0.5) * 0.03 * grainStrength;
     }
 
-    // Rounded corners mask (darken outside rounded-rect)
-    if (cornerRadius > 0.0){
-        // Map to centered coords
+    // ── 8. Rounded corners mask ──────────────────────────────────────────────
+    if (cornerRadius > 0.0) {
         lowp vec2 p = uv - vec2(0.5);
-        // Box half extents, leave a tiny margin so frame lines aren't clipped
         lowp vec2 b = vec2(0.5) - vec2(max(cornerRadius, 0.0) + 0.005);
-        // Signed distance to rounded box (approx)
         lowp vec2 q = abs(p) - b;
         lowp float d = length(max(q, vec2(0.0))) - cornerRadius;
-        // d < 0 inside, >0 outside. Build mask with feather falloff at edge.
-        lowp float feath = max(cornerFeather, 0.001);
-        lowp float mask = 1.0 - smoothstep(0.0, feath, d);
+        lowp float mask = 1.0 - smoothstep(0.0, max(cornerFeather, 0.001), d);
         col *= mask;
     }
 
-    COLOR = vec4(col, 1.0);
+    COLOR = vec4(clamp(col, 0.0, 1.0), 1.0);
 }

@@ -1,4 +1,4 @@
-# CS Hitscan Projectiles - Base entities
+# CS Hitscan Projectiles - Per-weapon damage
 
 - type: entity
   id: BasicCSHitscanNoBeam
@@ -26,12 +26,150 @@
       sprite: _Starlight/Objects/Weapons/Guns/Projectiles/projectiles.rsi
       state: impact
 
-# Pistol hitscan projectiles
+# ══════════════════════════════════════════════════════════════════════════════
+# PISTOLS
+# ══════════════════════════════════════════════════════════════════════════════
 
 - type: entity
-  id: BulletCSSPistol
+  id: BulletCSUSP
   parent: BasicCSHitscan
-  name: cs pistol bullet
+  name: cs usp bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 15
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSGlock
+  parent: BasicCSHitscan
+  name: cs glock bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 12
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSBeretta
+  parent: BasicCSHitscan
+  name: cs beretta bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 14
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSFiveSeven
+  parent: BasicCSHitscan
+  name: cs fiveseven bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 18
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSTec9
+  parent: BasicCSHitscan
+  name: cs tec9 bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 11
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+# ══════════════════════════════════════════════════════════════════════════════
+# DEAGLE / MAGNUM
+# ══════════════════════════════════════════════════════════════════════════════
+
+- type: entity
+  id: BulletCSDeagle
+  parent: BasicCSHitscan
+  name: cs deagle bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 35
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSNagan
+  parent: BasicCSHitscan
+  name: cs nagan bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 28
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+# ══════════════════════════════════════════════════════════════════════════════
+# RIFLES
+# ══════════════════════════════════════════════════════════════════════════════
+
+- type: entity
+  id: BulletCSAK47
+  parent: BasicCSHitscan
+  name: cs ak47 bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 22
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSM4
+  parent: BasicCSHitscan
+  name: cs m4 bullet
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicDamage
@@ -45,33 +183,15 @@
         state: bullet
 
 - type: entity
-  id: BulletCSSPistolHighDamage
+  id: BulletCSAUG
   parent: BasicCSHitscan
-  name: cs pistol bullet (high damage)
+  name: cs aug bullet
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicDamage
     damage:
       types:
-        Piercing: 35
-  - type: HitscanBasicVisuals
-    bullet:
-      sprite:
-        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-        state: bullet
-
-# Rifle hitscan projectiles
-
-- type: entity
-  id: BulletCSRifle
-  parent: BasicCSHitscan
-  name: cs rifle bullet
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: HitscanBasicDamage
-    damage:
-      types:
-        Piercing: 25
+        Piercing: 21
   - type: HitscanBasicVisuals
     bullet:
       sprite:
@@ -79,27 +199,77 @@
         state: bullet
 
 - type: entity
-  id: BulletCSRifleHighDamage
+  id: BulletCSSG553
   parent: BasicCSHitscan
-  name: cs rifle bullet (high damage)
+  name: cs sg553 bullet
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicDamage
     damage:
       types:
-        Piercing: 30
+        Piercing: 19
   - type: HitscanBasicVisuals
     bullet:
       sprite:
         sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
         state: bullet
 
-# SMG hitscan projectiles
+# ══════════════════════════════════════════════════════════════════════════════
+# SMGs
+# ══════════════════════════════════════════════════════════════════════════════
 
 - type: entity
-  id: BulletCSSMG
+  id: BulletCSMAC10
   parent: BasicCSHitscan
-  name: cs smg bullet
+  name: cs mac10 bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 13
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSMP9
+  parent: BasicCSHitscan
+  name: cs mp9 bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 14
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSUMP
+  parent: BasicCSHitscan
+  name: cs ump bullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 16
+  - type: HitscanBasicVisuals
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+
+- type: entity
+  id: BulletCSP90
+  parent: BasicCSHitscan
+  name: cs p90 bullet
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicDamage
@@ -112,7 +282,9 @@
         sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
         state: bullet
 
-# Shotgun hitscan projectiles
+# ══════════════════════════════════════════════════════════════════════════════
+# SHOTGUNS
+# ══════════════════════════════════════════════════════════════════════════════
 
 - type: entity
   id: PelletCSShotgun
@@ -123,7 +295,7 @@
   - type: HitscanBasicDamage
     damage:
       types:
-        Piercing: 8
+        Piercing: 6
   - type: HitscanBasicVisuals
     bullet:
       sprite:
@@ -139,15 +311,13 @@
   - type: HitscanBasicDamage
     damage:
       types:
-        Piercing: 40
-        Structural: 15
+        Piercing: 30
+        Structural: 10
   - type: HitscanBasicVisuals
     bullet:
       sprite:
         sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
         state: slug
-
-# Spread variants for shotguns
 
 - type: entity
   id: PelletCSShotgunSpread
@@ -168,21 +338,3 @@
     proto: PelletCSShotgunSlug
     count: 1
     spread: 0
-
-# Deagle hitscan (high damage pistol)
-
-- type: entity
-  id: BulletCSDeagle
-  parent: BasicCSHitscan
-  name: cs deagle bullet
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: HitscanBasicDamage
-    damage:
-      types:
-        Piercing: 45
-  - type: HitscanBasicVisuals
-    bullet:
-      sprite:
-        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-        state: bullet

@@ -2,15 +2,18 @@ using System;
 using System.Numerics;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
-using Content.Client.Stylesheets;
 using Robust.Client.UserInterface;
 using Robust.Shared.Enums;
 using Robust.Shared.Timing;
-using Content.Client.GameTicking.Managers;
 using Robust.Shared.GameObjects;
+using Content.Client.GameTicking.Managers;
+using Content.Client.Stylesheets;
 
 namespace Content.Client.Overlays;
 
+/// <summary>
+/// Screen-space HUD overlay for the bodycam: REC indicator, date/time, round timer, corner brackets.
+/// </summary>
 public sealed class BodycamHudOverlay : Overlay
 {
     [Dependency] private readonly IResourceCache _resourceCache = default!;
@@ -20,20 +23,24 @@ public sealed class BodycamHudOverlay : Overlay
 
     private Font _font = default!;
     private Font _fontBold = default!;
+    private Font _fontMono = default!;
 
     public override OverlaySpace Space => OverlaySpace.ScreenSpace;
 
-    // HUD options
+    // HUD toggles
     public bool ShowRec { get; set; } = true;
     public bool ShowTimestamp { get; set; } = true;
-    public bool ShowFrame { get; set; } = false;
+    public bool ShowDate { get; set; } = true;
+    public bool ShowRoundTimer { get; set; } = true;
+    public bool ShowFrame { get; set; } = true;
+    public bool ShowCameraLabel { get; set; } = true;
 
     public BodycamHudOverlay()
     {
         IoCManager.InjectDependencies(this);
         _font = _resourceCache.NotoStack();
         _fontBold = _resourceCache.NotoStack(variation: "Bold");
-        ZIndex = 150; // above world post-process, below most UI
+        ZIndex = 150;
     }
 
     protected override void Draw(in OverlayDrawArgs args)
@@ -41,85 +48,104 @@ public sealed class BodycamHudOverlay : Overlay
         var handle = args.ScreenHandle;
         var uiScale = _uiMan.RootControl.UIScale;
         var vp = args.ViewportBounds;
+        var time = (float)_timing.CurTime.TotalSeconds;
 
-        // REC indicator (top-right) and timestamp below it. Both at 2x size.
-        Vector2? recRightEdge = null;
-        Vector2? recTextPosCache = null;
-        float recScale = uiScale * 2f;
+        float rightMargin = 14f * uiScale;
+        float topMargin = 14f * uiScale;
+        float lineH = 24f * uiScale;
+
+        // ── Top-right corner stack ───────────────────────────────────────────
+        var cursorY = topMargin;
+        var rightEdge = vp.Right - rightMargin;
+
+        // "CAM 01" label
+        if (ShowCameraLabel)
+        {
+            var label = "CAM 01";
+            var scale = uiScale * 1.6f;
+            var sz = handle.GetDimensions(_fontBold, label, scale);
+            var pos = new Vector2(rightEdge - sz.X, cursorY);
+            handle.DrawString(_fontBold, pos, label, scale, new Color(1f, 1f, 1f, 0.6f));
+            cursorY += sz.Y + 4f * uiScale;
+        }
+
+        // REC indicator (blinking red dot + text)
         if (ShowRec)
         {
-            var t = (float) _timing.CurTime.TotalSeconds;
-            var blink = ((int) Math.Floor(t % 1.0f * 2)) % 2 == 0; // 2Hz blink
-            var color = blink ? Color.Red : new Color(0.5f, 0.0f, 0.0f, 1f);
+            var blink = ((int)Math.Floor(time * 2.0)) % 2 == 0;
+            var color = blink ? Color.Red : new Color(0.5f, 0f, 0f, 1f);
+            var scale = uiScale * 2f;
 
             var recText = "REC";
-            var recSize = handle.GetDimensions(_fontBold, recText, recScale);
-            var recTextPos = new Vector2(vp.Right - 12f * uiScale - recSize.X, vp.Top + 10f * uiScale);
-            // Dot to the left of text, vertically centered (scaled with size)
-            var dotRadius = 12f * uiScale;
-            var dotCenter = new Vector2(recTextPos.X - 18f * uiScale, recTextPos.Y + recSize.Y * 0.5f);
+            var recSize = handle.GetDimensions(_fontBold, recText, scale);
+            var recPos = new Vector2(rightEdge - recSize.X, cursorY);
 
+            // Red dot
+            var dotRadius = 10f * uiScale;
+            var dotCenter = new Vector2(recPos.X - 16f * uiScale, recPos.Y + recSize.Y * 0.5f);
             handle.DrawCircle(dotCenter, dotRadius, color);
-            handle.DrawString(_fontBold, recTextPos, recText, recScale, Color.White);
 
-            recRightEdge = new Vector2(recTextPos.X + recSize.X, recTextPos.Y);
-            recTextPosCache = recTextPos;
+            handle.DrawString(_fontBold, recPos, recText, scale, Color.White);
+            cursorY += recSize.Y + 6f * uiScale;
         }
 
-        // Timestamp (place slightly below REC, 2x size, right-aligned to REC)
+        // Date (DD.MM.YYYY)
+        if (ShowDate)
+        {
+            var now = DateTime.Now;
+            var dateText = $"{now.Day:00}.{now.Month:00}.{now.Year:0000}";
+            var scale = uiScale * 1.6f;
+            var sz = handle.GetDimensions(_font, dateText, scale);
+            var pos = new Vector2(rightEdge - sz.X, cursorY);
+            handle.DrawString(_font, pos, dateText, scale, new Color(1f, 1f, 1f, 0.8f));
+            cursorY += sz.Y + 2f * uiScale;
+        }
+
+        // Timestamp (HH:MM:SS)
         if (ShowTimestamp)
         {
-            // Use round elapsed time from the client ticker for syncing with the round clock
-            var ts = _entMan.System<ClientGameTicker>().RoundDuration();
-            ts = TimeSpan.FromSeconds(Math.Floor(ts.TotalSeconds));
-            var text = $"{(int)ts.TotalHours:00}:{ts.Minutes:00}:{ts.Seconds:00}";
-            var tsScale = uiScale * 2f;
-            var tsSize = handle.GetDimensions(_font, text, tsScale);
-
-            // Default to aligning to viewport right if REC hidden
-            Vector2 baseRight;
-            if (recRightEdge != null && recTextPosCache != null)
-            {
-                baseRight = recRightEdge.Value;
-                var gapY = 4f * uiScale;
-                var pos = new Vector2(baseRight.X - tsSize.X, recTextPosCache.Value.Y + handle.GetDimensions(_fontBold, "REC", recScale).Y + gapY);
-                handle.DrawString(_font, pos, text, tsScale, Color.White);
-            }
-            else
-            {
-                baseRight = new Vector2(vp.Right - 12f * uiScale, vp.Top + 10f * uiScale);
-                var pos = new Vector2(baseRight.X - tsSize.X, baseRight.Y + 20f * uiScale);
-                handle.DrawString(_font, pos, text, tsScale, Color.White);
-            }
+            var now = DateTime.Now;
+            var timeText = $"{now.Hour:00}:{now.Minute:00}:{now.Second:00}";
+            var scale = uiScale * 1.6f;
+            var sz = handle.GetDimensions(_font, timeText, scale);
+            var pos = new Vector2(rightEdge - sz.X, cursorY);
+            handle.DrawString(_font, pos, timeText, scale, new Color(1f, 1f, 1f, 0.8f));
+            cursorY += sz.Y + 4f * uiScale;
         }
 
-        // Frame corners
+        // Round timer
+        if (ShowRoundTimer)
+        {
+            var ts = _entMan.System<ClientGameTicker>().RoundDuration();
+            ts = TimeSpan.FromSeconds(Math.Floor(ts.TotalSeconds));
+            var roundText = $"R {(int)ts.TotalHours:00}:{ts.Minutes:00}:{ts.Seconds:00}";
+            var scale = uiScale * 1.4f;
+            var sz = handle.GetDimensions(_font, roundText, scale);
+            var pos = new Vector2(rightEdge - sz.X, cursorY);
+            handle.DrawString(_font, pos, roundText, scale, new Color(1f, 1f, 1f, 0.5f));
+        }
+
+        // ── Bottom-left: coordinates / FPS hint ──────────────────────────────
         if (ShowFrame)
         {
             var margin = 8f * uiScale;
-            var len = 26f * uiScale;
+            var len = 30f * uiScale;
             var thick = 2f * uiScale;
 
-            // Top-left
-            DrawL(handle, new Vector2(vp.Left + margin, vp.Top + margin), len, thick, true, true);
-            // Top-right
-            DrawL(handle, new Vector2(vp.Right - margin, vp.Top + margin), len, thick, false, true);
-            // Bottom-left
-            DrawL(handle, new Vector2(vp.Left + margin, vp.Bottom - margin), len, thick, true, false);
-            // Bottom-right
-            DrawL(handle, new Vector2(vp.Right - margin, vp.Bottom - margin), len, thick, false, false);
+            // Corner brackets
+            DrawCorner(handle, new Vector2(vp.Left + margin, vp.Top + margin), len, thick, true, true);
+            DrawCorner(handle, new Vector2(vp.Right - margin, vp.Top + margin), len, thick, false, true);
+            DrawCorner(handle, new Vector2(vp.Left + margin, vp.Bottom - margin), len, thick, true, false);
+            DrawCorner(handle, new Vector2(vp.Right - margin, vp.Bottom - margin), len, thick, false, false);
         }
     }
 
-    private void DrawL(DrawingHandleScreen handle, Vector2 corner, float len, float thick, bool left, bool top)
+    private void DrawCorner(DrawingHandleScreen handle, Vector2 corner, float len, float thick, bool left, bool top)
     {
         var color = new Color(1f, 1f, 1f, 0.7f);
-        // Horizontal
-        var hA = corner + new Vector2(left ? 0 : -len, 0);
-        var hB = corner;
-        var vA = corner + new Vector2(0, top ? 0 : -len);
-        var vB = corner;
-        handle.DrawLine(hA, hB, color);
-        handle.DrawLine(vA, vB, color);
+        var hEnd = corner + new Vector2(left ? len : -len, 0);
+        var vEnd = corner + new Vector2(0, top ? len : -len);
+        handle.DrawLine(corner, hEnd, color);
+        handle.DrawLine(corner, vEnd, color);
     }
 }

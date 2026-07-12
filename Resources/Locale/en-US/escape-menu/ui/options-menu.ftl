@@ -103,6 +103,10 @@ ui-options-vp-low-res = Low-resolution viewport
 ui-options-parallax-low-quality = Low-quality Parallax (background)
 ui-options-ambient-occlusion = Show Ambient Occlusion
 ui-options-fps-counter = Show FPS counter
+ui-options-bodycam-label = Bodycam
+ui-options-bodycam-enabled = Enable bodycam effect
+ui-options-bodycam-fisheye = Fisheye intensity:
+ui-options-bodycam-grain = Grain intensity:
 ui-options-vp-width = Viewport width:
 ui-options-hud-layout = HUD layout:
 

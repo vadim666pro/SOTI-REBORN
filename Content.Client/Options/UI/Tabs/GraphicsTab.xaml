@@ -1,4 +1,4 @@
-﻿<tabs:GraphicsTab xmlns="https://spacestation14.io"
+<tabs:GraphicsTab xmlns="https://spacestation14.io"
           xmlns:tabs="clr-namespace:Content.Client.Options.UI.Tabs"
           xmlns:ui="clr-namespace:Content.Client.Options.UI">
     <BoxContainer Orientation="Vertical">
@@ -33,6 +33,11 @@
                 <!-- Misc -->
                 <Label Text="{Loc 'ui-options-misc-label'}" StyleClasses="LabelKeyText"/>
                 <CheckBox Name="FpsCounterCheckBox" Text="{Loc 'ui-options-fps-counter'}" />
+
+                <!-- Bodycam -->
+                <Label Text="{Loc 'ui-options-bodycam-label'}" StyleClasses="LabelKeyText"/>
+                <ui:OptionSlider Name="BodycamFisheyeSlider" Title="{Loc 'ui-options-bodycam-fisheye'}" />
+                <ui:OptionSlider Name="BodycamGrainSlider" Title="{Loc 'ui-options-bodycam-grain'}" />
             </BoxContainer>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />

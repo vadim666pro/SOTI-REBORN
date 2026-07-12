@@ -306,3 +306,9 @@ Resources/MapImages
 
 # Direnv stuff
 .direnv/
+
+# MiMoCode
+.mimocode/
+
+# Temporary scripts
+distill_query*.py

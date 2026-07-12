@@ -1,0 +1,127 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Sedan — GTA-style ground vehicle with separated controls
+#
+# W/S = linear only (forward/reverse)
+# A/D = rotation only (steer left/right)
+# Space = handbrake (hold)
+# E = headlights toggle
+#
+# Strap is ON the vehicle entity itself.
+# Player left-clicks → DoAfter → buckle → StrappedEvent.
+# ──────────────────────────────────────────────────────────────────────────────
+
+- type: entity
+  id: VehicleSedan
+  name: sedan
+  description: A four-door sedan. Hop in and drive.
+  placement:
+    mode: SnapgridCenter
+  components:
+  # ── Core vehicle ──────────────────────────────────────────────────────────
+  - type: Vehicle
+    maxSpeed: 16
+    acceleration: 6
+    friction: 1.5
+    deceleration: 3
+    brakeDeceleration: 18
+    stopThreshold: 0.05
+    maxTurnSpeed: 4.5
+    driftGrip: 0.7
+    driftGripBrake: 0.15
+    reverseSpeed: 8
+    reverseAcceleration: 3
+    handbrakeAction: ActionToggleVehicleHandbrake
+    passengerSeatCount: 3
+    enterDelay: 3.0
+
+    # Engine sounds
+    startupSound: /Audio/Vehicle/Sedan/sedanstart.ogg
+    shutoffSound: /Audio/Vehicle/Sedan/sedanshutoff.ogg
+    idleSound: /Audio/Vehicle/Sedan/sedanidle.ogg
+    gazSound: /Audio/Vehicle/Sedan/sedangaz.ogg
+
+  # ── Handbrake ────────────────────────────────────────────────────────────
+  - type: Handbrake
+    engageSound: /Audio/Vehicle/Sedan/sedanstart.ogg
+    releaseSound: /Audio/Vehicle/Sedan/sedanshutoff.ogg
+
+  # ── Headlights (Action System) ───────────────────────────────────────────
+  - type: VehicleHeadlights
+    toggleAction: ActionToggleVehicleHeadlights
+    lightColor: "#ffffe6"
+    lightRadius: 8
+    lightEnergy: 1.0
+    lightSoftness: 1
+    toggleSound: /Audio/Vehicle/Sedan/sedanstart.ogg
+
+  - type: PointLight
+    enabled: false
+    color: "#ffffe6"
+    radius: 8
+    energy: 1.0
+    softness: 1
+    castShadows: false
+
+  # ── Seat (buckle target) ──────────────────────────────────────────────────
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,0.0"
+    size: 500
+    enabled: true
+    buckleOnInteractHand: false
+  - type: VehicleSeat
+    isDriver: true
+    seatIndex: 0
+
+  # ── Input relay target ────────────────────────────────────────────────────
+  - type: InputMover
+
+  # ── Physics ───────────────────────────────────────────────────────────────
+  - type: Physics
+    bodyType: KinematicController
+
+  - type: Fixtures
+    fixtures:
+      vehicleFix:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.7,0.45,0.7"
+        density: 300
+        mask:
+        - MobMask
+        - MobLayer
+        layer:
+        - MobLayer
+
+  # ── Movement tuning ─────────────────────────────────────────────────────
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 16
+    baseSprintSpeed: 16
+    baseAcceleration: 6
+    baseFriction: 1.5
+    minimumFrictionSpeed: 0.05
+
+  # ── Sprite ────────────────────────────────────────────────────────────────
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/Sedan.rsi
+    state: purple
+    noRot: false
+    drawdepth: OverMobs
+  - type: Appearance
+
+  # ── Interaction ───────────────────────────────────────────────────────────
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Pullable
+
+  # ── Damage ────────────────────────────────────────────────────────────────
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

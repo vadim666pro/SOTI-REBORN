@@ -32,8 +32,14 @@ namespace Content.Shared.CCVar;
         CVarDef.Create("hud.version_watermark", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
-    ///     Bodycam post-process toggle
+    ///     Bodycam fisheye intensity (0 = off, 0.05 = default)
     /// </summary>
-    public static readonly CVarDef<bool> HudBodycamEnabled =
-        CVarDef.Create("hud.bodycam_enabled", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+    public static readonly CVarDef<float> HudBodycamFisheye =
+        CVarDef.Create("bodycam.fisheye_intensity", 0.05f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    ///     Bodycam grain intensity (0 = off, 0.3 = default)
+    /// </summary>
+    public static readonly CVarDef<float> HudBodycamGrain =
+        CVarDef.Create("bodycam.grain_intensity", 0.3f, CVar.CLIENTONLY | CVar.ARCHIVE);
     }

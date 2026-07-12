@@ -1,153 +1,82 @@
-- type: entity
-  name: tec-9
-  parent: [BaseWeaponPistol, BaseSecurityContraband]
-  id: WeaponPistolTec9
-  description: pidor.
-  components:
-  - type: Sprite
-    sprite: Objects/counterstrike/Weapons/SecondaryT/tec9.rsi
-    layers:
-    - state: base
-      map: ["enum.GunVisualLayers.Base"]
-    - state: mag-0
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: Clothing
-    sprite: Objects/counterstrike/Weapons/SecondaryT/tec9.rsi
-  - type: Item
-    storedOffset: 0,-2
-  - type: Gun
-    fireRate: 6
-    minAngle: 4
-    maxAngle: 60
-    angleIncrease: 8
-    angleDecay: 30
-    selectedMode: SemiAuto
-    availableModes:
-      - SemiAuto
-    soundGunshot:
-      path: /Audio/Weapons/counterstrike/guns/fiveseven.ogg
-  - type: ItemSlots
-    slots:
-      gun_magazine:
-        name: Magazine
-        startingItem: MagazineCSPistolHighCapacity
-        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
-        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
-        priority: 2
-        whitelist:
-          tags:
-            - MagazinePistolHighCapacity
-        whitelistFailPopup: gun-magazine-whitelist-fail
-      gun_chamber:
-        name: Chamber
-        startingItem: CartridgeCSSPistolHighCapacity
-        priority: 1
-        whitelist:
-          tags:
-            - CartridgePistol
-  - type: ContainerContainer
-    containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
-  - type: StaticPrice
-    price: 1000
+# T Pistols
 
 - type: entity
-  name: glock-19
-  parent: [BaseWeaponPistol, BaseSecurityContraband]
-  id: WeaponPistolGlock
-  description: glock.
+  name: Tec-9
+  parent: [BaseWeaponPistol, BaseSecurityContraband, BasePistolCS]
+  id: WeaponPistolTec9
+  description: T automatic pistol.
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/Weapons/SecondaryT/glock.rsi
+    sprite: Objects/counterstrike/Weapons/SecondaryT/tec9.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
-  - type: Clothing
-    sprite: Objects/counterstrike/Weapons/SecondaryT/glock.rsi
-  - type: Item
-    storedOffset: 0,-2
   - type: Gun
-    fireRate: 5
-    minAngle: 5
-    maxAngle: 60
-    angleIncrease: 8
-    angleDecay: 30
-    selectedMode: SemiAuto
-    availableModes:
-      - SemiAuto
-    soundGunshot:
-      path: /Audio/Weapons/counterstrike/guns/fiveseven.ogg
+    fireRate: 8
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/SecondaryT/tec9.rsi
+  - type: ChamberMagazineAmmoProvider
+    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineCSPistol
-        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
-        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        startingItem: MagazineCSTec9
+        insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+        ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist:
-          tags:
-            - MagazinePistol
+        whitelist: { tags: [ MagazinePistolHighCapacity ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
-        startingItem: CartridgeCSSPistol
+        startingItem: CartridgeCSTec9
         priority: 1
-        whitelist:
-          tags:
-            - CartridgePistol
+        whitelist: { tags: [ CartridgePistol ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-  - type: StaticPrice
-    price: 1000
 
 - type: entity
   name: Deagle
-  parent: [BaseWeaponPistol, BaseSecurityContraband]
+  parent: [BaseWeaponPistol, BaseSecurityContraband, BasePistolCS]
   id: WeaponPistolDeagle
-  description: The best gun in game - PRO
+  description: High damage magnum pistol.
   components:
   - type: Sprite
     sprite: Objects/counterstrike/Weapons/SecondaryT/Deagle.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 3
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/ak.ogg }
   - type: Clothing
     sprite: Objects/counterstrike/Weapons/SecondaryT/Deagle.rsi
-  - type: Gun
-    minAngle: 5
-    maxAngle: 120
-    angleIncrease: 8
-    angleDecay: 40
-    fireRate: 4
-    availableModes:
-    - SemiAuto
-    soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/mk58.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
         startingItem: MagazineCSDeagle
-        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
-        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+        ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist:
-          tags:
-            - MagazineMagnum
+        whitelist: { tags: [ MagazineMagnum ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSDeagle
         priority: 1
-        whitelist:
-          tags:
-            - CartridgeMagnum
+        whitelist: { tags: [ CartridgeMagnum ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
