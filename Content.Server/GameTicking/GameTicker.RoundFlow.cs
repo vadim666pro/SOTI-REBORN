@@ -12,6 +12,7 @@ using Content.Shared.Mind;
 using Content.Shared.Players;
 using Content.Shared.Preferences;
 using Content.Shared.Roles.Components;
+using Content.Shared.Voting;
 using JetBrains.Annotations;
 using Prometheus;
 using Robust.Shared.Asynchronous;
@@ -672,7 +673,12 @@ namespace Content.Server.GameTicking
                 if (_playerManager.PlayerCount == 0)
                     _roundStartCountdownHasNotStartedYetDueToNoPlayers = true;
                 else
+                {
                     _roundStartTime = _gameTiming.CurTime + LobbyDuration;
+                    // Schedule map vote 5 seconds after lobby starts
+                    _mapVoteStartTime = _gameTiming.CurTime + TimeSpan.FromSeconds(5);
+                    _mapVoteTriggered = false;
+                }
 
                 SendStatusToAll();
                 UpdateInfoText();
@@ -739,7 +745,7 @@ namespace Content.Server.GameTicking
             _playerGameStatuses.Clear();
             foreach (var session in _playerManager.Sessions)
             {
-                _playerGameStatuses[session.UserId] = LobbyEnabled ? PlayerGameStatus.NotReadyToPlay : PlayerGameStatus.ReadyToPlay;
+                _playerGameStatuses[session.UserId] = PlayerGameStatus.ReadyToPlay;
             }
         }
 
@@ -764,6 +770,16 @@ namespace Content.Server.GameTicking
             if (RunLevel == GameRunLevel.InRound)
             {
                 RoundLengthMetric.Inc(frameTime);
+            }
+
+            // Trigger map vote 5 seconds after lobby starts
+            if (RunLevel == GameRunLevel.PreRoundLobby
+                && !_mapVoteTriggered
+                && _mapVoteStartTime != TimeSpan.Zero
+                && _gameTiming.CurTime >= _mapVoteStartTime)
+            {
+                _mapVoteTriggered = true;
+                _voteManager.CreateStandardVote(null, StandardVoteType.Map);
             }
 
             if (_roundStartTime == TimeSpan.Zero ||

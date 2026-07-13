@@ -1,5 +1,5 @@
 - type: gameMap
-  id: babatapaTanker
+  id: de_babatapaTanker
   mapName: 'babatapa_tanker'
   mapPath: /Maps/babatapaTanker.yml
   minPlayers: 0

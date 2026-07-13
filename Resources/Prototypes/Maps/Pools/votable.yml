@@ -1,0 +1,10 @@
+- type: gameMapPool
+  id: VotableMapPool
+  maps:
+  - de_dustdva
+  - de_italy
+  - de_mirage
+  - de_thera
+  - de_seaside
+  - de_train
+  - de_babatapaTanker

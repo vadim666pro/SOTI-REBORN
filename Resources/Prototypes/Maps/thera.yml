@@ -1,5 +1,5 @@
 - type: gameMap
-  id: deThera
+  id: de_thera
   mapName: 'de_thera'
   mapPath: /Maps/Thera.yml
   minPlayers: 0

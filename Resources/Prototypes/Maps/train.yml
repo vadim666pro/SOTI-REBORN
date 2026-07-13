@@ -1,5 +1,5 @@
 - type: gameMap
-  id: deTrain
+  id: de_train
   mapName: 'de_train'
   mapPath: /Maps/train.yml
   minPlayers: 0

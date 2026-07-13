@@ -43,8 +43,7 @@ namespace Content.Server.GameTicking
                 {
                     if (status == PlayerGameStatus.JoinedGame)
                         continue;
-                    _playerGameStatuses[userId] =
-                        LobbyEnabled ? PlayerGameStatus.NotReadyToPlay : PlayerGameStatus.ReadyToPlay;
+                    _playerGameStatuses[userId] = PlayerGameStatus.ReadyToPlay;
                 }
             }, true);
             Subs.CVar(_cfg, CCVars.GameDummyTicker, value => DummyTicker = value, true);

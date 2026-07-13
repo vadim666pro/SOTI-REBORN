@@ -1,5 +1,5 @@
 - type: gameMap
-  id: deItaly
+  id: de_italy
   mapName: 'de_Italy'
   mapPath: /Maps/Italy.yml
   minPlayers: 0

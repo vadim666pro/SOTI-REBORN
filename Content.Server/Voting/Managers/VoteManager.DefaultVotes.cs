@@ -263,7 +263,10 @@ namespace Content.Server.Voting.Managers
 
         private void CreateMapVote(ICommonSession? initiator)
         {
-            var maps = _gameMapManager.CurrentlyEligibleMaps().ToDictionary(map => map, map => map.MapName);
+            // Get all eligible maps and randomly pick 5 for the vote
+            var allMaps = _gameMapManager.CurrentlyEligibleMaps().ToList();
+            var shuffled = allMaps.OrderBy(_ => _random.Next()).ToList();
+            var mapsToVote = shuffled.Take(5).ToDictionary(map => map, map => map.MapName);
 
             var alone = _playerManager.PlayerCount == 1 && initiator != null;
             var options = new VoteOptions
@@ -277,7 +280,7 @@ namespace Content.Server.Voting.Managers
             if (alone)
                 options.InitiatorTimeout = TimeSpan.FromSeconds(10);
 
-            foreach (var (k, v) in maps)
+            foreach (var (k, v) in mapsToVote)
             {
                 options.Options.Add((v, k));
             }
@@ -293,23 +296,29 @@ namespace Content.Server.Voting.Managers
                 {
                     picked = (GameMapPrototype) _random.Pick(args.Winners);
                     _chatManager.DispatchServerAnnouncement(
-                        Loc.GetString("ui-vote-map-tie", ("picked", maps[picked])));
+                        Loc.GetString("ui-vote-map-tie", ("picked", mapsToVote[picked])));
                 }
                 else
                 {
                     picked = (GameMapPrototype) args.Winner;
                     _chatManager.DispatchServerAnnouncement(
-                        Loc.GetString("ui-vote-map-win", ("winner", maps[picked])));
+                        Loc.GetString("ui-vote-map-win", ("winner", mapsToVote[picked])));
                 }
 
                 _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"Map vote finished: {picked.MapName}");
+
+                // Set the map directly and via CVar
+                _gameMapManager.SelectMap(picked.ID);
+                _cfg.SetCVar(CCVars.GameMap, picked.ID);
+
+                // Announce selected map
+                _chatManager.DispatchServerAnnouncement(
+                    $"Выбрана карта: {picked.MapName}");
+
                 var ticker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
                 if (ticker.CanUpdateMap())
                 {
-                    if (_gameMapManager.TrySelectMapIfEligible(picked.ID))
-                    {
-                        ticker.UpdateInfoText();
-                    }
+                    ticker.UpdateInfoText();
                 }
                 else
                 {
