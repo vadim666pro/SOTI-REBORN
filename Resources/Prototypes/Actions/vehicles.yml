@@ -1,0 +1,27 @@
+# Vehicle actions
+
+- type: entity
+  parent: BaseToggleAction
+  id: ActionToggleVehicleHeadlights
+  name: Toggle Headlights
+  description: Turn the vehicle headlights on and off.
+  components:
+  - type: Action
+    useDelay: 1
+    icon: Interface/Actions/light.svg.192dpi.png
+    iconOn: Interface/Actions/light.svg.192dpi.png
+  - type: InstantAction
+    event: !type:ToggleActionEvent
+
+- type: entity
+  parent: BaseToggleAction
+  id: ActionToggleVehicleHandbrake
+  name: Handbrake
+  description: Engage the handbrake for sharp braking and drift.
+  components:
+  - type: Action
+    useDelay: 1
+    icon: Interface/Actions/handbrake.svg.192dpi.png
+    iconOn: Interface/Actions/handbrake.svg.192dpi.png
+  - type: InstantAction
+    event: !type:ToggleActionEvent

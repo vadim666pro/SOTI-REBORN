@@ -1,0 +1,77 @@
+# Base half-block - blocks movement but NOT hitscan/bullets
+# Collision layer avoids Impassable, HighImpassable, BulletImpassable so raycasts pass through
+# Only MidImpassable + LowImpassable = blocks player movement (MobMask includes these)
+
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: BaseHalfBlock
+  name: half block
+  description: A low wall that you can see and shoot over.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: HitscanPassthrough
+  - type: Sprite
+    drawdepth: Walls
+  - type: Icon
+    state: full
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.00,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - HalfWallLayer
+        density: 1000
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Tag
+    tags:
+    - Wall
+  - type: StaticPrice
+    price: 50
+
+# Sandstone half-block
+- type: entity
+  parent: BaseHalfBlock
+  id: HalfBlockSandstone
+  name: sandstone half block
+  description: A low sandstone wall. You can see and shoot over it.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/sandstone_halfblocks.rsi
+    state: sandstone
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/Walls/sandstone_halfblocks.rsi
+    state: icon
+
+# Sandstone cobblebrick half-block
+- type: entity
+  parent: BaseHalfBlock
+  id: HalfBlockSandstoneCobblebrick
+  name: sandstone cobblebrick half block
+  description: A low cobblebrick wall. You can see and shoot over it.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/sandstone_halfblocks.rsi
+    state: sandstone_cobblebrick
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/Walls/sandstone_halfblocks.rsi
+    state: icon1

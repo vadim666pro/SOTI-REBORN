@@ -16,6 +16,7 @@ using Content.Shared.Database;
 using Content.Shared.Destructible;
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
+using Content.Shared.Tag;
 using Content.Shared.Trigger.Systems;
 using JetBrains.Annotations;
 using Robust.Server.Audio;
@@ -43,6 +44,7 @@ namespace Content.Server.Destructible
         [Dependency] public readonly SharedContainerSystem ContainerSystem = default!;
         [Dependency] public readonly IPrototypeManager PrototypeManager = default!;
         [Dependency] public readonly IAdminLogManager _adminLogger = default!;
+        [Dependency] private readonly TagSystem _tag = default!;
 
         public override void Initialize()
         {
@@ -55,6 +57,9 @@ namespace Content.Server.Destructible
         /// </summary>
         public void Execute(EntityUid uid, DestructibleComponent component, DamageChangedEvent args)
         {
+            if (component.Immortal || _tag.HasTag(uid, "Wall"))
+                return;
+
             component.IsBroken = false;
 
             foreach (var threshold in component.Thresholds)
@@ -130,6 +135,9 @@ namespace Content.Server.Destructible
         public FixedPoint2 DestroyedAt(EntityUid uid, DestructibleComponent? destructible = null)
         {
             if (!Resolve(uid, ref destructible, logMissing: false))
+                return FixedPoint2.MaxValue;
+
+            if (destructible.Immortal || _tag.HasTag(uid, "Wall"))
                 return FixedPoint2.MaxValue;
 
             // We have nested for loops here, but the vast majority of components only have one threshold with 1-3 behaviors.

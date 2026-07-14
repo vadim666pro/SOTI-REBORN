@@ -119,11 +119,20 @@
   kind: source
   path: "/Textures/Shaders/purple_tint.swsl"
 
-# Bodycam post-process shader
+# Bodycam post-process shader — fisheye, glitch, red damage distortion
 - type: shader
   id: Bodycam
   kind: source
   path: "/Textures/Shaders/bodycam.swsl"
+  params:
+    fisheyeStrength: 0.10
+    grainStrength: 0.1
+    edgeBlurStrength: 0.08
+    cornerRadius: 0.08
+    cornerFeather: 0.04
+    damageLevel: 0.0
+    damageFlash: 0.0
+    glitchIntensity: 0.0
 
 # Desert mirage heat haze post-process shader
 - type: shader

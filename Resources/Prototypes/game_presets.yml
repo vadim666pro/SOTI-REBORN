@@ -3,6 +3,7 @@
   name: Default Round
   showInVote: true
   description: secret-description
+  supportedMaps: VotableMapPool
   rules:
   - BasicRoundstartVariation
 

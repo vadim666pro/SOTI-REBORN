@@ -203,7 +203,8 @@ namespace Content.Server.GameTicking
 
         private void PlayerJoinLobby(ICommonSession session)
         {
-            _playerGameStatuses[session.UserId] = LobbyEnabled ? PlayerGameStatus.NotReadyToPlay : PlayerGameStatus.ReadyToPlay;
+            // Auto-ready: players are always ready to play
+            _playerGameStatuses[session.UserId] = PlayerGameStatus.ReadyToPlay;
             _db.AddRoundPlayers(RoundId, session.UserId);
 
             var client = session.Channel;

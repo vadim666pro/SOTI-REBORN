@@ -1,116 +1,92 @@
-- type: entity
-  name: USP-S
-  parent: [BaseWeaponPistol, BaseSecurityContraband]
-  id: WeaponPistolUSP
-  description: usp-s
-  components:
-  - type: Sprite
-    sprite: Objects/counterstrike/Weapons/SecondaryCT/usp.rsi
-    layers:
-    - state: base
-      map: ["enum.GunVisualLayers.Base"]
-    - state: mag-0
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: Clothing
-    sprite: Objects/counterstrike/Weapons/SecondaryCT/usp.rsi
-  - type: Item
-    storedOffset: 0,-2
-  - type: Gun
-    fireRate: 5
-    minAngle: 3
-    maxAngle: 60
-    angleIncrease: 5
-    angleDecay: 30
-    selectedMode: SemiAuto
-    availableModes:
-      - SemiAuto
-    soundGunshot:
-      path: /Audio/Weapons/counterstrike/guns/m4s.ogg
-  - type: ItemSlots
-    slots:
-      gun_magazine:
-        name: Magazine
-        startingItem: MagazineCSPistol
-        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
-        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
-        priority: 2
-        whitelist:
-          tags:
-            - MagazinePistol
-        whitelistFailPopup: gun-magazine-whitelist-fail
-      gun_chamber:
-        name: Chamber
-        startingItem: CartridgeCSSPistol
-        priority: 1
-        whitelist:
-          tags:
-            - CartridgePistol
-  - type: ContainerContainer
-    containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
-  - type: StaticPrice
-    price: 1000
+# CT Pistols
 
 - type: entity
-  name: FiveSeven
-  parent: [BaseWeaponPistol, BaseSecurityContraband]
-  id: WeaponPistolFiveseven
-  description: fiveseven.
+  name: USP-S
+  parent: [BaseWeaponPistol, BaseSecurityContraband, BasePistolCS]
+  id: WeaponPistolUSP
+  description: CT starting pistol.
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/Weapons/SecondaryCT/fiveseven.rsi
+    sprite: Objects/counterstrike/Weapons/SecondaryCT/usp.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
-  - type: Clothing
-    sprite: Objects/counterstrike/Weapons/SecondaryCT/fiveseven.rsi
-  - type: Item
-    storedOffset: 0,-2
   - type: Gun
-    fireRate: 7
-    minAngle: 3
-    maxAngle: 60
-    angleIncrease: 5
-    angleDecay: 30
-    selectedMode: SemiAuto
-    availableModes:
-      - SemiAuto
-    soundGunshot:
-      path: /Audio/Weapons/counterstrike/guns/fiveseven.ogg
+    fireRate: 5
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/SecondaryCT/usp.rsi
+  - type: ChamberMagazineAmmoProvider
+    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineCSPistolHighCapacity
-        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
-        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        startingItem: MagazineCSUSP
+        insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+        ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist:
-          tags:
-            - MagazinePistolHighCapacity
+        whitelist: { tags: [ MagazinePistol ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
-        startingItem: CartridgeCSSPistolHighCapacity
+        startingItem: CartridgeCSUSP
         priority: 1
-        whitelist:
-          tags:
-            - CartridgePistol
+        whitelist: { tags: [ CartridgePistol ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
-  - type: StaticPrice
-    price: 1000
+
+- type: entity
+  name: Glock-18
+  parent: [BaseWeaponPistol, BaseSecurityContraband, BasePistolCS]
+  id: WeaponPistolGlock
+  description: T starting pistol.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/SecondaryT/glock.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 6
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/SecondaryT/glock.rsi
+  - type: ChamberMagazineAmmoProvider
+    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineCSGlock
+        insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+        ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
+        priority: 2
+        whitelist: { tags: [ MagazinePistol ] }
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeCSGlock
+        priority: 1
+        whitelist: { tags: [ CartridgePistol ] }
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
 
 - type: entity
   name: Beretta
-  parent: [BaseWeaponPistol, BaseSecurityContraband]
+  parent: [BaseWeaponPistol, BaseSecurityContraband, BasePistolCS]
   id: WeaponPistolBeretta
-  description: beretta.
+  description: CT pistol.
   components:
   - type: Sprite
     sprite: Objects/counterstrike/Weapons/SecondaryCT/beretta.rsi
@@ -119,40 +95,68 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 5
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
   - type: Clothing
     sprite: Objects/counterstrike/Weapons/SecondaryCT/beretta.rsi
-  - type: Item
-    storedOffset: 0,-2
-  - type: Gun
-    fireRate: 4
-    minAngle: 4
-    maxAngle: 40
-    angleIncrease: 8
-    angleDecay: 16
-    selectedMode: SemiAuto
-    availableModes:
-      - SemiAuto
-    soundGunshot:
-      path: /Audio/Weapons/counterstrike/guns/fiveseven.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineCSPistol
-        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
-        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        startingItem: MagazineCSBeretta
+        insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+        ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist:
-          tags:
-            - MagazinePistol
+        whitelist: { tags: [ MagazinePistol ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
-        startingItem: CartridgeCSSPistol
+        startingItem: CartridgeCSBeretta
         priority: 1
-        whitelist:
-          tags:
-            - CartridgePistol
+        whitelist: { tags: [ CartridgePistol ] }
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+
+- type: entity
+  name: FiveSeven
+  parent: [BaseWeaponPistol, BaseSecurityContraband, BasePistolCS]
+  id: WeaponPistolFiveSeven
+  description: CT pistol with high capacity.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/SecondaryCT/fiveseven.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 5
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/SecondaryCT/fiveseven.rsi
+  - type: ChamberMagazineAmmoProvider
+    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineCSFiveSeven
+        insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+        ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
+        priority: 2
+        whitelist: { tags: [ MagazinePistolHighCapacity ] }
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeCSFiveSeven
+        priority: 1
+        whitelist: { tags: [ CartridgePistol ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

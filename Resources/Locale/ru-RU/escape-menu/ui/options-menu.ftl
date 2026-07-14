@@ -101,6 +101,10 @@ ui-options-vp-low-res = Изображение низкого разрешени
 ui-options-parallax-low-quality = Низкокачественный параллакс (фон)
 ui-options-ambient-occlusion = Отображать окружающее затенение
 ui-options-fps-counter = Показать счётчик FPS
+ui-options-bodycam-label = Бодикамера
+ui-options-bodycam-enabled = Включить эффект бодикамеры
+ui-options-bodycam-fisheye = Интенсивность рыбьего глаза:
+ui-options-bodycam-grain = Интенсивность зернистости:
 ui-options-vp-width = Ширина окна игры:
 ui-options-hud-layout = Тип HUD:
 

@@ -1,5 +1,5 @@
 - type: gameMap
-  id: dedustdva
+  id: de_dusttwo
   mapName: 'de_dust'
   mapPath: /Maps/dusttwo.yml
   minPlayers: 0

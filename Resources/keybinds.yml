@@ -1,4 +1,4 @@
-﻿version: 1 # Not used right now, whatever.
+version: 1 # Not used right now, whatever.
 binds:
 - function: UIClick
   type: State
@@ -64,6 +64,9 @@ binds:
   type: State
   key: E
 - function: ShuttleBrake
+  type: State
+  key: Space
+- function: VehicleHandbrake
   type: State
   key: Space
 # Camera

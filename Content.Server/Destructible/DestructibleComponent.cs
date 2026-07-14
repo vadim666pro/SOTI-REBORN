@@ -21,5 +21,12 @@ namespace Content.Server.Destructible
         /// </summary>
         [DataField]
         public bool IsBroken = false;
+
+        /// <summary>
+        /// If true, this entity ignores all destructible thresholds entirely.
+        /// Used for CS maps to prevent players from destroying walls.
+        /// </summary>
+        [DataField]
+        public bool Immortal = false;
     }
 }

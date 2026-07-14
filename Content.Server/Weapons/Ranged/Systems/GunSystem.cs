@@ -401,21 +401,7 @@ public sealed partial class GunSystem : SharedGunSystem
             // Fire visual effects to the final hit point
             FireHitscanEffects(fromEffect, totalDistance, angle, hitscanUid);
 
-            // Apply damage to the final hit target
-            if (finalHit != null && TryComp<HitscanBasicDamageComponent>(hitscanUid, out var damageComp2))
-            {
-                var dmg = damageComp2.Damage;
-                if (dmg != null && dmg.AnyPositive())
-                {
-                    Damageable.TryChangeDamage(finalHit, dmg, origin: user);
-
-                    if (user != null)
-                    {
-                        Logs.Add(LogType.HitScanHit,
-                            $"{ToPrettyString(user.Value):user} hit {ToPrettyString(finalHit):target} using hitscan and dealt {dmg.GetTotal():damage} damage");
-                    }
-                }
-            }
+            // Damage is applied by HitscanBasicDamageSystem via HitscanRaycastFiredEvent
 
             // Apply stamina damage to final target
             if (finalHit != null && TryComp<HitscanStaminaDamageComponent>(hitscanUid, out var staminaComp))

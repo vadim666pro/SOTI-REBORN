@@ -31,6 +31,15 @@ namespace Content.Server.GameTicking
         private bool _roundStartCountdownHasNotStartedYetDueToNoPlayers;
 
         /// <summary>
+        /// When to start the map vote (5 seconds after lobby starts).
+        /// </summary>
+        [ViewVariables]
+        private TimeSpan _mapVoteStartTime;
+
+        [ViewVariables]
+        private bool _mapVoteTriggered;
+
+        /// <summary>
         /// The game status of a players user Id. May contain disconnected players
         /// </summary>
         public IReadOnlyDictionary<NetUserId, PlayerGameStatus> PlayerGameStatuses => _playerGameStatuses;

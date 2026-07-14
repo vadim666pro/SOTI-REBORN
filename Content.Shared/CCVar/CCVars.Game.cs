@@ -18,10 +18,10 @@ public sealed partial class CCVars
         GameLobbyEnabled = CVarDef.Create("game.lobbyenabled", true, CVar.ARCHIVE);
 
     /// <summary>
-    ///     Controls the duration of the lobby timer in seconds. Defaults to 2 minutes and 30 seconds.
+    ///     Controls the duration of the lobby timer in seconds. Defaults to 40 seconds.
     /// </summary>
     public static readonly CVarDef<int>
-        GameLobbyDuration = CVarDef.Create("game.lobbyduration", 150, CVar.ARCHIVE);
+        GameLobbyDuration = CVarDef.Create("game.lobbyduration", 45, CVar.ARCHIVE);
 
     /// <summary>
     ///     Controls if players can latejoin at all.
@@ -88,7 +88,7 @@ public sealed partial class CCVars
     ///     Prototype to use for map pool.
     /// </summary>
     public static readonly CVarDef<string>
-        GameMapPool = CVarDef.Create("game.map_pool", "DefaultMapPool", CVar.SERVERONLY);
+        GameMapPool = CVarDef.Create("game.map_pool", "VotableMapPool", CVar.SERVERONLY);
 
     /// <summary>
     ///     The depth of the queue used to calculate which map is next in rotation.

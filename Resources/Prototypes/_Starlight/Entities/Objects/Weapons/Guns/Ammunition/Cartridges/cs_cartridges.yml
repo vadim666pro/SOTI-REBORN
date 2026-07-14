@@ -1,234 +1,461 @@
-# CS Hitscan Cartridges
+# CS Per-Weapon Cartridges
 
-# Pistol cartridges (USP, Glock, Tec-9, FiveSeven, Beretta)
+# ══════════════════════════════════════════════════════════════════════════════
+# PISTOL CARTRIDGES
+# ══════════════════════════════════════════════════════════════════════════════
+
 - type: entity
   parent: [BaseCartridge, BaseSecurityContraband]
-  id: CartridgeCSSPistol
-  name: cartridge (cs pistol)
+  id: CartridgeCSUSP
+  name: cartridge (usp)
   components:
   - type: Tag
-    tags:
-      - CartridgePistol
+    tags: [ CartridgePistol ]
   - type: CartridgeAmmo
-    proto: BulletCSSPistol
+    proto: BulletCSUSP
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
-    layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
   - type: Appearance
   - type: SpentAmmoVisuals
 
-# High capacity pistol cartridge (Tec-9, FiveSeven)
 - type: entity
-  parent: CartridgeCSSPistol
-  id: CartridgeCSSPistolHighCapacity
-  name: cartridge (cs pistol high capacity)
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSGlock
+  name: cartridge (glock)
   components:
+  - type: Tag
+    tags: [ CartridgePistol ]
   - type: CartridgeAmmo
-    proto: BulletCSSPistol
+    proto: BulletCSGlock
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
 
-# Deagle cartridge (high damage)
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSBeretta
+  name: cartridge (beretta)
+  components:
+  - type: Tag
+    tags: [ CartridgePistol ]
+  - type: CartridgeAmmo
+    proto: BulletCSBeretta
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSFiveSeven
+  name: cartridge (fiveseven)
+  components:
+  - type: Tag
+    tags: [ CartridgePistol ]
+  - type: CartridgeAmmo
+    proto: BulletCSFiveSeven
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSTec9
+  name: cartridge (tec9)
+  components:
+  - type: Tag
+    tags: [ CartridgePistol ]
+  - type: CartridgeAmmo
+    proto: BulletCSTec9
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+# ══════════════════════════════════════════════════════════════════════════════
+# MAGNUM CARTRIDGES
+# ══════════════════════════════════════════════════════════════════════════════
+
 - type: entity
   parent: [BaseCartridge, BaseSecurityContraband]
   id: CartridgeCSDeagle
-  name: cartridge (cs deagle)
+  name: cartridge (deagle)
   components:
   - type: Tag
-    tags:
-      - CartridgeMagnum
+    tags: [ CartridgeMagnum ]
   - type: CartridgeAmmo
     proto: BulletCSDeagle
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
-    layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
   - type: Appearance
   - type: SpentAmmoVisuals
 
-# Light rifle cartridges (AK-47, M4, SG553, AUG)
 - type: entity
   parent: [BaseCartridge, BaseSecurityContraband]
-  id: CartridgeCSLightRifle
-  name: cartridge (cs light rifle)
+  id: CartridgeCSNagan
+  name: cartridge (nagan)
   components:
   - type: Tag
-    tags:
-      - CartridgeLightRifle
+    tags: [ CartridgeMagnum ]
   - type: CartridgeAmmo
-    proto: BulletCSRifle
+    proto: BulletCSNagan
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
-    layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
   - type: Appearance
   - type: SpentAmmoVisuals
 
-# Rifle cartridges (M4, P90)
+# ══════════════════════════════════════════════════════════════════════════════
+# RIFLE CARTRIDGES
+# ══════════════════════════════════════════════════════════════════════════════
+
 - type: entity
   parent: [BaseCartridge, BaseSecurityContraband]
-  id: CartridgeCSRifle
-  name: cartridge (cs rifle)
+  id: CartridgeCSAK47
+  name: cartridge (ak47)
   components:
   - type: Tag
-    tags:
-      - CartridgeRifle
+    tags: [ CartridgeLightRifle ]
   - type: CartridgeAmmo
-    proto: BulletCSRifle
+    proto: BulletCSAK47
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
-    layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
   - type: Appearance
   - type: SpentAmmoVisuals
 
-# SMG cartridges (MAC-10, MP9, UMP45)
 - type: entity
   parent: [BaseCartridge, BaseSecurityContraband]
-  id: CartridgeCSSMG
-  name: cartridge (cs smg)
+  id: CartridgeCSM4
+  name: cartridge (m4)
   components:
   - type: Tag
-    tags:
-      - CartridgePistol
+    tags: [ CartridgeRifle ]
   - type: CartridgeAmmo
-    proto: BulletCSSMG
+    proto: BulletCSM4
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
-    layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
   - type: Appearance
   - type: SpentAmmoVisuals
 
-# Shotgun shell (Nova)
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSAUG
+  name: cartridge (aug)
+  components:
+  - type: Tag
+    tags: [ CartridgeLightRifle ]
+  - type: CartridgeAmmo
+    proto: BulletCSAUG
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSSG553
+  name: cartridge (sg553)
+  components:
+  - type: Tag
+    tags: [ CartridgeLightRifle ]
+  - type: CartridgeAmmo
+    proto: BulletCSSG553
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SMG CARTRIDGES
+# ══════════════════════════════════════════════════════════════════════════════
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSMAC10
+  name: cartridge (mac10)
+  components:
+  - type: Tag
+    tags: [ CartridgePistol ]
+  - type: CartridgeAmmo
+    proto: BulletCSMAC10
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSMP9
+  name: cartridge (mp9)
+  components:
+  - type: Tag
+    tags: [ CartridgePistol ]
+  - type: CartridgeAmmo
+    proto: BulletCSMP9
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSUMP
+  name: cartridge (ump)
+  components:
+  - type: Tag
+    tags: [ CartridgePistol ]
+  - type: CartridgeAmmo
+    proto: BulletCSUMP
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSP90
+  name: cartridge (p90)
+  components:
+  - type: Tag
+    tags: [ CartridgeRifle ]
+  - type: CartridgeAmmo
+    proto: BulletCSP90
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SHOTGUN SHELLS
+# ══════════════════════════════════════════════════════════════════════════════
+
 - type: entity
   parent: [BaseShellShotgun, BaseSecurityContraband]
   id: ShellCSShotgun
   name: shell (cs shotgun)
   components:
   - type: Tag
-    tags:
-      - ShellShotgun
+    tags: [ ShellShotgun ]
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
-    layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
   - type: CartridgeAmmo
     proto: PelletCSShotgunSpread
   - type: SpentAmmoVisuals
     state: "base"
 
-# Magazine definitions for CS weapons
+# ══════════════════════════════════════════════════════════════════════════════
+# MAGAZINES
+# ══════════════════════════════════════════════════════════════════════════════
 
-# Pistol magazine (USP, Glock, Beretta)
+# USP magazine
 - type: entity
   parent: BaseMagazinePistol
-  id: MagazineCSPistol
-  name: magazine (cs pistol)
+  id: MagazineCSUSP
+  name: magazine (usp)
   components:
   - type: Tag
-    tags:
-      - MagazinePistol
+    tags: [ MagazinePistol ]
   - type: BallisticAmmoProvider
-    whitelist:
-      tags:
-        - CartridgePistol
+    whitelist: { tags: [ CartridgePistol ] }
     capacity: 12
-    proto: CartridgeCSSPistol
-    soundInsert:
-      path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+    proto: CartridgeCSUSP
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
 
-# High capacity pistol magazine (Tec-9, FiveSeven)
+# Glock magazine
+- type: entity
+  parent: BaseMagazinePistol
+  id: MagazineCSGlock
+  name: magazine (glock)
+  components:
+  - type: Tag
+    tags: [ MagazinePistol ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgePistol ] }
+    capacity: 20
+    proto: CartridgeCSGlock
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# Beretta magazine
+- type: entity
+  parent: BaseMagazinePistol
+  id: MagazineCSBeretta
+  name: magazine (beretta)
+  components:
+  - type: Tag
+    tags: [ MagazinePistol ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgePistol ] }
+    capacity: 15
+    proto: CartridgeCSBeretta
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# FiveSeven magazine
 - type: entity
   parent: BaseMagazinePistolHighCapacity
-  id: MagazineCSPistolHighCapacity
-  name: magazine (cs pistol high capacity)
+  id: MagazineCSFiveSeven
+  name: magazine (fiveseven)
   components:
   - type: Tag
-    tags:
-      - MagazinePistolHighCapacity
+    tags: [ MagazinePistolHighCapacity ]
   - type: BallisticAmmoProvider
-    whitelist:
-      tags:
-        - CartridgePistol
+    whitelist: { tags: [ CartridgePistol ] }
     capacity: 20
-    proto: CartridgeCSSPistolHighCapacity
-    soundInsert:
-      path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+    proto: CartridgeCSFiveSeven
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
 
-# Magnum magazine (Deagle)
+# Tec9 magazine
+- type: entity
+  parent: BaseMagazinePistolHighCapacity
+  id: MagazineCSTec9
+  name: magazine (tec9)
+  components:
+  - type: Tag
+    tags: [ MagazinePistolHighCapacity ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgePistol ] }
+    capacity: 30
+    proto: CartridgeCSTec9
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# Deagle magazine
 - type: entity
   parent: BaseMagazineMagnum
   id: MagazineCSDeagle
-  name: magazine (cs deagle)
+  name: magazine (deagle)
   components:
   - type: Tag
-    tags:
-      - MagazineMagnum
+    tags: [ MagazineMagnum ]
   - type: BallisticAmmoProvider
-    whitelist:
-      tags:
-        - CartridgeMagnum
+    whitelist: { tags: [ CartridgeMagnum ] }
     capacity: 7
     proto: CartridgeCSDeagle
-    soundInsert:
-      path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
 
-# Light rifle magazine (AK-47, SG553, AUG)
+# AK47 magazine
 - type: entity
   parent: BaseMagazineLightRifle
-  id: MagazineCSLightRifle
-  name: magazine (cs light rifle)
+  id: MagazineCSAK47
+  name: magazine (ak47)
   components:
   - type: Tag
-    tags:
-      - MagazineLightRifle
+    tags: [ MagazineLightRifle ]
   - type: BallisticAmmoProvider
-    whitelist:
-      tags:
-        - CartridgeLightRifle
+    whitelist: { tags: [ CartridgeLightRifle ] }
     capacity: 30
-    proto: CartridgeCSLightRifle
-    soundInsert:
-      path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+    proto: CartridgeCSAK47
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
 
-# Rifle magazine (M4, MAC-10)
+# M4 magazine
 - type: entity
   parent: BaseMagazineRifle
-  id: MagazineCSRifle
-  name: magazine (cs rifle)
+  id: MagazineCSM4
+  name: magazine (m4)
   components:
   - type: Tag
-    tags:
-      - MagazineRifle
+    tags: [ MagazineRifle ]
   - type: BallisticAmmoProvider
-    whitelist:
-      tags:
-        - CartridgeRifle
+    whitelist: { tags: [ CartridgeRifle ] }
     capacity: 30
-    proto: CartridgeCSRifle
-    soundInsert:
-      path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+    proto: CartridgeCSM4
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
 
-# SMG magazine (P90, MP9, UMP45)
+# AUG magazine
+- type: entity
+  parent: BaseMagazineLightRifle
+  id: MagazineCSAUG
+  name: magazine (aug)
+  components:
+  - type: Tag
+    tags: [ MagazineLightRifle ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgeLightRifle ] }
+    capacity: 30
+    proto: CartridgeCSAUG
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# SG553 magazine
+- type: entity
+  parent: BaseMagazineLightRifle
+  id: MagazineCSSG553
+  name: magazine (sg553)
+  components:
+  - type: Tag
+    tags: [ MagazineLightRifle ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgeLightRifle ] }
+    capacity: 30
+    proto: CartridgeCSSG553
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# MAC10 magazine
 - type: entity
   parent: BaseMagazinePistolSubMachineGun
-  id: MagazineCSSMG
-  name: magazine (cs smg)
+  id: MagazineCSMAC10
+  name: magazine (mac10)
   components:
   - type: Tag
-    tags:
-      - MagazinePistolSubMachineGun
+    tags: [ MagazinePistolSubMachineGun ]
   - type: BallisticAmmoProvider
-    whitelist:
-      tags:
-        - CartridgePistol
+    whitelist: { tags: [ CartridgePistol ] }
+    capacity: 30
+    proto: CartridgeCSMAC10
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# MP9 magazine
+- type: entity
+  parent: BaseMagazinePistolSubMachineGun
+  id: MagazineCSMP9
+  name: magazine (mp9)
+  components:
+  - type: Tag
+    tags: [ MagazinePistolSubMachineGun ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgePistol ] }
+    capacity: 30
+    proto: CartridgeCSMP9
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# UMP magazine
+- type: entity
+  parent: BaseMagazinePistolSubMachineGun
+  id: MagazineCSUMP
+  name: magazine (ump)
+  components:
+  - type: Tag
+    tags: [ MagazinePistolSubMachineGun ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgePistol ] }
+    capacity: 25
+    proto: CartridgeCSUMP
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# P90 magazine
+- type: entity
+  parent: BaseMagazineRifle
+  id: MagazineCSP90
+  name: magazine (p90)
+  components:
+  - type: Tag
+    tags: [ MagazineRifle ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgeRifle ] }
     capacity: 50
-    proto: CartridgeCSSMG
-    soundInsert:
-      path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+    proto: CartridgeCSP90
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }

@@ -14,7 +14,7 @@
       fix1:
         shape:
           !type:PhysShapeCircle
-          radius: 0.2
+          radius: 0.4
         density: 190
         mask:
         - MachineMask
@@ -43,6 +43,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/WoodenCrate.rsi
     state: base-0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.5,0.3,0.3"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 # следующие препятствия это ящики на деревяшке
 - type: entity
   id: ObstructionPalletWoodenCrates
@@ -53,6 +66,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
     state: base-0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.4"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 
 - type: entity
   id: ObstructionPalletOneCrate
@@ -63,6 +89,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
     state: base-1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.3"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 
 - type: entity
   id: ObstructionPalletGreenCrate
@@ -73,6 +112,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
     state: base-2
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.1"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 
 - type: entity
   id: ObstructionPalletRedCrate
@@ -83,6 +135,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
     state: base-3
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.1"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 
 - type: entity
   id: ObstructionPalletAmmoCrate
@@ -93,6 +158,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
     state: base-4
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.3"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 
 - type: entity
   id: ObstructionPalletColoredCrates
@@ -103,6 +181,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/PaletCrates.rsi
     state: base-5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.3"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 # ящики на деревяшке 
 
 # стенд с ружьями
@@ -115,6 +206,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/RifleStand.rsi
     state: base-0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 
 # ящик со снарядами
@@ -127,6 +230,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/WeaponCrates.rsi
     state: base-0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.05"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionShellCrateClossed
@@ -137,6 +253,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/WeaponCrates.rsi
     state: base-1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.0"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 #
 
 # железные шкафы
@@ -149,6 +278,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/SteelLockers.rsi
     state: base-0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.5,0.4,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 - type: entity
   id: ObstructionSteelLockerMiddle
@@ -159,6 +300,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/SteelLockers.rsi
     state: base-1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.5,0.2,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 
 
@@ -172,6 +325,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
     state: base-0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionSteelShelfAmmo
@@ -182,6 +348,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
     state: base-1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 - type: entity
   id: ObstructionSteelShelfKitchen
@@ -192,6 +370,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
     state: base-2
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 - type: entity
   id: ObstructionSteelShelfBoxes
@@ -202,6 +392,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/SteelShelf.rsi
     state: base-3
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 - type: entity
   id: ObstructionFabricPotClose
@@ -212,6 +414,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/FabricPot.rsi
     state: FabricPotClose
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionFabricPotOpen
@@ -222,6 +425,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/FabricPot.rsi
     state: FabricPotOpen
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionFabricBagBlueClose
@@ -232,6 +436,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/FabricBag.rsi
     state: FabricBagBlueClose
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionFabricBagBlueOpen
@@ -242,6 +447,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/FabricBag.rsi
     state: FabricBagBlueOpen
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionTiresOne
@@ -252,6 +458,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
     state: Tire1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.5,0.3,-0.1"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionTiresTwo
@@ -262,6 +481,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
     state: Tire2
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.5,0.3,0.0"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionTiresThree
@@ -272,6 +504,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
     state: Tire3
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.5,0.3,0.2"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionTiresFour
@@ -282,6 +527,19 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/Tires.rsi
     state: Tire4
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.5,0.3,0.35"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: HitscanPassthrough
 #
 - type: entity
   id: ObstructionDumpsterBlue
@@ -312,6 +570,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/PalletBricks.rsi
     state: base-0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 - type: entity
   id: ObstructionPalletWood
@@ -322,6 +592,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/PalletBricks.rsi
     state: base-1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 - type: entity
   id: ObstructionMirageBox
@@ -332,6 +614,18 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/MirageBox.rsi
     state: base-0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
 #
 - type: entity
   id: ObstructionCraftingTable
@@ -343,6 +637,7 @@
     sprite: Objects/counterstrike/Structures/Obstructions/CraftingTable.rsi
     state: base-0
     noRot: false
+<<<<<<< HEAD
 #
 - type: entity
   id: ObstructionInfernoBox
@@ -373,4 +668,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/WoodenBarrel.rsi
     state: base-0
+=======
+  - type: HitscanPassthrough
+>>>>>>> e0f1cdd3fea092b726080f64b6cc4bf003eda3c4
 #

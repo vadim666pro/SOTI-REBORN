@@ -71,6 +71,10 @@ public sealed partial class GraphicsTab : Control
         Control.AddOptionCheckBox(CCVars.ParallaxLowQuality, ParallaxLowQualityCheckBox);
         Control.AddOptionCheckBox(CCVars.HudFpsCounterVisible, FpsCounterCheckBox);
 
+        // Bodycam
+        Control.AddOptionPercentSlider(CCVars.HudBodycamFisheye, BodycamFisheyeSlider, min: 0, max: 2);
+        Control.AddOptionPercentSlider(CCVars.HudBodycamGrain, BodycamGrainSlider, min: 0, max: 2);
+
         Control.Initialize();
 
         _cfg.OnValueChanged(CCVars.ViewportMinimumWidth, _ => UpdateViewportWidthRange());

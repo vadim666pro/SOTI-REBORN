@@ -26,7 +26,7 @@
       contents:
       - id: WeaponPistolUSP
         amount: 1
-      - id: MagazineCSPistol
+      - id: MagazineCSUSP
         amount: 2
 
 - type: entity
@@ -37,9 +37,9 @@
   components:
     - type: StorageFill
       contents:
-      - id: WeaponPistolFiveseven
+      - id: WeaponPistolFiveSeven
         amount: 1
-      - id: MagazineCSPistolHighCapacity
+      - id: MagazineCSFiveSeven
         amount: 2
 
 - type: entity
@@ -50,9 +50,9 @@
   components:
     - type: StorageFill
       contents:
-      - id: WeaponRifleAug
+      - id: WeaponRifleAUG
         amount: 1
-      - id: MagazineCSLightRifle
+      - id: MagazineCSAUG
         amount: 2
 
 - type: entity
@@ -65,7 +65,7 @@
       contents:
       - id: WeaponRifleM4
         amount: 1
-      - id: MagazineCSRifle
+      - id: MagazineCSM4
         amount: 2
 
 - type: entity
@@ -76,9 +76,9 @@
   components:
     - type: StorageFill
       contents:
-      - id: WeaponRifleP90
+      - id: WeaponSMGP90
         amount: 1
-      - id: MagazineCSSMG
+      - id: MagazineCSP90
         amount: 2
 
 - type: entity
@@ -102,9 +102,9 @@
   components:
     - type: StorageFill
       contents:
-      - id: WeaponRifleUmp
+      - id: WeaponSMGUMP
         amount: 1
-      - id: MagazineCSRifle
+      - id: MagazineCSUMP
         amount: 2
 
 - type: entity
@@ -117,7 +117,7 @@
       contents:
       - id: WeaponPistolBeretta
         amount: 1
-      - id: MagazineCSPistol
+      - id: MagazineCSBeretta
         amount: 2
 
 # T weapons
@@ -131,7 +131,7 @@
       contents:
       - id: WeaponRifleAk47
         amount: 1
-      - id: MagazineCSLightRifle
+      - id: MagazineCSAK47
         amount: 2
 
 - type: entity
@@ -142,9 +142,9 @@
   components:
     - type: StorageFill
       contents:
-      - id: WeaponRifleSg553
+      - id: WeaponRifleSG553
         amount: 1
-      - id: MagazineCSLightRifle
+      - id: MagazineCSSG553
         amount: 2
 
 - type: entity
@@ -155,9 +155,9 @@
   components:
     - type: StorageFill
       contents:
-      - id: WeaponRifleMac10
+      - id: WeaponSMGMAC10
         amount: 1
-      - id: MagazineCSRifle
+      - id: MagazineCSMAC10
         amount: 2
 
 - type: entity
@@ -170,7 +170,7 @@
       contents:
       - id: WeaponPistolTec9
         amount: 1
-      - id: MagazineCSPistolHighCapacity
+      - id: MagazineCSTec9
         amount: 2
 
 - type: entity
@@ -183,7 +183,7 @@
       contents:
       - id: WeaponPistolGlock
         amount: 1
-      - id: MagazineCSPistol
+      - id: MagazineCSGlock
         amount: 2
 
 - type: entity
