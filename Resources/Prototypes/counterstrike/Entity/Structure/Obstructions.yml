@@ -668,7 +668,4 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/WoodenBarrel.rsi
     state: base-0
-=======
   - type: HitscanPassthrough
->>>>>>> e0f1cdd3fea092b726080f64b6cc4bf003eda3c4
-#

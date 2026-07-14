@@ -1,0 +1,16 @@
+- type: entity
+  id: TintDummy
+  name: Tint Dummy
+  description: "Visual placeholder. No interaction."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/tint.rsi
+    state: icon
+    drawdepth: Walls
+  - type: Clickable
+  - type: InteractionOutline
+    enabled: false
