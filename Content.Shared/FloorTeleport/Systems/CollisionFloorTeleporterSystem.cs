@@ -1,9 +1,11 @@
+using System.Linq;
 using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
 using Content.Shared.FloorTeleport.Components;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.StepTrigger.Systems;
+using Content.Shared.Teleportation.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
@@ -11,6 +13,7 @@ namespace Content.Shared.FloorTeleport.Systems;
 
 /// <summary>
 ///     Handles floor teleportation when entities step on teleporter markers.
+///     Uses LinkedEntityComponent for linking teleporters.
 /// </summary>
 public sealed class CollisionFloorTeleporterSystem : EntitySystem
 {
@@ -51,9 +54,10 @@ public sealed class CollisionFloorTeleporterSystem : EntitySystem
             return;
 
         // Find linked teleporter
-        var target = FindLinkedTeleporter(component.LinkedTeleporterId);
-        if (target == null)
+        if (!TryComp<LinkedEntityComponent>(uid, out var link) || link.LinkedEntities.Count == 0)
             return;
+
+        var target = link.LinkedEntities.First();
 
         // Break pulls before teleport
         BreakPulls(subject);
@@ -62,24 +66,7 @@ public sealed class CollisionFloorTeleporterSystem : EntitySystem
         UnbuckleIfNeeded(subject);
 
         // Teleport the entity
-        TeleportEntity(subject, target.Value, uid, component);
-    }
-
-    private EntityUid? FindLinkedTeleporter(string linkedId)
-    {
-        if (string.IsNullOrEmpty(linkedId))
-            return null;
-
-        var query = EntityQueryEnumerator<CollisionFloorTeleporterComponent>();
-        while (query.MoveNext(out var entity, out var comp))
-        {
-            if (MetaData(entity).EntityPrototype?.ID == linkedId)
-            {
-                return entity;
-            }
-        }
-
-        return null;
+        TeleportEntity(subject, target, uid, component);
     }
 
     private void BreakPulls(EntityUid subject)

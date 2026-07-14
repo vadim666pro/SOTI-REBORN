@@ -30,22 +30,18 @@
   id: FloorTeleporterA
   parent: CollisionFloorTeleporterBase
   name: Floor Teleporter A
-  description: "Teleports to Floor Teleporter B. Blue marker."
-  suffix: A->B
+  description: "Teleports to linked entity. Blue marker."
+  suffix: A
   components:
   - type: Sprite
     state: blue
-  - type: CollisionFloorTeleporter
-    linkedTeleporterId: FloorTeleporterB
 
 - type: entity
   id: FloorTeleporterB
   parent: CollisionFloorTeleporterBase
   name: Floor Teleporter B
-  description: "Teleports to Floor Teleporter A. Red marker."
-  suffix: B->A
+  description: "Teleports to linked entity. Red marker."
+  suffix: B
   components:
   - type: Sprite
     state: red
-  - type: CollisionFloorTeleporter
-    linkedTeleporterId: FloorTeleporterA

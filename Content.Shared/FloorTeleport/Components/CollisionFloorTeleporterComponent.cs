@@ -5,16 +5,11 @@ namespace Content.Shared.FloorTeleport.Components;
 
 /// <summary>
 ///     Floor teleporter that teleports entities to a linked teleporter's position on step trigger.
+///     Uses LinkedEntityComponent for linking (set UIDs in map file).
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class CollisionFloorTeleporterComponent : Component
 {
-    /// <summary>
-    ///     The prototype ID of the linked teleporter destination.
-    /// </summary>
-    [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
-    public string LinkedTeleporterId = string.Empty;
-
     /// <summary>
     ///     Cooldown in seconds to prevent teleport loops.
     /// </summary>
