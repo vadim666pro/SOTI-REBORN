@@ -2235,3 +2235,20 @@
   friction: 0.8
   itemDrop: FloorTileItemUraniumMarble
   heatCapacity: 10000
+
+- type: tile
+  id: CSCobblestonePavement
+  name: cobblestone pavement
+  sprite: /Textures/Objects/counterstrike/Tiles/cobblestone/cobblestone.png
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating              # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
+  footstepSounds:
+    collection: FootstepStone    # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000   

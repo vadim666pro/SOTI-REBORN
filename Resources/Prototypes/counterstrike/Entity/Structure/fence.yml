@@ -1,0 +1,10 @@
+- type: entity
+  parent: BaseWall
+  id: CSMetalFence
+  name: Metal Fence
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/metal_fence.rsi
+    state: full
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/Walls/metal_fence.rsi

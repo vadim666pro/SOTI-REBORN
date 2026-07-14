@@ -21,10 +21,10 @@
           !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         hard: false
-        isTrigger: true
-        collisionLayer: 0
+        layer:
+          - SlipLayer
         mask:
-        - MobMask
+          - MobMask
 
 - type: entity
   id: FloorTeleporterA
