@@ -637,7 +637,6 @@
     sprite: Objects/counterstrike/Structures/Obstructions/CraftingTable.rsi
     state: base-0
     noRot: false
-<<<<<<< HEAD
 #
 - type: entity
   id: ObstructionInfernoBox
