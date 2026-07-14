@@ -16,8 +16,8 @@
           !type:PhysShapeCircle
           radius: 0.2
         density: 190
-        mask:
-        - MachineMask
+        mask: 
+        - Impassable
   - type: InteractionOutline
   - type: Damageable
     damageContainer: StructuralInorganic
@@ -48,6 +48,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Decor/ClayPots.rsi
     state: ClayPots1
+
 #
 - type: entity
   id: DecorObstructionWoddenCoil
@@ -70,7 +71,7 @@
     state: Coil2
 #
 - type: entity
-  id: DecorObstructionPlankedCrate
+  id: DecorObstructionPlankedCrateEmpty
   parent: DecorObstructionBase
   name: Planked Crate
   description: wooden planked crate
@@ -80,6 +81,46 @@
     state: PlankedCrate1
 #
 - type: entity
+  id: DecorObstructionPlankedCrateApples
+  parent: DecorObstructionBase
+  name: Planked Crate
+  description: wooden planked crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/PlankedCrate.rsi
+    state: PlankedCrate2
+#
+- type: entity
+  id: DecorObstructionPlankedCrateMelons
+  parent: DecorObstructionBase
+  name: Planked Crate
+  description: wooden planked crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/PlankedCrate.rsi
+    state: PlankedCrate3
+#
+- type: entity
+  id: DecorObstructionPlankedCrateOranges
+  parent: DecorObstructionBase
+  name: Planked Crate
+  description: wooden planked crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/PlankedCrate.rsi
+    state: PlankedCrate4
+#
+- type: entity
+  id: DecorObstructionPlankedCrateBananas
+  parent: DecorObstructionBase
+  name: Planked Crate
+  description: wooden planked crate
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/PlankedCrate.rsi
+    state: PlankedCrate5
+#
+- type: entity
   id: DecorObstructionGarbageOne
   parent: DecorObstructionBase
   name: Garbage bags
@@ -87,5 +128,49 @@
   components:
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Decor/GarbageBags.rsi
+    state: base-0
+#
+- type: entity
+  id: DecorObstructionUmbrellaStick
+  parent: DecorObstructionBase
+  name: Umbrella
+  description: Umbrella song 
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/Umbrella.rsi
+    state: base-2
+
+#
+- type: entity
+  id: DecorObstructionUmbrellaClosed
+  parent: DecorObstructionBase
+  name: Umbrella
+  description: Umbrella song 
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/Umbrella.rsi
+    state: base-0
+
+#
+- type: entity
+  id: DecorObstructionUmbrellaOpen
+  parent: DecorObstructionBase
+  name: Umbrella
+  description: Umbrella song 
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/Umbrella.rsi
+    state: base-1
+#
+- type: entity
+  id: DecorObstructionRadiator
+  parent: DecorObstructionBase
+  name: Radiator
+  description: warm
+  components:
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Decor/radiator.rsi
     state: base-0
 #

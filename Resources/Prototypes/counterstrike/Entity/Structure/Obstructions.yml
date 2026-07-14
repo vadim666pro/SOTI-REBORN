@@ -336,11 +336,41 @@
 - type: entity
   id: ObstructionCraftingTable
   parent: ObstructionBase
-  name: Cradting Table
+  name: Crafting Table
   description: mirage crafting table
   components:
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/CraftingTable.rsi
     state: base-0
     noRot: false
+#
+- type: entity
+  id: ObstructionInfernoBox
+  parent: ObstructionBase
+  name: Inferno box
+  description: inferno box 
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/InfernoBox.rsi
+    state: base-0
+#
+- type: entity
+  id: ObstructionInfernoPot
+  parent: ObstructionBase
+  name: Inferno Pot
+  description: beautiful pot
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/InfernoPot.rsi
+    state: base-0
+#
+- type: entity
+  id: ObstructionWoodenBarrel
+  parent: ObstructionBase
+  name: Wooden Barrel
+  description: pirate barrel
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/WoodenBarrel.rsi
+    state: base-0
 #
