@@ -7,6 +7,14 @@
   "states": [
     {
       "name": "PlankedCrate1"
+    },    {
+      "name": "PlankedCrate2"
+    },    {
+      "name": "PlankedCrate3"
+    },    {
+      "name": "PlankedCrate4"
+    },    {
+      "name": "PlankedCrate5"
     }
   ]
 }
