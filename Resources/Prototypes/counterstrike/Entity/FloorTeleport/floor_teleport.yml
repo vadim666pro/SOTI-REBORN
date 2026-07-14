@@ -5,12 +5,8 @@
   name: Floor Teleporter Base
   description: "Invisible teleporter base. Step on it to teleport to linked destination."
   components:
-  - type: StepTrigger
-    requiredTriggeredSpeed: 0
-    intersectRatio: 0.5
-  - type: TriggerOnStepTrigger
   - type: CollisionFloorTeleporter
-    cooldownTime: 1.5
+    cooldownTime: 0.1
     teleportSound: /Audio/Effects/teleport_arrival.ogg
   - type: Physics
     bodyType: Static
@@ -21,6 +17,7 @@
           !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         hard: false
+        isTrigger: true
         layer:
           - SlipLayer
         mask:

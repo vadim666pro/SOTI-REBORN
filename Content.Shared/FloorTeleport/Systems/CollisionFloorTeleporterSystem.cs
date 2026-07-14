@@ -4,15 +4,15 @@ using Content.Shared.Buckle.Components;
 using Content.Shared.FloorTeleport.Components;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
-using Content.Shared.StepTrigger.Systems;
 using Content.Shared.Teleportation.Components;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Physics.Events;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.FloorTeleport.Systems;
 
 /// <summary>
-///     Handles floor teleportation when entities step on teleporter markers.
+///     Handles floor teleportation when entities collide with teleporter markers.
 ///     Uses LinkedEntityComponent for linking teleporters.
 /// </summary>
 public sealed class CollisionFloorTeleporterSystem : EntitySystem
@@ -26,7 +26,7 @@ public sealed class CollisionFloorTeleporterSystem : EntitySystem
     /// <inheritdoc/>
     public override void Initialize()
     {
-        SubscribeLocalEvent<CollisionFloorTeleporterComponent, StepTriggeredOffEvent>(OnStepTrigger);
+        SubscribeLocalEvent<CollisionFloorTeleporterComponent, StartCollideEvent>(OnStartCollide);
     }
 
     public override void Update(float frameTime)
@@ -41,9 +41,9 @@ public sealed class CollisionFloorTeleporterSystem : EntitySystem
         }
     }
 
-    private void OnStepTrigger(EntityUid uid, CollisionFloorTeleporterComponent component, StepTriggeredOffEvent args)
+    private void OnStartCollide(EntityUid uid, CollisionFloorTeleporterComponent component, ref StartCollideEvent args)
     {
-        var subject = args.Tripper;
+        var subject = args.OtherEntity;
 
         // Don't teleport anchored entities
         if (Transform(subject).Anchored)

@@ -1,0 +1,29 @@
+- type: entity
+  id: InvisibleWallPermanent
+  name: invisible wall
+  description: "Permanent invisible wall. Blocks movement. Only visible with ShowSpawns."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Tag
+    tags:
+      - Wall
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        hard: true
+        mask:
+          - FullTileMask
+        layer:
+          - GlassLayer
+  - type: Sprite
+    sprite: Markers/cross.rsi
+    state: red

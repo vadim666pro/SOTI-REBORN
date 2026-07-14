@@ -11,6 +11,4 @@
     sprite: Objects/counterstrike/Structures/Walls/tint.rsi
     state: icon
     drawdepth: Walls
-  - type: Clickable
-  - type: InteractionOutline
-    enabled: false
+
