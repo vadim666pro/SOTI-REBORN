@@ -1,0 +1,50 @@
+- type: entity
+  id: CollisionFloorTeleporterBase
+  abstract: true
+  parent: MarkerBase
+  name: Floor Teleporter Base
+  description: "Invisible teleporter base. Step on it to teleport to linked destination."
+  components:
+  - type: StepTrigger
+    requiredTriggeredSpeed: 0
+    intersectRatio: 0.5
+  - type: TriggerOnStepTrigger
+  - type: CollisionFloorTeleporter
+    cooldownTime: 1.5
+    teleportSound: /Audio/Effects/teleport_arrival.ogg
+  - type: Physics
+    bodyType: Static
+    fixtures:
+      teleporterFixture:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        hard: false
+        isTrigger: true
+        collisionLayer: 0
+        mask:
+        - MobMask
+
+- type: entity
+  id: FloorTeleporterA
+  parent: CollisionFloorTeleporterBase
+  name: Floor Teleporter A
+  description: "Teleports to Floor Teleporter B. Blue marker."
+  suffix: A->B
+  components:
+  - type: Sprite
+    state: blue
+  - type: CollisionFloorTeleporter
+    linkedTeleporterId: FloorTeleporterB
+
+- type: entity
+  id: FloorTeleporterB
+  parent: CollisionFloorTeleporterBase
+  name: Floor Teleporter B
+  description: "Teleports to Floor Teleporter A. Red marker."
+  suffix: B->A
+  components:
+  - type: Sprite
+    state: red
+  - type: CollisionFloorTeleporter
+    linkedTeleporterId: FloorTeleporterA
