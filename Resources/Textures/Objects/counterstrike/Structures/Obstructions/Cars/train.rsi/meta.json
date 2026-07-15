@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "size": {
+    "x": 256,
+    "y": 256
+  },
+  "states": [
+    {
+      "name": "train0",
+      "directions": 4
+    }
+  ]
+}

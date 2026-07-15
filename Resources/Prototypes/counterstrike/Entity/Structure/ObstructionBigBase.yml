@@ -109,3 +109,29 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/Cars/Swat.rsi
     state: btapa
+
+- type: entity
+  id: ObstructionBigTrain0
+  parent: ObstructionBigBase
+  name: Train 0
+  description: from hl2.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/train.rsi
+    state: train0
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-4,-1.5,4,1.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: Physics
+    mass: 1000
