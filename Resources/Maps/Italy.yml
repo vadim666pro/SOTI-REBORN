@@ -61,7 +61,7 @@ entities:
         - 0
     - type: GasTileOverlay
     - type: MapLight
-      ambientLightColor: '#77E3F2FF'
+      ambientLightColor: '#d7f5f4'
     - type: MapAutoGameRule
       rules:
       - AutoRoundEndingRuleCS
@@ -188,7 +188,7 @@ entities:
     - type: Shuttle
       dampingModifier: 0.25
     - type: ImplicitRoof
-      color: '#77E3F2FF'
+      color: '#d7f5f4'
     - type: GridPathfinding
     - type: Gravity
       gravityShakeSound: !type:SoundPathSpecifier

@@ -1,0 +1,15 @@
+- type: gameMap
+  id: de_inferno
+  mapName: 'de_inferno'
+  mapPath: /Maps/de_inferno.yml
+  minPlayers: 0
+  stations:
+   de_inferno:
+      stationProto: StandardNanotrasenStation
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: "de_inferno"
+        - type: StationJobs
+          availableJobs:
+            Librarian: [ -1, -1 ]
+            ServiceWorker: [-1, -1 ]

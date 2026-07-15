@@ -4,6 +4,8 @@
   name: base big Obstruction
   description: Big obstruction
   abstract: false
+  placement:
+    mode: PlaceFree  
   components:
   - type: Sprite
     noRot: false
@@ -32,6 +34,7 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  - type: Anchorable
 # это родитель для больших препятствий
 
 
@@ -97,3 +100,12 @@
     sprite: Objects/counterstrike/Structures/Obstructions/Cars/Sedan.rsi
     state: blue
 #
+- type: entity
+  id: ObstructionBigSUVBabaTapa
+  parent: ObstructionBigBase
+  name: SUV Baba Tapa
+  description: you need keys to drive this car.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/Swat.rsi
+    state: btapa

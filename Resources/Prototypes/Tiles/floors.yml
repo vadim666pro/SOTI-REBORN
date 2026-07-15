@@ -2250,5 +2250,5 @@
   isSubfloor: false
   # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
   footstepSounds:
-    collection: FootstepStone    # Меняем звук шагов с металла на камень (Stone)
+    collection: FootstepAsteroid    # Меняем звук шагов с металла на камень (Stone)
   heatCapacity: 25000   

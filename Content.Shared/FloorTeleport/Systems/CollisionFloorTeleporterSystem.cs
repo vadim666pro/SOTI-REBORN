@@ -45,8 +45,11 @@ public sealed class CollisionFloorTeleporterSystem : EntitySystem
     {
         var subject = args.OtherEntity;
 
+        if (!TryComp<TransformComponent>(subject, out var subjectXform))
+            return;
+
         // Don't teleport anchored entities
-        if (Transform(subject).Anchored)
+        if (subjectXform.Anchored)
             return;
 
         // Check cooldown
@@ -95,7 +98,10 @@ public sealed class CollisionFloorTeleporterSystem : EntitySystem
 
     private void TeleportEntity(EntityUid subject, EntityUid target, EntityUid source, CollisionFloorTeleporterComponent component)
     {
-        var targetCoords = Transform(target).Coordinates;
+        if (!TryComp<TransformComponent>(target, out var targetXform))
+            return;
+
+        var targetCoords = targetXform.Coordinates;
 
         // Play sound
         if (component.TeleportSound != null)

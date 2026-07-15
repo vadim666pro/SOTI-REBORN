@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "size": {
+    "x": 64,
+    "y": 64
+  },
+  "states": [
+    {
+      "name": "swat",
+      "directions": 4
+    },
+    {
+      "name": "btapa",
+      "directions": 4
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+- type: decal
+  id: SotiDash
+  tags: ["station", "markings"]
+  sprite:
+    sprite: Decals/soti.rsi
+    state: dash
