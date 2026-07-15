@@ -4,6 +4,8 @@
   name: base Decorotive Obstruction
   description: Decorative obstruction
   abstract: true
+  placement:
+    mode: PlaceFree  
   components:
   - type: Sprite
     noRot: true
@@ -29,6 +31,7 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  - type: Anchorable
 # все декорации, созданные по DecorObstructionBase, будут работать как препятствия, но при этом не иметь коллизии
 - type: entity
   id: DecorObstructionOfficeBin

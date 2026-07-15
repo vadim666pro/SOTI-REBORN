@@ -4,6 +4,8 @@
   name: base Obstruction
   description: Obstruction
   abstract: false
+  placement:
+    mode: PlaceFree  
   components:
   - type: Sprite
     noRot: true
@@ -32,6 +34,7 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  - type: Anchorable
 # это родитель для всех добавленных препятствий на соти
 
 - type: entity
