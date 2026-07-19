@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server.Store.Systems;
 using Content.Shared.CounterStrike;
 using Content.Shared.CounterStrike.Components;
@@ -10,8 +11,8 @@ using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
+using Content.Server.StoreDiscount.Systems;
 using Robust.Server.GameObjects;
-using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
@@ -27,9 +28,7 @@ public sealed class CsRoundEconomySystem : EntitySystem
 {
     [Dependency] private readonly SharedJobSystem _jobs = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-economy");
 
@@ -57,6 +56,8 @@ public sealed class CsRoundEconomySystem : EntitySystem
         Dirty(bodyUid, economy);
 
         var store = EnsureComp<StoreComponent>(bodyUid);
+        if (_mind.TryGetMind(bodyUid, out var mindId, out _))
+            store.AccountOwner = mindId;
         store.Categories = team switch
         {
             "CT" or "КТ" => new HashSet<ProtoId<StoreCategoryPrototype>>
@@ -83,6 +84,13 @@ public sealed class CsRoundEconomySystem : EntitySystem
             _ => "ZARUP T"
         };
         Dirty(bodyUid, store);
+        var ev = new StoreInitializedEvent(
+            TargetUser: bodyUid,
+            Store: bodyUid,
+            UseDiscounts: false,
+            Listings: _store.GetAvailableListings(bodyUid, bodyUid, store).ToArray()
+        );
+        RaiseLocalEvent(ref ev);
         Sawmill.Info($"[CS Economy] Initialized {ToPrettyString(bodyUid)} with {economy.Telecrystals} TC (team: {team})");
     }
 
@@ -158,50 +166,69 @@ public sealed class CsRoundEconomySystem : EntitySystem
     /// </summary>
     public void RestorePlayerTc()
     {
-        if (_playerTc.Count == 0)
-            return;
+        // First pass: restore TC for respawned players
+        if (_playerTc.Count > 0)
+        {
+            var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
+            while (query.MoveNext(out var bodyUid, out _, out var mindContainer))
+            {
+                if (!mindContainer.HasMind)
+                    continue;
 
-        var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
-        while (query.MoveNext(out var bodyUid, out _, out var mindContainer))
+                var mindId = mindContainer.Mind!.Value;
+
+                if (!TryComp(mindId, out MindComponent? mind))
+                    continue;
+
+                if (mind.UserId is not { } userId)
+                    continue;
+
+                if (!_playerTc.TryGetValue(userId, out var savedTc))
+                    continue;
+
+                var economy = EnsureComp<CsRoundEconomyComponent>(bodyUid);
+                if (economy.Telecrystals == savedTc && HasComp<StoreComponent>(bodyUid))
+                {
+                    _playerTc.Remove(userId);
+                    continue;
+                }
+
+                economy.Telecrystals = savedTc;
+                Dirty(bodyUid, economy);
+
+                if (!HasComp<StoreComponent>(bodyUid))
+                {
+                    var team = GetPlayerTeam(mindId);
+                    if (team != null)
+                        InitializePlayer(bodyUid, team);
+                }
+                else
+                {
+                    SyncToUplink(bodyUid, savedTc);
+                }
+
+                _playerTc.Remove(userId);
+                Sawmill.Info($"[CS Economy] Restored {savedTc} TC for {ToPrettyString(bodyUid)}");
+            }
+        }
+
+        // Second pass: initialize first-time players who have no economy component
+        var initQuery = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
+        while (initQuery.MoveNext(out var bodyUid, out _, out var mindContainer))
         {
             if (!mindContainer.HasMind)
                 continue;
 
+            if (HasComp<CsRoundEconomyComponent>(bodyUid))
+                continue;
+
             var mindId = mindContainer.Mind!.Value;
-
-            if (!TryComp(mindId, out MindComponent? mind))
+            var team = GetPlayerTeam(mindId);
+            if (team == null)
                 continue;
 
-            if (mind.UserId is not { } userId)
-                continue;
-
-            if (!_playerTc.TryGetValue(userId, out var savedTc))
-                continue;
-
-            // Ensure the component exists on new body, then set balance
-            var economy = EnsureComp<CsRoundEconomyComponent>(bodyUid);
-            if (economy.Telecrystals == savedTc && HasComp<StoreComponent>(bodyUid))
-            {
-                _playerTc.Remove(userId);
-                continue;
-            }
-
-            economy.Telecrystals = savedTc;
-            Dirty(bodyUid, economy);
-
-            if (!HasComp<StoreComponent>(bodyUid))
-            {
-                var team = GetPlayerTeam(mindId);
-                if (team != null)
-                    InitializePlayer(bodyUid, team);
-            }
-            else
-            {
-                SyncToUplink(bodyUid, savedTc);
-            }
-
-            _playerTc.Remove(userId);
-            Sawmill.Info($"[CS Economy] Restored {savedTc} TC for {ToPrettyString(bodyUid)}");
+            InitializePlayer(bodyUid, team);
+            Sawmill.Info($"[CS Economy] First-time init for {ToPrettyString(bodyUid)} (team={team})");
         }
     }
 
