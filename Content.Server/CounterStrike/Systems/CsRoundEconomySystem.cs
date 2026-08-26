@@ -1,19 +1,19 @@
 using System.Linq;
-using Content.Server.Actions;
 using Content.Server.Store.Systems;
-using Content.Shared.Actions;
 using Content.Shared.CounterStrike;
 using Content.Shared.CounterStrike.Components;
 using Content.Shared.CounterStrike.Events;
 using Content.Shared.FixedPoint;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Humanoid;
+using Content.Shared.Inventory;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
-using Content.Shared.UserInterface;
 using Content.Server.StoreDiscount.Systems;
 using Robust.Server.GameObjects;
 using Robust.Shared.Network;
@@ -32,8 +32,8 @@ public sealed class CsRoundEconomySystem : EntitySystem
     [Dependency] private readonly SharedJobSystem _jobs = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
     [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
+    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-economy");
 
@@ -51,7 +51,7 @@ public sealed class CsRoundEconomySystem : EntitySystem
 
     /// <summary>
     /// Initialize economy for a player body. Called on spawn.
-    /// Sets starting TC, creates StoreComponent, and syncs.
+    /// Spawns physical uplink item and places it in pocket1 slot.
     /// </summary>
     public void InitializePlayer(EntityUid bodyUid, string team)
     {
@@ -61,45 +61,44 @@ public sealed class CsRoundEconomySystem : EntitySystem
         economy.Telecrystals = CsRoundControllerComponent.StartingTC;
         Dirty(bodyUid, economy);
 
-        var store = EnsureComp<StoreComponent>(bodyUid);
-        _ui.SetUi(bodyUid, StoreUiKey.Key, new InterfaceData("StoreBoundUserInterface"));
-        _actions.AddAction(bodyUid, "ActionOpenCsUplink");
-        if (_mind.TryGetMind(bodyUid, out var mindId, out _))
-            store.AccountOwner = mindId;
-        store.Categories = team switch
+        // Spawn the appropriate physical uplink based on team
+        var uplinkProto = team switch
         {
-            "CT" or "КТ" => new HashSet<ProtoId<StoreCategoryPrototype>>
+            "CT" or "КТ" => "BaseUplinkRadioCT",
+            _ => "BaseUplinkRadioT"
+        };
+
+        var uplinkUid = Spawn(uplinkProto, Transform(bodyUid).Coordinates);
+
+        // Update the uplink's store balance to match economy component
+        if (TryComp(uplinkUid, out StoreComponent? store))
+        {
+            store.Balance["Telecrystal"] = FixedPoint2.New(economy.Telecrystals);
+            Dirty(uplinkUid, store);
+        }
+
+        // Try to place uplink in pocket1 slot
+        if (!_inventory.TryGetSlotEntity(bodyUid, "pocket1", out _))
+        {
+            if (!_inventory.TryEquip(bodyUid, uplinkUid, "pocket1", force: true))
             {
-                "UplinkPrimaryCT",
-                "UplinkSecondaryCT",
-                "UplinkEquipmentCSGO"
-            },
-            _ => new HashSet<ProtoId<StoreCategoryPrototype>>
-            {
-                "UplinkPrimaryT",
-                "UplinkSecondaryT",
-                "UplinkEquipmentCSGO"
+                // Fallback: place in hands if pocket1 failed
+                _hands.TryPickup(bodyUid, uplinkUid);
+                Sawmill.Warning($"[CS Economy] Could not place uplink in pocket1 for {ToPrettyString(bodyUid)}, placed in hands");
             }
-        };
-        store.CurrencyWhitelist = new HashSet<ProtoId<CurrencyPrototype>> { "Telecrystal" };
-        store.Balance = new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>
+        }
+        else
         {
-            ["Telecrystal"] = FixedPoint2.New(CsRoundControllerComponent.StartingTC)
-        };
-        store.Name = team switch
-        {
-            "CT" or "КТ" => "ZAKUP CT",
-            _ => "ZARUP T"
-        };
-        Dirty(bodyUid, store);
-        var ev = new StoreInitializedEvent(
-            TargetUser: bodyUid,
-            Store: bodyUid,
-            UseDiscounts: false,
-            Listings: _store.GetAvailableListings(bodyUid, bodyUid, store).ToArray()
-        );
-        RaiseLocalEvent(ref ev);
-        Sawmill.Info($"[CS Economy] Initialized {ToPrettyString(bodyUid)} with {economy.Telecrystals} TC (team: {team})");
+            // Pocket1 occupied, try pocket2
+            if (!_inventory.TryEquip(bodyUid, uplinkUid, "pocket2", force: true))
+            {
+                // Fallback: place in hands
+                _hands.TryPickup(bodyUid, uplinkUid);
+                Sawmill.Warning($"[CS Economy] Could not place uplink in pockets for {ToPrettyString(bodyUid)}, placed in hands");
+            }
+        }
+
+        Sawmill.Info($"[CS Economy] Initialized {ToPrettyString(bodyUid)} with physical uplink ({uplinkProto}) containing {economy.Telecrystals} TC (team: {team})");
     }
 
     /// <summary>
@@ -146,16 +145,50 @@ public sealed class CsRoundEconomySystem : EntitySystem
     }
 
     /// <summary>
-    /// ONE-DIRECTIONAL: write component balance to player's StoreComponent.
+    /// ONE-DIRECTIONAL: write component balance to player's physical uplink StoreComponent.
+    /// Searches in pockets and hands for an item with StoreComponent.
     /// </summary>
     private void SyncToUplink(EntityUid bodyUid, int tc)
     {
-        if (!TryComp<StoreComponent>(bodyUid, out var store))
-            return;
-        if (!store.Balance.ContainsKey("Telecrystal"))
-            return;
-        store.Balance["Telecrystal"] = FixedPoint2.New(tc);
-        Dirty(bodyUid, store);
+        // Try to find uplink in pocket1
+        if (_inventory.TryGetSlotEntity(bodyUid, "pocket1", out var pocket1Item))
+        {
+            if (TryComp(pocket1Item, out StoreComponent? store1) && store1.Balance.ContainsKey("Telecrystal"))
+            {
+                store1.Balance["Telecrystal"] = FixedPoint2.New(tc);
+                Dirty(pocket1Item.Value, store1);
+                return;
+            }
+        }
+
+        // Try pocket2
+        if (_inventory.TryGetSlotEntity(bodyUid, "pocket2", out var pocket2Item))
+        {
+            if (TryComp(pocket2Item, out StoreComponent? store2) && store2.Balance.ContainsKey("Telecrystal"))
+            {
+                store2.Balance["Telecrystal"] = FixedPoint2.New(tc);
+                Dirty(pocket2Item.Value, store2);
+                return;
+            }
+        }
+
+        // Try hands as fallback
+        if (TryComp(bodyUid, out HandsComponent? hands))
+        {
+            foreach (var hand in hands.Hands.Values)
+            {
+                if (hand.HeldEntity is { } heldUid && TryComp(heldUid, out StoreComponent? storeHand) 
+                    && storeHand.Balance.ContainsKey("Telecrystal"))
+                {
+                    storeHand.Balance["Telecrystal"] = FixedPoint2.New(tc);
+                    Dirty(heldUid, storeHand);
+                    return;
+                }
+            }
+        }
+
+        // If uplink not found, player probably lost it - log warning
+        Sawmill.Warning($"[CS Economy] Could not find uplink for {ToPrettyString(bodyUid)} to sync {tc} TC. Player may have lost their uplink.");
     }
 
     /// <summary>

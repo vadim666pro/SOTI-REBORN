@@ -6,6 +6,7 @@ using Content.Shared.CounterStrike;
 using Content.Shared.CounterStrike.Components;
 using Content.Shared.CounterStrike.Events;
 using Content.Shared.Humanoid;
+using Content.Shared.Inventory;
 using Content.Shared.Item;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Mind;
@@ -46,6 +47,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly CsRoundEconomySystem _economy = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly InventorySystem _inventory = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-round-controller");
 
@@ -61,17 +63,6 @@ public sealed class CsRoundControllerSystem : EntitySystem
         SubscribeLocalEvent<CsBombPlantedEvent>(OnBombPlanted);
         SubscribeLocalEvent<CsBombDefusedEvent>(OnBombDefused);
         SubscribeLocalEvent<CsBombExplodedEvent>(OnBombExploded);
-        SubscribeLocalEvent<CsOpenUplinkEvent>(OnCsOpenUplinkAction);
-    }
-
-    private void OnCsOpenUplinkAction(CsOpenUplinkEvent args)
-    {
-        if (!TryComp<StoreComponent>(args.Performer, out var store))
-            return;
-        if (!store.Balance.ContainsKey("Telecrystal"))
-            return;
-        _ui.TryToggleUi(args.Performer, StoreUiKey.Key, args.Performer);
-        args.Handled = true;
     }
 
     private void OnFrozenRefreshSpeed(EntityUid uid, CsFrozenComponent component, RefreshMovementSpeedModifiersEvent args)
@@ -314,14 +305,29 @@ public sealed class CsRoundControllerSystem : EntitySystem
 
     private void OpenAllUplinks()
     {
-        var query = EntityQueryEnumerator<StoreComponent, HumanoidAppearanceComponent, MindContainerComponent>();
-        while (query.MoveNext(out var uid, out var store, out _, out var mindContainer))
+        var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
+        while (query.MoveNext(out var bodyUid, out _, out var mindContainer))
         {
             if (!mindContainer.HasMind)
                 continue;
-            if (!store.Balance.ContainsKey("Telecrystal"))
-                continue;
-            _ui.TryOpenUi(uid, StoreUiKey.Key, uid);
+
+            // Search for physical uplink in pockets
+            if (_inventory.TryGetSlotEntity(bodyUid, "pocket1", out var pocket1Item))
+            {
+                if (TryComp(pocket1Item, out StoreComponent? store1) && store1.Balance.ContainsKey("Telecrystal"))
+                {
+                    _ui.TryOpenUi(pocket1Item.Value, StoreUiKey.Key, bodyUid);
+                    continue;
+                }
+            }
+
+            if (_inventory.TryGetSlotEntity(bodyUid, "pocket2", out var pocket2Item))
+            {
+                if (TryComp(pocket2Item, out StoreComponent? store2) && store2.Balance.ContainsKey("Telecrystal"))
+                {
+                    _ui.TryOpenUi(pocket2Item.Value, StoreUiKey.Key, bodyUid);
+                }
+            }
         }
     }
 
