@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server.Actions;
 using Content.Server.Store.Systems;
 using Content.Shared.Actions;
 using Content.Shared.CounterStrike;
@@ -45,6 +46,7 @@ public sealed class CsRoundEconomySystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<CsSubRoundEndedEvent>(OnSubRoundEnded);
+        SubscribeLocalEvent<StoreBuyFinishedEvent>(OnStoreBuyFinished);
     }
 
     /// <summary>
@@ -314,5 +316,54 @@ public sealed class CsRoundEconomySystem : EntitySystem
         if (team == "КТ" || team == "CT")
             return CounterStrikeTeams.CtJobs.Contains(jobId);
         return CounterStrikeTeams.TJobs.Contains(jobId);
+    }
+
+    /// <summary>
+    /// Handle store purchases: sync TC spending from StoreComponent to CsRoundEconomyComponent.
+    /// </summary>
+    private void OnStoreBuyFinished(ref StoreBuyFinishedEvent ev)
+    {
+        // Manual test scenario:
+        // 1. Start CS round, player spawns with 19 TC
+        // 2. Buy weapon for 10 TC during FreezeTime
+        // 3. Check CsRoundEconomyComponent.Telecrystals == 9
+        // 4. Win round (+10 TC) -> check saved TC == 19
+        // 5. Next round respawn -> verify player has 19 TC (not 29)
+
+        // Find the buyer entity - StoreComponent lives on the buyer's body
+        var buyerUid = ev.StoreUid;
+
+        // Only process CS players with economy component
+        if (!TryComp(buyerUid, out CsRoundEconomyComponent? economy))
+            return;
+
+        // Calculate Telecrystal cost
+        var tcCost = 0;
+        foreach (var (currency, amount) in ev.PurchasedItem.Cost)
+        {
+            if (currency == "Telecrystal")
+            {
+                tcCost = (int)amount;
+                break;
+            }
+        }
+
+        // No TC cost means this purchase doesn't affect CS economy
+        if (tcCost <= 0)
+            return;
+
+        // Sanity check: economy component should have enough TC
+        // (StoreSystem already verified StoreComponent.Balance)
+        if (economy.Telecrystals < tcCost)
+        {
+            Sawmill.Warning($"[CS Economy] {ToPrettyString(buyerUid)}: purchase cost {tcCost} TC but economy component has {economy.Telecrystals} TC. Desynced state!");
+        }
+
+        // Subtract from economy component to match StoreComponent
+        var oldBalance = economy.Telecrystals;
+        economy.Telecrystals = Math.Max(0, economy.Telecrystals - tcCost);
+        Dirty(buyerUid, economy);
+
+        Sawmill.Info($"[CS Economy] {ToPrettyString(buyerUid)}: purchased for {tcCost} TC. Balance: {oldBalance} -> {economy.Telecrystals}");
     }
 }
