@@ -61,16 +61,16 @@ public sealed class CsRoundControllerSystem : EntitySystem
         SubscribeLocalEvent<CsBombPlantedEvent>(OnBombPlanted);
         SubscribeLocalEvent<CsBombDefusedEvent>(OnBombDefused);
         SubscribeLocalEvent<CsBombExplodedEvent>(OnBombExploded);
-        SubscribeLocalEvent<CsOpenUplinkEvent>(OnCsOpenUplink);
+        SubscribeLocalEvent<CsOpenUplinkEvent>(OnCsOpenUplinkAction);
     }
 
-    private void OnCsOpenUplink(EntityUid uid, CsOpenUplinkEvent args)
+    private void OnCsOpenUplinkAction(CsOpenUplinkEvent args)
     {
-        if (!TryComp<StoreComponent>(uid, out var store))
+        if (!TryComp<StoreComponent>(args.Performer, out var store))
             return;
         if (!store.Balance.ContainsKey("Telecrystal"))
             return;
-        _ui.TryToggleUi(uid, StoreUiKey.Key, args.Performer);
+        _ui.TryToggleUi(args.Performer, StoreUiKey.Key, args.Performer);
         args.Handled = true;
     }
 
