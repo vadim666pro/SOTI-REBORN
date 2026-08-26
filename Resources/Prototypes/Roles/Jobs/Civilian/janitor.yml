@@ -16,7 +16,6 @@
   equipment:
     id: LibrarianPDA
     ears: ClothingHeadsetSecurity
-    pocket1: BaseUplinkRadioCT # for making named bestsellers
     jumpsuit: ClothingUniformJumpsuitFSB
     head: ClothingHeadHatBalaklava
     belt: ClothingBeltMilitaryWebbing

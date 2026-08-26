@@ -17,7 +17,6 @@
     shoes: ClothingShoesBootsJackFilled
     id: IDCardCT
     ears: ClothingHeadsetSecurity
-    pocket1: BaseUplinkRadioCT # for making named bestsellers
     head: ClothingHeadHelmetBasic
     belt: ClothingBeltMilitaryWebbing
 

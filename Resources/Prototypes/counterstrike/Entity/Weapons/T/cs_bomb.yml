@@ -19,9 +19,9 @@
       defuseTime: 10
     - type: Explosive
       explosionType: Default
-      totalIntensity: 1000.0
+      totalIntensity: 10.0
       intensitySlope: 30
-      maxIntensity: 500
+      maxIntensity: 10
     - type: ExplodeOnTrigger
       keysIn:
       - timer

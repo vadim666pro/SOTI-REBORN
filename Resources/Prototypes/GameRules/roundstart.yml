@@ -598,6 +598,14 @@
       bombPrototype: CsBomb
 
 - type: entity
+  parent: BaseGameRule
+  id: CsRoundControllerRuleCS
+  name: CS Round Controller
+  components:
+    - type: GameRule
+    - type: CsRoundController
+
+- type: entity
   id: AutoRoundEndingRuleTTT
   components:
     - type: GameRule

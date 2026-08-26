@@ -17,7 +17,6 @@
     shoes: ClothingShoesBootsJackFilled
     id: LibrarianPDA
     ears: ClothingHeadsetSecurity
-    pocket1: BaseUplinkRadioCT # for BATTLE
     belt: ClothingBeltMilitaryWebbing
   #storage:
     #back:

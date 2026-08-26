@@ -19,6 +19,5 @@
   equipment:
     id: LawyerPDA
     ears: ClothingHeadsetSecurity
-    pocket1: BaseUplinkRadioT # for fucking battle
     shoes: ClothingShoesBootsJackFilled
     belt: ClothingBeltMilitaryWebbing

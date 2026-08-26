@@ -46,11 +46,10 @@
     - UplinkPrimaryCT
     - UplinkSecondaryCT
     - UplinkEquipmentCSGO
-
     currencyWhitelist:
     - Telecrystal
     balance:
-      Telecrystal: 45
+      Telecrystal: 19
 
 - type: entity
   id: StorePresetUplinkT
@@ -65,7 +64,7 @@
     currencyWhitelist:
     - Telecrystal
     balance:
-      Telecrystal: 45
+      Telecrystal: 19
 
 - type: entity
   id: StorePresetTTT

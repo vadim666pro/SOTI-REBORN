@@ -12,6 +12,8 @@ using Robust.Shared.Utility;
 using System.Linq;
 using Robust.Shared.Timing;
 using Content.Shared.Mind;
+using Content.Shared.CounterStrike;
+using Content.Shared.CounterStrike.Components;
 
 namespace Content.Server.Store.Systems;
 
@@ -69,6 +71,20 @@ public sealed partial class StoreSystem : EntitySystem
 
     private void OnStoreOpenAttempt(EntityUid uid, StoreComponent component, ActivatableUIOpenAttemptEvent args)
     {
+        // Block CS uplinks during ActionPhase and PostAction
+        if (component.Balance.ContainsKey("Telecrystal"))
+        {
+            var query = EntityQueryEnumerator<CsRoundControllerComponent>();
+            while (query.MoveNext(out _, out var controller))
+            {
+                if (controller.CurrentPhase is CsRoundPhase.ActionPhase or CsRoundPhase.PostAction)
+                {
+                    args.Cancel();
+                    return;
+                }
+            }
+        }
+
         if (!component.OwnerOnly)
             return;
 

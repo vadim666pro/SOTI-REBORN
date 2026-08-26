@@ -16,7 +16,6 @@
   equipment:
     id: PassengerPDA
     ears: ClothingHeadsetGrey
-    pocket1: BaseUplinkRadioT
     jumpsuit: ClothingUniformJumpsuitMojahed
     belt: ClothingBeltSecurityWebbing
     head: ClothingHeadHatKufiaHat

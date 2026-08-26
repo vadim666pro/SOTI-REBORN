@@ -1,4 +1,5 @@
 using Content.Server.Chat.Systems;
+using Content.Server.CounterStrike.Systems;
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Events;
@@ -35,6 +36,7 @@ public sealed class CsBombSystem : SharedCsBombSystem
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
+    [Dependency] private readonly CsRoundControllerSystem _csRound = default!;
 
     public override void Initialize()
     {
@@ -203,10 +205,8 @@ public sealed class CsBombSystem : SharedCsBombSystem
             RaiseLocalEvent(new CsBombDefusedEvent(bomb, site));
         }
 
-        _chat.DispatchGlobalAnnouncement("Бомба обезврежена.", sender: "Мировая арена");
-
-        if (_gameTicker.RunLevel == GameRunLevel.InRound)
-            _gameTicker.EndRound("Бомба обезврежена. Победа CT!");
+        _chat.DispatchGlobalAnnouncement("Бомба обезврежена. Победа CT!", sender: "Мировая арена");
+        _csRound.OnBombDefused();
 
         QueueDel(bomb);
     }
@@ -229,13 +229,15 @@ public sealed class CsBombSystem : SharedCsBombSystem
             siteComp.PlantedBomb = null;
         }
 
-        RaiseLocalEvent(new CsBombExplodedEvent(bomb, siteUid));
+        // Explosion first — kills players while BombPlanted is still true
         _explosion.TriggerExplosive(bomb);
+        _chat.DispatchGlobalAnnouncement("Бомба взорвалась! Победа Т!", sender: "Мировая арена");
 
-        _chat.DispatchGlobalAnnouncement("Бомба взорвалась!", sender: "Мировая арена");
+        // Reset bomb state
+        RaiseLocalEvent(new CsBombExplodedEvent(bomb, siteUid));
 
-        if (_gameTicker.RunLevel == GameRunLevel.InRound)
-            _gameTicker.EndRound("Бомба взорвалась. Победа T!");
+        // T wins by bomb explosion (CS convention)
+        _csRound.OnBombExploded();
 
         QueueDel(bomb);
     }

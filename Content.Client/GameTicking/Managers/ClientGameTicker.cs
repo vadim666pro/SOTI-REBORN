@@ -11,6 +11,7 @@ using Robust.Client.State;
 using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Audio;
+using Content.Client.CounterStrike;
 using Content.Client.GameTicking;
 
 namespace Content.Client.GameTicking.Managers
@@ -65,6 +66,7 @@ namespace Content.Client.GameTicking.Managers
 
             // Ensure HUD controller is created to listen for events
             _userInterfaceManager.GetUIController<AutoRoundEndingHudUIController>();
+            _userInterfaceManager.GetUIController<CsRoundHudUIController>();
         }
 
         public override void Shutdown()

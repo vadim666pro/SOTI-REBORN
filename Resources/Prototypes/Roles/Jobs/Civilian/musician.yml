@@ -17,7 +17,6 @@
     eyes: ClothingEyesGlassesSunglasses
     id: MusicianPDA
     ears: ClothingHeadsetService
-    pocket1: BaseUplinkRadioCT
     shoes: ClothingShoesBootsCombatFilled
     belt: ClothingBeltMilitaryWebbing
     head: ClothingHeadHatDustHat

@@ -18,14 +18,11 @@ using Content.Shared.Roles.Jobs;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Containers;
-using Robust.Shared.Network;
 using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
-using Content.Shared.UserInterface;
 
 namespace Content.Server.CounterStrike.Systems;
 
@@ -64,7 +61,17 @@ public sealed class CsRoundControllerSystem : EntitySystem
         SubscribeLocalEvent<CsBombPlantedEvent>(OnBombPlanted);
         SubscribeLocalEvent<CsBombDefusedEvent>(OnBombDefused);
         SubscribeLocalEvent<CsBombExplodedEvent>(OnBombExploded);
-        SubscribeLocalEvent<StoreComponent, ActivatableUIOpenAttemptEvent>(OnStoreOpenAttempt);
+        SubscribeLocalEvent<CsOpenUplinkEvent>(OnCsOpenUplink);
+    }
+
+    private void OnCsOpenUplink(EntityUid uid, CsOpenUplinkEvent args)
+    {
+        if (!TryComp<StoreComponent>(uid, out var store))
+            return;
+        if (!store.Balance.ContainsKey("Telecrystal"))
+            return;
+        _ui.TryToggleUi(uid, StoreUiKey.Key, args.Performer);
+        args.Handled = true;
     }
 
     private void OnFrozenRefreshSpeed(EntityUid uid, CsFrozenComponent component, RefreshMovementSpeedModifiersEvent args)
@@ -307,8 +314,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
 
     private void OpenAllUplinks()
     {
-        var query = EntityQueryEnumerator<StoreComponent, ActorComponent, HumanoidAppearanceComponent, MindContainerComponent>();
-        while (query.MoveNext(out var uid, out var store, out _, out _, out var mindContainer))
+        var query = EntityQueryEnumerator<StoreComponent, HumanoidAppearanceComponent, MindContainerComponent>();
+        while (query.MoveNext(out var uid, out var store, out _, out var mindContainer))
         {
             if (!mindContainer.HasMind)
                 continue;
@@ -326,21 +333,6 @@ public sealed class CsRoundControllerSystem : EntitySystem
             if (!store.Balance.ContainsKey("Telecrystal"))
                 continue;
             _ui.CloseUi(uid, StoreUiKey.Key);
-        }
-    }
-
-    private void OnStoreOpenAttempt(EntityUid uid, StoreComponent component, ActivatableUIOpenAttemptEvent args)
-    {
-        if (!component.Balance.ContainsKey("Telecrystal"))
-            return;
-        var query = EntityQueryEnumerator<CsRoundControllerComponent>();
-        while (query.MoveNext(out _, out var controller))
-        {
-            if (controller.CurrentPhase == CsRoundPhase.ActionPhase)
-            {
-                args.Cancel();
-                return;
-            }
         }
     }
 

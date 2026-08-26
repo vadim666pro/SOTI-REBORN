@@ -12,6 +12,8 @@ namespace Content.Server.CounterStrike;
 /// </summary>
 public sealed class CounterStrikeRoundStateSystem : EntitySystem
 {
+    private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-round-state");
+
     /// <summary>
     /// True once a bomb has been planted this round.
     /// While true, automatic round ending and team elimination are suppressed.
@@ -23,6 +25,8 @@ public sealed class CounterStrikeRoundStateSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<GameRunLevelChangedEvent>(OnRunLevelChanged);
         SubscribeLocalEvent<CsBombPlantedEvent>(OnBombPlanted);
+        SubscribeLocalEvent<CsBombDefusedEvent>(OnBombDefused);
+        SubscribeLocalEvent<CsBombExplodedEvent>(OnBombExploded);
     }
 
     /// <summary>
@@ -42,6 +46,32 @@ public sealed class CounterStrikeRoundStateSystem : EntitySystem
     private void OnBombPlanted(CsBombPlantedEvent ev)
     {
         BombPlanted = true;
+        Sawmill.Info($"[CS RoundState] BombPlanted = TRUE (bomb={ev.Bomb})");
         RaiseNetworkEvent(new AutoRoundEndingHudClearEvent());
+    }
+
+    private void OnBombDefused(CsBombDefusedEvent ev)
+    {
+        BombPlanted = false;
+        Sawmill.Info($"[CS RoundState] BombPlanted = FALSE (defused)");
+    }
+
+    private void OnBombExploded(CsBombExplodedEvent ev)
+    {
+        BombPlanted = false;
+        Sawmill.Info($"[CS RoundState] BombPlanted = FALSE (exploded)");
+    }
+
+    /// <summary>
+    /// Resets BombPlanted state. Called at the start of each CS sub-round
+    /// to prevent stale bomb state from suppressing team elimination checks.
+    /// </summary>
+    public void ResetBombPlanted()
+    {
+        if (BombPlanted)
+        {
+            BombPlanted = false;
+            Sawmill.Info("[CS RoundState] BombPlanted = FALSE (sub-round reset)");
+        }
     }
 }

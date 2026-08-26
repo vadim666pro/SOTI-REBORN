@@ -21,7 +21,6 @@
     jumpsuit: ClothingUniformJumpsuitTheraT
     id: PassengerPDA
     ears: ClothingHeadsetService
-    pocket1: BaseUplinkRadioT
     belt: ClothingBeltSecurityWebbing
     head: ClothingHeadHatKufiaHat
     shoes: ClothingShoesBootsCombatFilled

@@ -146,7 +146,7 @@
     key: enum.StoreUiKey.Key
   - type: Store
     balance:
-      Telecrystal: 45
+      Telecrystal: 19
 
 - type: entity
   parent: [BaseItem, StorePresetUplinkT]
@@ -170,7 +170,7 @@
     key: enum.StoreUiKey.Key
   - type: Store
     balance:
-      Telecrystal: 45
+      Telecrystal: 19
 
 #TTT
 

@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Server.Store.Systems;
+using Content.Shared.Actions;
 using Content.Shared.CounterStrike;
 using Content.Shared.CounterStrike.Components;
 using Content.Shared.CounterStrike.Events;
@@ -11,6 +12,7 @@ using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
+using Content.Shared.UserInterface;
 using Content.Server.StoreDiscount.Systems;
 using Robust.Server.GameObjects;
 using Robust.Shared.Network;
@@ -29,6 +31,8 @@ public sealed class CsRoundEconomySystem : EntitySystem
     [Dependency] private readonly SharedJobSystem _jobs = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
     [Dependency] private readonly StoreSystem _store = default!;
+    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly ActionsSystem _actions = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-economy");
 
@@ -56,6 +60,8 @@ public sealed class CsRoundEconomySystem : EntitySystem
         Dirty(bodyUid, economy);
 
         var store = EnsureComp<StoreComponent>(bodyUid);
+        _ui.SetUi(bodyUid, StoreUiKey.Key, new InterfaceData("StoreBoundUserInterface"));
+        _actions.AddAction(bodyUid, "ActionOpenCsUplink");
         if (_mind.TryGetMind(bodyUid, out var mindId, out _))
             store.AccountOwner = mindId;
         store.Categories = team switch

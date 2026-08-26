@@ -152,6 +152,21 @@
     event: !type:OpenUplinkImplantEvent
 
 - type: entity
+  parent: BaseAction
+  id: ActionOpenCsUplink
+  name: Open CS Uplink
+  description: Opens the Counter-Strike buy menu
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    priority: -20
+    icon:
+      sprite: Objects/Devices/communication.rsi
+      state: old-radio
+  - type: InstantAction
+    event: !type:CsOpenUplinkEvent
+
+- type: entity
   parent: BaseImplantAction
   id: ActionActivateEmpImplant
   name: Activate EMP

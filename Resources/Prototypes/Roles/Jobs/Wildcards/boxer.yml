@@ -19,7 +19,6 @@
     eyes: ClothingEyesGlassesSunglasses
     id: BoxerPDA
     ears: ClothingHeadsetService
-    pocket1: BaseUplinkRadioCT
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHatPoliceCap
     jumpsuit: ClothingUniformPoliceOutfit

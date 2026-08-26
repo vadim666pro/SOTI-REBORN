@@ -18,7 +18,6 @@
     eyes: ClothingEyesGlassesSunglasses
     id: ChaplainPDA
     ears: ClothingHeadsetService
-    pocket1: BaseUplinkRadioT
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHatAnarchistMask
     jumpsuit: ClothingUniformAnarchistJacket

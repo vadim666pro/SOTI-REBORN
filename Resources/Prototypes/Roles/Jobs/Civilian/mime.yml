@@ -20,7 +20,6 @@
   equipment:
     shoes: ClothingShoesBootsCombatFilled
     id: IDCardT
-    pocket1: BaseUplinkRadioT
     ears: ClothingHeadsetService
     head: ClothingHeadHatUshanka
     belt: ClothingBeltSecurityWebbing
