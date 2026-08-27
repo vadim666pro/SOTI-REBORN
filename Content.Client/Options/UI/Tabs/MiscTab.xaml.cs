@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Content.Client.UserInterface.Screens;
 using Content.Shared.CCVar;
 using Content.Shared.HUD;
@@ -30,6 +30,18 @@ public sealed partial class MiscTab : Control
             themeEntries.Add(new OptionDropDownCVar<string>.ValueOption(gear.ID, Loc.GetString(gear.Name)));
         }
 
+        var accentColorEntries = new List<OptionDropDownCVar<string>.ValueOption>
+        {
+            new("", Loc.GetString("ui-options-hud-accent-color-default")),
+            new("#FF8C00", Loc.GetString("ui-options-hud-accent-color-amber")),
+            new("#FF6600", Loc.GetString("ui-options-hud-accent-color-orange")),
+            new("#FFD700", Loc.GetString("ui-options-hud-accent-color-yellow")),
+            new("#00FF00", Loc.GetString("ui-options-hud-accent-color-green")),
+            new("#0088FF", Loc.GetString("ui-options-hud-accent-color-blue")),
+            new("#FF0000", Loc.GetString("ui-options-hud-accent-color-red")),
+            new("#FFFFFF", Loc.GetString("ui-options-hud-accent-color-white")),
+        };
+
         var layoutEntries = new List<OptionDropDownCVar<string>.ValueOption>();
         foreach (var layout in Enum.GetValues(typeof(ScreenType)))
         {
@@ -41,7 +53,13 @@ public sealed partial class MiscTab : Control
         ShowOocPatronColor.Visible = _playerManager.LocalSession?.Channel?.UserData.PatronTier is { };
 
         Control.AddOptionDropDown(CVars.InterfaceTheme, DropDownHudTheme, themeEntries);
+        Control.AddOptionDropDown(CCVars.HudAccentColor, DropDownHudAccentColor, accentColorEntries);
         Control.AddOptionDropDown(CCVars.UILayout, DropDownHudLayout, layoutEntries);
+
+        // Lock UI settings — players cannot change theme, accent color, or layout
+        DropDownHudTheme.Button.Disabled = true;
+        DropDownHudAccentColor.Button.Disabled = true;
+        DropDownHudLayout.Button.Disabled = true;
 
         Control.AddOptionCheckBox(CVars.DiscordEnabled, DiscordRich);
         Control.AddOptionCheckBox(CCVars.ShowOocPatronColor, ShowOocPatronColor);

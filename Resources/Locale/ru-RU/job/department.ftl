@@ -1,10 +1,10 @@
-department-Cargo = Отдел снабжения
-department-Civilian = Сервисный отдел
+department-Cargo = TTT
+department-Civilian = Counter-Strike
 department-Command = Командование
 department-CentralCommand = Центральное командование
 department-Engineering = Инженерный отдел
 department-Medical = Медицинский отдел
-department-Security = Служба безопасности
+department-Security = FNAF
 department-Science = Научный отдел
 department-Silicon = Синтетики
 department-Specific = На определённых станциях

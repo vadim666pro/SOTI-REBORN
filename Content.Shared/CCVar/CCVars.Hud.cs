@@ -35,11 +35,18 @@ namespace Content.Shared.CCVar;
     ///     Bodycam fisheye intensity (0 = off, 0.05 = default)
     /// </summary>
     public static readonly CVarDef<float> HudBodycamFisheye =
-        CVarDef.Create("bodycam.fisheye_intensity", 0.05f, CVar.CLIENTONLY | CVar.ARCHIVE);
+        CVarDef.Create("bodycam.fisheye_intensity", 0f, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
     ///     Bodycam grain intensity (0 = off, 0.3 = default)
     /// </summary>
     public static readonly CVarDef<float> HudBodycamGrain =
-        CVarDef.Create("bodycam.grain_intensity", 0.3f, CVar.CLIENTONLY | CVar.ARCHIVE);
+        CVarDef.Create("bodycam.grain_intensity", 0f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    ///     HUD accent color as hex string (e.g. "#FF8C00" for HL2 amber).
+    ///     Empty string uses theme default.
+    /// </summary>
+    public static readonly CVarDef<string> HudAccentColor =
+        CVarDef.Create("hud.accent_color", "", CVar.CLIENTONLY | CVar.ARCHIVE);
     }

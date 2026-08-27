@@ -61,22 +61,14 @@ public sealed class MapAutoGameRuleSystem : EntitySystem
             case GameRunLevel.InRound:
                 if (!_started && comp.StartOnRoundStart)
                 {
-                    // If rules weren't added in lobby (e.g., map loaded mid-round), try to add them now before starting.
-                    if (!_added)
-                    {
-                        Sawmill.Info($"[MAGR] Late-adding rules at InRound: [{string.Join(", ", comp.Rules)}]");
-                        foreach (var id in comp.Rules)
-                        {
-                            _gameTicker.AddGameRule(id);
-                            Sawmill.Info($"[MAGR] Late-added rule '{id}'.");
-                        }
-                        _added = true;
-                    }
+                    Sawmill.Info($"[MAGR] Starting rules at InRound: [{string.Join(", ", comp.Rules)}]");
                     foreach (var id in comp.Rules)
                     {
+                        // StartGameRule(string) internally calls AddGameRule, so we only need this one call.
                         _gameTicker.StartGameRule(id);
-                        Sawmill.Info($"[MAGR] Started rule '{id}' on round start.");
+                        Sawmill.Info($"[MAGR] Started rule '{id}'.");
                     }
+                    _added = true;
                     _started = true;
                 }
                 break;

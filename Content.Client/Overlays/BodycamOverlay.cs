@@ -30,8 +30,8 @@ public sealed class BodycamOverlay : Overlay
     public float GlitchIntensity { get; set; }
 
     // ── Static tuning (set once) ────────────────────────────────────────────
-    public float FisheyeStrength { get; set; } = 0.05f;
-    public float GrainStrength { get; set; } = 0.3f;
+    public float FisheyeStrength { get; set; } = 0f;
+    public float GrainStrength { get; set; } = 0f;
     public float EdgeBlurStrength { get; set; } = 0.08f;
     public float CornerRadius { get; set; } = 0.08f;
     public float CornerFeather { get; set; } = 0.04f;

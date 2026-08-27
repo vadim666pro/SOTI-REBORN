@@ -1,0 +1,10 @@
+// Bloom pass 3: additive blend of blurred highlights onto the original scene.
+uniform sampler2D SCREEN_TEXTURE;  // original scene
+uniform sampler2D bloomTexture;    // blurred bright pixels
+uniform lowp float bloomIntensity; // 0..1 how strong the glow is
+
+void fragment() {
+    lowp vec3 original = zTextureSpec(SCREEN_TEXTURE, UV).rgb;
+    lowp vec3 bloom = zTextureSpec(bloomTexture, UV).rgb;
+    COLOR = vec4(original + bloom * bloomIntensity, 1.0);
+}

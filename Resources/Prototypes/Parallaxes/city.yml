@@ -1,0 +1,26 @@
+- type: parallax
+  id: City
+  layers:
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/Objects/counterstrike/Parallaxes/city1.png"
+      slowness: 0.9
+      scale: "1, 1"
+      scrolling: "0, 0"
+      tiled: true
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/Objects/counterstrike/Parallaxes/noise.png"
+      slowness: 0.3
+      scale: "2, 2"
+      scrolling: "0.15, 0.05"
+      tiled: true
+  layersLQ:
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/Objects/counterstrike/Parallaxes/city1.png"
+      slowness: 0.9
+      scale: "1, 1"
+      scrolling: "0, 0"
+      tiled: true
+  layersLQUseHQ: false

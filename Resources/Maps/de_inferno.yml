@@ -35,6 +35,7 @@ entities:
       rules:
         - RoundstartPlaySoundCS
         - CsRoundControllerRuleCS
+        - AutoRoundRestartRuleCS
         - RoleReveal
       addInLobby: true
       startOnRoundStart: true

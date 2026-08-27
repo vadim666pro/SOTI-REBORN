@@ -22,6 +22,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
+using Content.Server.Store.Systems;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
 
@@ -48,6 +49,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
     [Dependency] private readonly CsRoundEconomySystem _economy = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly StoreSystem _store = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-round-controller");
 
@@ -316,6 +318,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
             {
                 if (TryComp(pocket1Item, out StoreComponent? store1) && store1.Balance.ContainsKey("Telecrystal"))
                 {
+                    _store.UpdateUserInterface(bodyUid, pocket1Item.Value, store1);
                     _ui.TryOpenUi(pocket1Item.Value, StoreUiKey.Key, bodyUid);
                     continue;
                 }
@@ -325,6 +328,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
             {
                 if (TryComp(pocket2Item, out StoreComponent? store2) && store2.Balance.ContainsKey("Telecrystal"))
                 {
+                    _store.UpdateUserInterface(bodyUid, pocket2Item.Value, store2);
                     _ui.TryOpenUi(pocket2Item.Value, StoreUiKey.Key, bodyUid);
                 }
             }
@@ -390,10 +394,15 @@ public sealed class CsRoundControllerSystem : EntitySystem
 
     private void DeleteOldBombs()
     {
+        var toDelete = new List<EntityUid>();
         var query = EntityQueryEnumerator<CsBombComponent>();
         while (query.MoveNext(out var uid, out _))
         {
-            QueueDel(uid);
+            toDelete.Add(uid);
+        }
+        foreach (var uid in toDelete)
+        {
+            Del(uid);
         }
     }
 
@@ -523,7 +532,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
         {
             Sawmill.Info($"[CS Round] Respawning {session.Name} (job={jobId}, body={ToPrettyString(oldBody)})");
 
-            QueueDel(oldBody);
+            Del(oldBody);
             _gameTicker.MakeJoinGame(session, station.Value, jobId, silent: true);
 
             Sawmill.Info($"[CS Round] MakeJoinGame returned for {session.Name}");

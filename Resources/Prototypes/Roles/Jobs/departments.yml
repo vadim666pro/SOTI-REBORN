@@ -74,6 +74,7 @@
   - ERTEngineer
   - DeathSquad
   primary: false
+  editorHidden: true
   weight: 100
 
 - type: department
@@ -86,6 +87,7 @@
   - ChiefEngineer
   - StationEngineer
   - TechnicalAssistant
+  editorHidden: true
 
 - type: department
   id: Medical
@@ -99,6 +101,7 @@
   - MedicalIntern
   - Psychologist
   - Paramedic
+  editorHidden: true
 
 - type: department
   id: Security
@@ -122,6 +125,7 @@
   - ResearchDirector
   - Scientist
   - ResearchAssistant
+  editorHidden: true
 
 - type: department
   id: Silicon
@@ -131,6 +135,7 @@
   roles:
   - Borg
   - StationAi
+  editorHidden: true
 
 - type: department
   id: Specific
@@ -144,3 +149,4 @@
   - Zookeeper
   - Psychologist
   primary: false
+  editorHidden: true

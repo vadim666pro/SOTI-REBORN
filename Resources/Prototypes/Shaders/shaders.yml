@@ -144,3 +144,32 @@
     Speed: 1.0
     DistortScale: 1.0
     VerticalBias: 0.6
+
+# Bloom post-process shaders
+- type: shader
+  id: BloomExtract
+  kind: source
+  path: "/Textures/Shaders/bloom_extract.swsl"
+  params:
+    bloomThreshold: 0.35
+
+- type: shader
+  id: BloomBlur
+  kind: source
+  path: "/Textures/Shaders/bloom_blur.swsl"
+
+- type: shader
+  id: BloomCombine
+  kind: source
+  path: "/Textures/Shaders/bloom_combine.swsl"
+  params:
+    bloomIntensity: 1.2
+
+# Void fall effect — darkening + distortion when falling out of bounds
+- type: shader
+  id: VoidFall
+  kind: source
+  path: "/Textures/Shaders/void_fall.swsl"
+  params:
+    fallProgress: 0.0
+    time: 0.0

@@ -1,0 +1,11 @@
+// Bloom pass 1: extract bright pixels above a threshold.
+uniform sampler2D SCREEN_TEXTURE;
+uniform lowp float bloomThreshold; // 0..1 brightness cutoff
+
+void fragment() {
+    lowp vec3 col = zTextureSpec(SCREEN_TEXTURE, UV).rgb;
+    lowp float brightness = dot(col, vec3(0.2126, 0.7152, 0.0722));
+    // Soft knee: smooth transition instead of hard cutoff
+    lowp float soft = smoothstep(bloomThreshold - 0.1, bloomThreshold + 0.2, brightness);
+    COLOR = vec4(col * soft, 1.0);
+}

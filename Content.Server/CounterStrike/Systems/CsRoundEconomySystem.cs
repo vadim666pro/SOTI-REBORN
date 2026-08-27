@@ -55,8 +55,7 @@ public sealed class CsRoundEconomySystem : EntitySystem
     /// </summary>
     public void InitializePlayer(EntityUid bodyUid, string team)
     {
-        if (!TryComp(bodyUid, out CsRoundEconomyComponent? economy))
-            return;
+        var economy = EnsureComp<CsRoundEconomyComponent>(bodyUid);
 
         economy.Telecrystals = CsRoundControllerComponent.StartingTC;
         Dirty(bodyUid, economy);
@@ -157,6 +156,7 @@ public sealed class CsRoundEconomySystem : EntitySystem
             {
                 store1.Balance["Telecrystal"] = FixedPoint2.New(tc);
                 Dirty(pocket1Item.Value, store1);
+                _store.UpdateUserInterface(bodyUid, pocket1Item.Value, store1);
                 return;
             }
         }
@@ -168,6 +168,7 @@ public sealed class CsRoundEconomySystem : EntitySystem
             {
                 store2.Balance["Telecrystal"] = FixedPoint2.New(tc);
                 Dirty(pocket2Item.Value, store2);
+                _store.UpdateUserInterface(bodyUid, pocket2Item.Value, store2);
                 return;
             }
         }
@@ -175,13 +176,13 @@ public sealed class CsRoundEconomySystem : EntitySystem
         // Try hands as fallback
         if (TryComp(bodyUid, out HandsComponent? hands))
         {
-            foreach (var hand in hands.Hands.Values)
+            foreach (var heldUid in _hands.EnumerateHeld((bodyUid, hands)))
             {
-                if (hand.HeldEntity is { } heldUid && TryComp(heldUid, out StoreComponent? storeHand) 
-                    && storeHand.Balance.ContainsKey("Telecrystal"))
+                if (TryComp(heldUid, out StoreComponent? storeHand) && storeHand.Balance.ContainsKey("Telecrystal"))
                 {
                     storeHand.Balance["Telecrystal"] = FixedPoint2.New(tc);
                     Dirty(heldUid, storeHand);
+                    _store.UpdateUserInterface(bodyUid, heldUid, storeHand);
                     return;
                 }
             }
@@ -241,7 +242,13 @@ public sealed class CsRoundEconomySystem : EntitySystem
                 {
                     var team = GetPlayerTeam(mindId);
                     if (team != null)
+                    {
                         InitializePlayer(bodyUid, team);
+                        // InitializePlayer resets TC to StartingTC — restore saved amount
+                        economy.Telecrystals = savedTc;
+                        Dirty(bodyUid, economy);
+                        SyncToUplink(bodyUid, savedTc);
+                    }
                 }
                 else
                 {
@@ -356,18 +363,55 @@ public sealed class CsRoundEconomySystem : EntitySystem
     /// </summary>
     private void OnStoreBuyFinished(ref StoreBuyFinishedEvent ev)
     {
-        // Manual test scenario:
-        // 1. Start CS round, player spawns with 19 TC
-        // 2. Buy weapon for 10 TC during FreezeTime
-        // 3. Check CsRoundEconomyComponent.Telecrystals == 9
-        // 4. Win round (+10 TC) -> check saved TC == 19
-        // 5. Next round respawn -> verify player has 19 TC (not 29)
+        // ev.StoreUid is the uplink entity (with StoreComponent), NOT the player.
+        // We need to find the player who owns this uplink.
+        var uplinkUid = ev.StoreUid;
+        EntityUid? ownerUid = null;
 
-        // Find the buyer entity - StoreComponent lives on the buyer's body
-        var buyerUid = ev.StoreUid;
+        // Search all players' inventory for this uplink
+        var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
+        while (query.MoveNext(out var bodyUid, out _, out var mindContainer))
+        {
+            if (!mindContainer.HasMind)
+                continue;
+
+            // Check pocket1
+            if (_inventory.TryGetSlotEntity(bodyUid, "pocket1", out var pocket1) && pocket1 == uplinkUid)
+            {
+                ownerUid = bodyUid;
+                break;
+            }
+
+            // Check pocket2
+            if (_inventory.TryGetSlotEntity(bodyUid, "pocket2", out var pocket2) && pocket2 == uplinkUid)
+            {
+                ownerUid = bodyUid;
+                break;
+            }
+
+            // Check hands
+            if (TryComp(bodyUid, out HandsComponent? hands))
+            {
+                foreach (var heldUid in _hands.EnumerateHeld((bodyUid, hands)))
+                {
+                    if (heldUid == uplinkUid)
+                    {
+                        ownerUid = bodyUid;
+                        break;
+                    }
+                }
+                if (ownerUid != null) break;
+            }
+        }
+
+        if (ownerUid == null)
+        {
+            Sawmill.Warning($"[CS Economy] StoreBuyFinished for uplink {ToPrettyString(uplinkUid)} but could not find owner.");
+            return;
+        }
 
         // Only process CS players with economy component
-        if (!TryComp(buyerUid, out CsRoundEconomyComponent? economy))
+        if (!TryComp(ownerUid.Value, out CsRoundEconomyComponent? economy))
             return;
 
         // Calculate Telecrystal cost
@@ -389,14 +433,14 @@ public sealed class CsRoundEconomySystem : EntitySystem
         // (StoreSystem already verified StoreComponent.Balance)
         if (economy.Telecrystals < tcCost)
         {
-            Sawmill.Warning($"[CS Economy] {ToPrettyString(buyerUid)}: purchase cost {tcCost} TC but economy component has {economy.Telecrystals} TC. Desynced state!");
+            Sawmill.Warning($"[CS Economy] {ToPrettyString(ownerUid.Value)}: purchase cost {tcCost} TC but economy component has {economy.Telecrystals} TC. Desynced state!");
         }
 
         // Subtract from economy component to match StoreComponent
         var oldBalance = economy.Telecrystals;
         economy.Telecrystals = Math.Max(0, economy.Telecrystals - tcCost);
-        Dirty(buyerUid, economy);
+        Dirty(ownerUid.Value, economy);
 
-        Sawmill.Info($"[CS Economy] {ToPrettyString(buyerUid)}: purchased for {tcCost} TC. Balance: {oldBalance} -> {economy.Telecrystals}");
+        Sawmill.Info($"[CS Economy] {ToPrettyString(ownerUid.Value)}: purchased for {tcCost} TC. Balance: {oldBalance} -> {economy.Telecrystals}");
     }
 }

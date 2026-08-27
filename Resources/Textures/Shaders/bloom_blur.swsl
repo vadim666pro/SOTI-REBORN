@@ -1,0 +1,22 @@
+// Bloom pass 2: single-axis gaussian blur.
+// Set blurDirection to (1,0) for horizontal or (0,1) for vertical.
+uniform sampler2D SCREEN_TEXTURE;
+uniform highp vec2 blurDirection; // (1,0) or (0,1)
+uniform highp vec2 texelSize;     // 1.0 / resolution
+
+void fragment() {
+    lowp vec3 col = vec3(0.0);
+
+    // 9-tap gaussian kernel (sigma ~2.0)
+    col += zTextureSpec(SCREEN_TEXTURE, UV - 4.0 * blurDirection * texelSize).rgb * 0.0162;
+    col += zTextureSpec(SCREEN_TEXTURE, UV - 3.0 * blurDirection * texelSize).rgb * 0.0540;
+    col += zTextureSpec(SCREEN_TEXTURE, UV - 2.0 * blurDirection * texelSize).rgb * 0.1216;
+    col += zTextureSpec(SCREEN_TEXTURE, UV - 1.0 * blurDirection * texelSize).rgb * 0.1945;
+    col += zTextureSpec(SCREEN_TEXTURE, UV).rgb * 0.2270;
+    col += zTextureSpec(SCREEN_TEXTURE, UV + 1.0 * blurDirection * texelSize).rgb * 0.1945;
+    col += zTextureSpec(SCREEN_TEXTURE, UV + 2.0 * blurDirection * texelSize).rgb * 0.1216;
+    col += zTextureSpec(SCREEN_TEXTURE, UV + 3.0 * blurDirection * texelSize).rgb * 0.0540;
+    col += zTextureSpec(SCREEN_TEXTURE, UV + 4.0 * blurDirection * texelSize).rgb * 0.0162;
+
+    COLOR = vec4(col, 1.0);
+}

@@ -1,0 +1,52 @@
+// Void fall effect — darkening vignette + distortion + red flash at death.
+uniform sampler2D SCREEN_TEXTURE;
+uniform lowp float fallProgress; // 0..1 (0 = just started, 1 = about to die)
+uniform highp float time;
+
+lowp float hash21(lowp vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+void fragment() {
+    lowp vec2 uv = UV;
+    lowp vec2 center = vec2(0.5);
+
+    // ── 1. Screen distortion — warping increases with progress ───────────────
+    lowp float distort = fallProgress * 0.06;
+    lowp vec2 ruv = uv - center;
+    lowp float r = length(ruv);
+    // Barrel distortion (falling sensation)
+    uv = center + ruv * (1.0 + r * r * distort * 3.0);
+
+    // ── 2. Vertical stretch — pulling downward ──────────────────────────────
+    uv.y = mix(uv.y, uv.y * (1.0 + fallProgress * 0.15), fallProgress);
+
+    // ── 3. Sample screen ─────────────────────────────────────────────────────
+    lowp vec3 col = zTextureSpec(SCREEN_TEXTURE, uv).rgb;
+
+    // ── 4. Desaturation — lose color as you fall ─────────────────────────────
+    lowp float lum = dot(col, vec3(0.2126, 0.7152, 0.0722));
+    col = mix(col, vec3(lum), fallProgress * 0.8);
+
+    // ── 5. Darkening vignette — closes in from edges ─────────────────────────
+    lowp float d = length(UV - center);
+    lowp float vignette = smoothstep(0.2, 0.9, d);
+    lowp float darkness = mix(0.0, 0.95, fallProgress);
+    col *= 1.0 - vignette * darkness;
+
+    // ── 6. Noise/static — camera glitching during fall ───────────────────────
+    lowp float noise = hash21(UV * 500.0 + time * 30.0);
+    col += (noise - 0.5) * fallProgress * 0.15;
+
+    // ── 7. Red flash at the end (death moment) ───────────────────────────────
+    if (fallProgress > 0.7) {
+        lowp float redFade = (fallProgress - 0.7) / 0.3; // 0..1 in last 30%
+        lowp float pulse = 0.5 + 0.5 * sin(time * 8.0);
+        col = mix(col, vec3(0.6, 0.0, 0.0), redFade * pulse * 0.6);
+    }
+
+    // ── 8. Final fade to black at the very end ───────────────────────────────
+    col *= 1.0 - fallProgress * fallProgress * 0.5;
+
+    COLOR = vec4(clamp(col, 0.0, 1.0), 1.0);
+}

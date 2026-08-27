@@ -41,12 +41,12 @@ public sealed partial class CsRoundControllerComponent : Component
     /// <summary>
     /// TC reward for winning a sub-round.
     /// </summary>
-    public const int WinBonusTC = 10;
+    public const int WinBonusTC = 25;
 
     /// <summary>
     /// TC reward for losing a sub-round.
     /// </summary>
-    public const int LossBonusTC = 5;
+    public const int LossBonusTC = 15;
 
     /// <summary>
     /// Current phase of the CS round cycle.
