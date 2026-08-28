@@ -1,7 +1,7 @@
 - type: gameMap
   id: de_italy
   mapName: 'de_Italy'
-  mapPath: /Maps/Italy.yml
+  mapPath: /Maps/CS/Italy.yml
   minPlayers: 0
   stations:
    deItaly:

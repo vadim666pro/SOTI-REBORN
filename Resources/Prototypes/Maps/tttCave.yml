@@ -1,7 +1,7 @@
 - type: gameMap
   id: TTTcave
   mapName: 'TTT_cave'
-  mapPath: /Maps/tttCave.yml
+  mapPath: /Maps/TTT/tttCave.yml
   minPlayers: 0
   stations:
    tttCave:

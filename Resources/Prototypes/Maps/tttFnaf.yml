@@ -1,7 +1,7 @@
 - type: gameMap
   id: tttFnaf
   mapName: 'Gazonyuch Frights'
-  mapPath: /Maps/tttFnaf3.yml
+  mapPath: /Maps/TTT/tttfnaf3.yml
   minPlayers: 0
   stations:
     tttFnaf3:

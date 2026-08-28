@@ -21,6 +21,7 @@ public static class CounterStrikeTeams
         "Janitor",
         "Reporter",
         "Librarian",
+        "Boxer",
     ];
 
     /// <summary>Terrorist job prototype IDs.</summary>
@@ -30,5 +31,6 @@ public static class CounterStrikeTeams
         "Lawyer",
         "ServiceWorker",
         "Mime",
+        "Chaplain",
     ];
 }

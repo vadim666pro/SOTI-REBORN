@@ -41,6 +41,12 @@ entities:
     - type: OccluderTree
     - type: Parallax
       parallax: SillyIsland
+    - type: MapAutoGameRule
+      rules:
+      - RoundstartPlaySoundCS
+      - CsRoundControllerRuleCS
+      - AutoRoundRestartRuleCS
+      - RoleReveal
     - type: MapAtmosphere
       space: False
       mixture:

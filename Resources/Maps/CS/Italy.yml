@@ -64,10 +64,9 @@ entities:
       ambientLightColor: '#d7f5f4'
     - type: MapAutoGameRule
       rules:
-      - AutoRoundEndingRuleCS
-      - AutoRoundRestartRuleCS
       - RoundstartPlaySoundCS
-      - CounterStrikeBombAssignRuleCS
+      - CsRoundControllerRuleCS
+      - AutoRoundRestartRuleCS
       - RoleReveal
   - uid: 2
     components:

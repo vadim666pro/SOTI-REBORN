@@ -1,7 +1,7 @@
 - type: gameMap
   id: de_babatapaTanker
   mapName: 'babatapa_tanker'
-  mapPath: /Maps/babatapaTanker.yml
+  mapPath: /Maps/CS/babatapaTanker.yml
   minPlayers: 0
   stations:
    babatapa:

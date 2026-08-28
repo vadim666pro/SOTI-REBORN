@@ -1,7 +1,7 @@
 - type: gameMap
   id: de_seaside
   mapName: 'deseaside'
-  mapPath: /Maps/Seaside2.yml
+  mapPath: /Maps/CS/Seaside2.yml
   minPlayers: 0
   stations:
    deseaside:

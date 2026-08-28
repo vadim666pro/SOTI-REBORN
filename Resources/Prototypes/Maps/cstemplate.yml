@@ -1,0 +1,23 @@
+- type: gameMap
+  id: cs_template
+  mapName: 'CS Template'
+  mapPath: /Maps/CS/cs_template.yml
+  minPlayers: 0
+  stations:
+   cs_template:
+      stationProto: StandardNanotrasenStation
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: "CS Template"
+        - type: StationJobs
+          availableJobs:
+            Passenger: [ -1, -1 ]
+            Lawyer: [ -1, -1 ]
+            ServiceWorker: [ -1, -1 ]
+            Mime: [ -1, -1 ]
+            Chaplain: [ -1, -1 ]
+            Musician: [ -1, -1 ]
+            Janitor: [ -1, -1 ]
+            Reporter: [ -1, -1 ]
+            Librarian: [ -1, -1 ]
+            Boxer: [ -1, -1 ]

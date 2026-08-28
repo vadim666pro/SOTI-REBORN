@@ -1,7 +1,7 @@
 - type: gameMap
   id: FnafFilm2
   mapName: 'Gazonyuch Frights'
-  mapPath: /Maps/Fnaf3.yml
+  mapPath: /Maps/fnaf3.yml
   minPlayers: 0
   stations:
     Fnaf3:

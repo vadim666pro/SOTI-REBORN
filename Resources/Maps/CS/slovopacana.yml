@@ -41,6 +41,12 @@ entities:
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
+    - type: MapAutoGameRule
+      rules:
+      - RoundstartPlaySoundCS
+      - CsRoundControllerRuleCS
+      - AutoRoundRestartRuleCS
+      - RoleReveal
     - type: MapGrid
       chunks:
         -2,-2:

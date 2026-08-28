@@ -33,10 +33,9 @@ entities:
     - type: Transform
     - type: MapAutoGameRule
       rules:
-      - AutoRoundEndingRuleCS
-      - AutoRoundRestartRuleCS
       - RoundstartPlaySoundCS
-      - CounterStrikeBombAssignRuleCS
+      - CsRoundControllerRuleCS
+      - AutoRoundRestartRuleCS
       - RoleReveal
     - type: MapLight
       ambientLightColor: '#E3D8ACFF'

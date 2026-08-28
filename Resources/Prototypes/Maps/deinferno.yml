@@ -1,7 +1,7 @@
 - type: gameMap
   id: de_inferno
   mapName: 'de_inferno'
-  mapPath: /Maps/de_inferno.yml
+  mapPath: /Maps/CS/de_inferno.yml
   minPlayers: 0
   stations:
    de_inferno:

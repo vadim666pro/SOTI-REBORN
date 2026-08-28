@@ -1,7 +1,7 @@
 - type: gameMap
   id: de_thera
   mapName: 'de_thera'
-  mapPath: /Maps/Thera.yml
+  mapPath: /Maps/CS/Thera.yml
   minPlayers: 0
   stations:
    deThera:

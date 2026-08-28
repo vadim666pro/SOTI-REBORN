@@ -1,7 +1,7 @@
 - type: gameMap
   id: de_hotel
   mapName: 'de_hotel'
-  mapPath: /Maps/hotel.yml
+  mapPath: /Maps/CS/hotel.yml
   minPlayers: 0
   stations:
    dehotel:

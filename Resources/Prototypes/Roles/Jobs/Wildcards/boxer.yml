@@ -19,7 +19,7 @@
     eyes: ClothingEyesGlassesSunglasses
     id: BoxerPDA
     ears: ClothingHeadsetService
-    shoes: ClothingShoesBootsCombatFilled
+    shoes: ClothingShoesBootsLaceup
     head: ClothingHeadHatPoliceCap
     jumpsuit: ClothingUniformPoliceOutfit
     belt: ClothingBeltSecurityWebbing
