@@ -42,6 +42,11 @@ public sealed class CsRoundEconomySystem : EntitySystem
     /// </summary>
     private readonly Dictionary<NetUserId, int> _playerTc = new();
 
+    /// <summary>
+    /// Pending TC bonus for players without bodies. Applied on next FreezeTime.
+    /// </summary>
+    private readonly Dictionary<NetUserId, int> _pendingBonusTc = new();
+
     public override void Initialize()
     {
         base.Initialize();
@@ -193,17 +198,25 @@ public sealed class CsRoundEconomySystem : EntitySystem
     }
 
     /// <summary>
-    /// Save TC before respawn.
+    /// Save TC (including pending bonus) before respawn.
     /// </summary>
     public void SaveTcForRespawn(EntityUid bodyUid, NetUserId userId)
     {
         var savedTc = GetBalance(bodyUid);
+
+        // Also include pending bonus that hasn't been applied yet
+        if (TryComp(bodyUid, out CsRoundEconomyComponent? economy) && economy.PendingBonusTC > 0)
+        {
+            savedTc = Math.Clamp(savedTc + economy.PendingBonusTC, 0, CsRoundControllerComponent.MaxTC);
+            Sawmill.Info($"[CS Economy] Including pending bonus {economy.PendingBonusTC} TC in save for {ToPrettyString(bodyUid)}");
+        }
+
         _playerTc[userId] = savedTc;
         Sawmill.Info($"[CS Economy] Saved {savedTc} TC for {ToPrettyString(bodyUid)} before respawn.");
     }
 
     /// <summary>
-    /// Restore TC from dictionary to newly spawned players and sync uplink.
+    /// Restore TC from dictionary to newly spawned players, apply pending bonuses, and sync uplink.
     /// Called during FreezeTime to handle async respawns.
     /// </summary>
     public void RestorePlayerTc()
@@ -228,6 +241,14 @@ public sealed class CsRoundEconomySystem : EntitySystem
                 if (!_playerTc.TryGetValue(userId, out var savedTc))
                     continue;
 
+                // Apply pending bonus from dictionary if exists
+                if (_pendingBonusTc.TryGetValue(userId, out var pendingBonus))
+                {
+                    savedTc = Math.Clamp(savedTc + pendingBonus, 0, CsRoundControllerComponent.MaxTC);
+                    _pendingBonusTc.Remove(userId);
+                    Sawmill.Info($"[CS Economy] {userId}: applied pending bonus {pendingBonus} to restored TC. New balance: {savedTc}");
+                }
+
                 var economy = EnsureComp<CsRoundEconomyComponent>(bodyUid);
                 if (economy.Telecrystals == savedTc && HasComp<StoreComponent>(bodyUid))
                 {
@@ -236,6 +257,7 @@ public sealed class CsRoundEconomySystem : EntitySystem
                 }
 
                 economy.Telecrystals = savedTc;
+                economy.PendingBonusTC = 0;
                 Dirty(bodyUid, economy);
 
                 if (!HasComp<StoreComponent>(bodyUid))
@@ -260,7 +282,23 @@ public sealed class CsRoundEconomySystem : EntitySystem
             }
         }
 
-        // Second pass: initialize first-time players who have no economy component
+        // Second pass: apply pending bonuses for players with existing bodies
+        var bonusQuery = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
+        while (bonusQuery.MoveNext(out var bodyUid, out _, out var mindContainer))
+        {
+            if (!mindContainer.HasMind)
+                continue;
+
+            if (!TryComp(bodyUid, out CsRoundEconomyComponent? economy) || economy.PendingBonusTC <= 0)
+                continue;
+
+            var bonus = economy.PendingBonusTC;
+            economy.PendingBonusTC = 0;
+            AddCoins(bodyUid, bonus);
+            Sawmill.Info($"[CS Economy] {ToPrettyString(bodyUid)}: applied pending bonus +{bonus} TC during FreezeTime");
+        }
+
+        // Third pass: initialize first-time players who have no economy component
         var initQuery = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
         while (initQuery.MoveNext(out var bodyUid, out _, out var mindContainer))
         {
@@ -286,10 +324,11 @@ public sealed class CsRoundEconomySystem : EntitySystem
     public void ClearSavedTc()
     {
         _playerTc.Clear();
+        _pendingBonusTc.Clear();
     }
 
     /// <summary>
-    /// Handle sub-round end: award TC to all players based on team win/loss.
+    /// Handle sub-round end: store pending TC bonus. Applied during next FreezeTime.
     /// </summary>
     private void OnSubRoundEnded(CsSubRoundEndedEvent ev)
     {
@@ -308,28 +347,19 @@ public sealed class CsRoundEconomySystem : EntitySystem
                 ? CsRoundControllerComponent.WinBonusTC
                 : CsRoundControllerComponent.LossBonusTC;
 
-            // Try to add coins to the player's current body if alive
-            if (mind.CurrentEntity is { } currentBody && TryComp(currentBody, out CsRoundEconomyComponent? _))
+            // Try to store pending bonus on the player's current body
+            if (mind.CurrentEntity is { } currentBody && TryComp(currentBody, out CsRoundEconomyComponent? economy))
             {
-                AddCoins(currentBody, bonus);
-                Sawmill.Info($"[CS Economy] {ToPrettyString(currentBody)}: sub-round ended, winner={isWinner}, +{bonus} TC");
+                economy.PendingBonusTC += bonus;
+                Dirty(currentBody, economy);
+                Sawmill.Info($"[CS Economy] {ToPrettyString(currentBody)}: sub-round ended, winner={isWinner}, pending +{bonus} TC (total pending: {economy.PendingBonusTC})");
             }
             else
             {
-                // Body deleted or no economy component — update saved TC so respawn gets the bonus
-                if (_playerTc.TryGetValue(userId, out var saved))
-                {
-                    var newAmount = Math.Clamp(saved + bonus, 0, CsRoundControllerComponent.MaxTC);
-                    _playerTc[userId] = newAmount;
-                    Sawmill.Info($"[CS Economy] {userId}: sub-round ended (no body), winner={isWinner}, saved TC {saved} -> {newAmount}");
-                }
-                else
-                {
-                    // No saved TC yet (first round, player wasn't respawned) — save startingTC + bonus
-                    var startingWithBonus = Math.Clamp(CsRoundControllerComponent.StartingTC + bonus, 0, CsRoundControllerComponent.MaxTC);
-                    _playerTc[userId] = startingWithBonus;
-                    Sawmill.Info($"[CS Economy] {userId}: sub-round ended (no body, no save), winner={isWinner}, saved TC = {startingWithBonus}");
-                }
+                // Body deleted or no economy component — store pending bonus in dictionary
+                _pendingBonusTc.TryGetValue(userId, out var pending);
+                _pendingBonusTc[userId] = pending + bonus;
+                Sawmill.Info($"[CS Economy] {userId}: sub-round ended (no body), winner={isWinner}, pending +{bonus} TC (total pending: {pending + bonus})");
             }
         }
     }

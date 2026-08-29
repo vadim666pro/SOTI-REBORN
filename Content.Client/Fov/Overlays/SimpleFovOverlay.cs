@@ -1,9 +1,12 @@
 using System.Numerics;
+using Content.Shared.CombatMode;
 using Robust.Client.Graphics;
+using Robust.Client.Input;
 using Robust.Client.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
+using Robust.Shared.Map;
 using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
 
@@ -11,7 +14,7 @@ namespace Content.Client.Fov.Overlays;
 
 /// <summary>
 /// World-space overlay that draws a black mask outside the player's 120° FOV cone.
-/// Stencil: writes the VISIBLE cone + player circle to stencil, then fills outside with black.
+/// In Harm Mode, the cone follows the cursor direction instead of character direction.
 /// </summary>
 public sealed class SimpleFovOverlay : Overlay
 {
@@ -22,6 +25,9 @@ public sealed class SimpleFovOverlay : Overlay
     private readonly IPlayerManager _player;
     private readonly IEntityManager _entMan;
     private readonly SharedTransformSystem _transform;
+    private readonly IInputManager _inputManager;
+    private readonly IEyeManager _eyeManager;
+    private readonly SharedCombatModeSystem _combatMode;
     private readonly ShaderInstance _stencilClear;
     private readonly ShaderInstance _stencilMask;
     private readonly ShaderInstance _stencilDraw;
@@ -33,6 +39,9 @@ public sealed class SimpleFovOverlay : Overlay
         _player = IoCManager.Resolve<IPlayerManager>();
         _entMan = IoCManager.Resolve<IEntityManager>();
         _transform = _entMan.System<SharedTransformSystem>();
+        _inputManager = IoCManager.Resolve<IInputManager>();
+        _eyeManager = IoCManager.Resolve<IEyeManager>();
+        _combatMode = _entMan.System<SharedCombatModeSystem>();
         _stencilClear = prototypeManager.Index(StencilClearId).InstanceUnique();
         _stencilMask = prototypeManager.Index(StencilMaskId).InstanceUnique();
         _stencilDraw = prototypeManager.Index(StencilDrawId).InstanceUnique();
@@ -53,10 +62,49 @@ public sealed class SimpleFovOverlay : Overlay
             return;
 
         var center = _transform.GetWorldPosition(xform);
-        var playerAngle = _transform.GetWorldRotation(xform);
 
-        // Subtract 90° to compensate for Robust rendering axis offset
-        var baseAngle = (float)playerAngle.Theta - MathF.PI * 0.5f;
+        float baseAngle;
+
+        // In Harm Mode, use cursor direction; otherwise use character direction
+        if (_combatMode.IsInCombatMode(playerUid.Value))
+        {
+            var mouseScreenPos = _inputManager.MouseScreenPosition;
+
+            // If cursor is outside the game window, clamp to viewport center
+            if (mouseScreenPos.Window == WindowId.Invalid)
+            {
+                var playerAngle = _transform.GetWorldRotation(xform);
+                baseAngle = (float)playerAngle.Theta - MathF.PI * 0.5f;
+            }
+            else
+            {
+                var mouseWorldPos = _eyeManager.PixelToMap(mouseScreenPos);
+                if (mouseWorldPos.MapId != args.MapId)
+                {
+                    var playerAngle = _transform.GetWorldRotation(xform);
+                    baseAngle = (float)playerAngle.Theta - MathF.PI * 0.5f;
+                }
+                else
+                {
+                    var delta = mouseWorldPos.Position - center;
+                    if (delta.LengthSquared() < 0.001f)
+                    {
+                        var playerAngle = _transform.GetWorldRotation(xform);
+                        baseAngle = (float)playerAngle.Theta - MathF.PI * 0.5f;
+                    }
+                    else
+                    {
+                        baseAngle = MathF.Atan2(delta.Y, delta.X);
+                    }
+                }
+            }
+        }
+        else
+        {
+            var playerAngle = _transform.GetWorldRotation(xform);
+            // Subtract 90° to compensate for Robust rendering axis offset
+            baseAngle = (float)playerAngle.Theta - MathF.PI * 0.5f;
+        }
 
         // 120° FOV: ±60°
         var halfFov = MathHelper.DegreesToRadians(60f);

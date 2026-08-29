@@ -1,0 +1,14 @@
+- type: entity
+  name: Bundle Case
+  parent: WeaponCaseBase
+  id: BundleCaseTTT
+  description: A large portable case for storing weapon bundles.
+  components:
+  - type: Storage
+    grid:
+    - 0,0,9,5
+  - type: Clothing
+    sprite: Objects/counterstrike/Other/WeaponCase.rsi
+    quickEquip: false
+    slots:
+    - pocket

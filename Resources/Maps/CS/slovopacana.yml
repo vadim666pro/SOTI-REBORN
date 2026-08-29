@@ -5957,14 +5957,6 @@ entities:
     - type: Transform
       pos: -85.5,-45.5
       parent: 1
-- proto: SpawnPointLatejoin
-  entities:
-  - uid: 6919
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -63.5,-89.5
-      parent: 1
 - proto: SpawnPointLawyer
   entities:
   - uid: 7514

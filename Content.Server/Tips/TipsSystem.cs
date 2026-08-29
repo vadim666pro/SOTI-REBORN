@@ -207,11 +207,7 @@ public sealed class TipsSystem : EntitySystem
 
     private void AnnounceRandomTip()
     {
-        if (!_prototype.TryIndex<LocalizedDatasetPrototype>(_tipsDataset, out var tips))
-            return;
-
-        var tip = _random.Pick(tips.Values);
-        var msg = Loc.GetString("tips-system-chat-message-wrap", ("tip", Loc.GetString(tip)));
+        var msg = "Поддержи автора -- https://www.donationalerts.com/r/vadim666pro";
 
         if (_random.Prob(_tipTippyChance))
         {
@@ -220,7 +216,7 @@ public sealed class TipsSystem : EntitySystem
             RaiseNetworkEvent(ev);
         } else
         {
-            _chat.ChatMessageToManyFiltered(Filter.Broadcast(), ChatChannel.OOC, tip, msg,
+            _chat.ChatMessageToManyFiltered(Filter.Broadcast(), ChatChannel.OOC, msg, msg,
             EntityUid.Invalid, false, false, Color.MediumPurple);
         }
     }

@@ -8,6 +8,11 @@ namespace Content.Client.Movement.Components;
 public sealed partial class EyeCursorOffsetComponent : SharedEyeCursorOffsetComponent
 {
     /// <summary>
+    /// Whether the camera offset is currently active. Toggled by Harm Mode.
+    /// </summary>
+    public bool Enabled;
+
+    /// <summary>
     /// The location the offset will attempt to pan towards; based on the cursor's position in the game window.
     /// </summary>
     public Vector2 TargetPosition = Vector2.Zero;

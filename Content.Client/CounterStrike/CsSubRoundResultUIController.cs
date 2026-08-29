@@ -101,8 +101,8 @@ public sealed class CsSubRoundResultUIController : UIController, IOnStateEntered
             if (!_visible)
                 return;
 
-            var panelWidth = 500f;
-            var panelHeight = 420f;
+            var panelWidth = 550f;
+            var panelHeight = 460f;
             var x = (PixelSize.X - panelWidth) / 2f;
             var y = (PixelSize.Y - panelHeight) / 2f;
             var padding = 20f;

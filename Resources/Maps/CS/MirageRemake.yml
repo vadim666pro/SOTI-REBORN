@@ -6939,14 +6939,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -51.5,16.5
       parent: 2
-- proto: SpawnPointLatejoin
-  entities:
-  - uid: 2266
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -3.5,13.5
-      parent: 2
 - proto: SpawnPointMusician
   entities:
   - uid: 1601

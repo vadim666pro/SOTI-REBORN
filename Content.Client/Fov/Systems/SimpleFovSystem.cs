@@ -1,16 +1,20 @@
 using System.Numerics;
+using Content.Shared.CombatMode;
 using Content.Shared.Ghost;
 using Content.Shared.Mobs.Components;
 using Robust.Client.GameObjects;
+using Robust.Client.Graphics;
+using Robust.Client.Input;
 using Robust.Client.Player;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Map;
 using Robust.Shared.Maths;
 
 namespace Content.Client.Fov.Systems;
 
 /// <summary>
 /// Lightweight FOV system. Hides mob sprites behind the player (180° half-sphere).
-/// Uses pure dot-product math — no raycasts, no physics queries.
+/// In Harm Mode, the FOV cone follows the cursor direction.
 /// </summary>
 public sealed class SimpleFovSystem : EntitySystem
 {
@@ -19,6 +23,9 @@ public sealed class SimpleFovSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly IEntityManager _entMan = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency] private readonly IEyeManager _eyeManager = default!;
+    [Dependency] private readonly SharedCombatModeSystem _combatMode = default!;
 
     /// <summary>Toggle sprite hiding on/off. Set by togglefov command.</summary>
     public bool Enabled { get; set; } = true;
@@ -53,9 +60,41 @@ public sealed class SimpleFovSystem : EntitySystem
 
         var playerPos = _transform.GetWorldPosition(playerXform);
 
-        // Use same angle source as overlay: Transform.WorldRotation with -90° correction
-        var baseAngle = (float)_transform.GetWorldRotation(playerXform).Theta - MathF.PI * 0.5f;
-        var playerForward = new Vector2(MathF.Cos(baseAngle), MathF.Sin(baseAngle));
+        Vector2 playerForward;
+
+        // In Harm Mode, use cursor direction; otherwise use character direction
+        if (_combatMode.IsInCombatMode(playerUid.Value))
+        {
+            var mouseScreenPos = _inputManager.MouseScreenPosition;
+
+            // If cursor is outside the game window, fall back to character direction
+            if (mouseScreenPos.Window == WindowId.Invalid)
+            {
+                var baseAngle = (float)_transform.GetWorldRotation(playerXform).Theta - MathF.PI * 0.5f;
+                playerForward = new Vector2(MathF.Cos(baseAngle), MathF.Sin(baseAngle));
+            }
+            else
+            {
+                var mouseWorldPos = _eyeManager.PixelToMap(mouseScreenPos);
+                var delta = mouseWorldPos.Position - playerPos;
+
+                if (delta.LengthSquared() < 0.001f)
+                {
+                    var baseAngle = (float)_transform.GetWorldRotation(playerXform).Theta - MathF.PI * 0.5f;
+                    playerForward = new Vector2(MathF.Cos(baseAngle), MathF.Sin(baseAngle));
+                }
+                else
+                {
+                    playerForward = delta.Normalized();
+                }
+            }
+        }
+        else
+        {
+            // Use same angle source as overlay: Transform.WorldRotation with -90° correction
+            var baseAngle = (float)_transform.GetWorldRotation(playerXform).Theta - MathF.PI * 0.5f;
+            playerForward = new Vector2(MathF.Cos(baseAngle), MathF.Sin(baseAngle));
+        }
 
         var processed = new HashSet<EntityUid>();
 
@@ -69,8 +108,8 @@ public sealed class SimpleFovSystem : EntitySystem
                 continue;
 
             var targetPos = _transform.GetWorldPosition(xform);
-            var delta = targetPos - playerPos;
-            var distance = delta.Length();
+            var entityDelta = targetPos - playerPos;
+            var distance = entityDelta.Length();
 
             // Too far — hide
             if (distance > MaxVisibleDistance || distance < 0.01f)
@@ -81,7 +120,7 @@ public sealed class SimpleFovSystem : EntitySystem
             }
 
             // 180° check: dot >= 0 means in front半 sphere, dot < 0 means behind
-            var dot = Vector2.Dot(playerForward, delta / distance);
+            var dot = Vector2.Dot(playerForward, entityDelta / distance);
 
             if (dot >= 0f)
                 RestoreSprite(uid, sprite);

@@ -71,8 +71,9 @@ public sealed partial class StoreSystem : EntitySystem
 
     private void OnStoreOpenAttempt(EntityUid uid, StoreComponent component, ActivatableUIOpenAttemptEvent args)
     {
-        // Block CS uplinks during ActionPhase and PostAction
-        if (component.Balance.ContainsKey("Telecrystal"))
+        // Block CS uplinks during ActionPhase and PostAction (but NOT TTT uplinks)
+        var protoId = MetaData(uid).EntityPrototype?.ID;
+        if (protoId is "BaseUplinkRadioCT" or "BaseUplinkRadioT")
         {
             var query = EntityQueryEnumerator<CsRoundControllerComponent>();
             while (query.MoveNext(out _, out var controller))

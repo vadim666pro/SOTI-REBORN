@@ -97,16 +97,7 @@
   id: JobChaplain
   groups:
   - GroupTankHarness
-  - ChaplainHead
-  - ChaplainMask
-  - ChaplainNeck
-  - ChaplainJumpsuit
-  - CommonBackpack
-  - ChaplainOuterClothing
-  - ChaplainBible
-  - Glasses
   - Survival
-  - Trinkets
   - GroupSpeciesBreathTool
 
 - type: roleLoadout
@@ -393,12 +384,7 @@
   id: JobBoxer
   groups:
   - GroupTankHarness
-  - BoxerJumpsuit
-  - BoxerGloves
-  - CommonBackpack
-  - Glasses
   - Survival
-  - Trinkets
   - GroupSpeciesBreathTool
 
 # These loadouts are used for non-crew spawns, like off-station antags and event mobs

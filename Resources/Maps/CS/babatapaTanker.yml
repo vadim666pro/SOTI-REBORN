@@ -15582,13 +15582,6 @@ entities:
     - type: Transform
       pos: 11.5,-8.5
       parent: 2
-- proto: SpawnPointLatejoin
-  entities:
-  - uid: 2877
-    components:
-    - type: Transform
-      pos: -7.5,-9.5
-      parent: 2
 - proto: SpawnPointLibrarian
   entities:
   - uid: 2824

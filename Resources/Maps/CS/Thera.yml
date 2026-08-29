@@ -7794,13 +7794,6 @@ entities:
     - type: Transform
       pos: 83.683945,10.846885
       parent: 2
-- proto: SpawnPointLatejoin
-  entities:
-  - uid: 1200
-    components:
-    - type: Transform
-      pos: 67.5,-2.5
-      parent: 2
 - proto: SpawnPointReporter
   entities:
   - uid: 1201

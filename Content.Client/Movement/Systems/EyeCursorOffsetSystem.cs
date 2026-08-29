@@ -26,6 +26,13 @@ public sealed partial class EyeCursorOffsetSystem : EntitySystem
 
     private void OnGetEyeOffsetEvent(EntityUid uid, EyeCursorOffsetComponent component, ref GetEyeOffsetEvent args)
     {
+        if (!component.Enabled)
+        {
+            component.CurrentPosition = Vector2.Zero;
+            component.TargetPosition = Vector2.Zero;
+            return;
+        }
+
         var offset = OffsetAfterMouse(uid, component);
         if (offset == null)
             return;
@@ -70,18 +77,9 @@ public sealed partial class EyeCursorOffsetSystem : EntitySystem
                 mouseActualRelativePos = mouseActualRelativePos.Normalized() * component.MaxOffset;
             }
 
+            // Instant offset — no smoothing
             component.TargetPosition = mouseActualRelativePos;
-
-            //Makes the view not jump immediately when moving the cursor fast.
-            if (component.CurrentPosition != component.TargetPosition)
-            {
-                Vector2 vectorOffset = component.TargetPosition - component.CurrentPosition;
-                if (vectorOffset.Length() > component.OffsetSpeed)
-                {
-                    vectorOffset = vectorOffset.Normalized() * component.OffsetSpeed; // TODO: Probably needs to properly account for time delta or something.
-                }
-                component.CurrentPosition += vectorOffset;
-            }
+            component.CurrentPosition = mouseActualRelativePos;
         }
         return component.CurrentPosition;
     }

@@ -11,6 +11,8 @@
       map: ["enum.GunVisualLayers.Base"]
   - type: Gun
     fireRate: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
     soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/revolver.ogg }
   - type: Clothing
     sprite: Objects/counterstrike/Weapons/TTT/nagan.rsi

@@ -1,20 +1,27 @@
 using System.Numerics;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.VoidFall;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.VoidFall;
 
 /// <summary>
 /// Detects players standing on space tiles (out of bounds) and applies void fall.
-/// After FallDuration seconds the entity is deleted.
+/// After FallDuration seconds the entity is hidden and takes radiation damage.
 /// </summary>
 public sealed class VoidFallSystem : EntitySystem
 {
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
+
+    private static readonly ProtoId<DamageTypePrototype> RadiationDamageType = "Radiation";
 
     private const float CheckInterval = 0.1f;
     private float _accumulator;
@@ -36,8 +43,13 @@ public sealed class VoidFallSystem : EntitySystem
 
             if (fall.FallTime >= fall.FallDuration)
             {
-                // Animation finished — delete the entity
-                QueueDel(uid);
+                // Apply500 radiation damage
+                var damage = new DamageSpecifier(_proto.Index(RadiationDamageType), 500);
+                _damageable.TryChangeDamage(uid, damage, ignoreResistances: true);
+
+                // Keep entity alive but shrink it (client handles visual via VoidFallComponent)
+                fall.AnimationScale = new Vector2(0.01f, 0.01f);
+                Dirty(uid, fall);
             }
         }
 

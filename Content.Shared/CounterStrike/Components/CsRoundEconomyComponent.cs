@@ -15,4 +15,10 @@ public sealed partial class CsRoundEconomyComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public int Telecrystals;
+
+    /// <summary>
+    /// Pending TC bonus from sub-round win/loss. Applied during next FreezeTime.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public int PendingBonusTC;
 }
