@@ -10,7 +10,7 @@
   - type: Clickable
   - type: InteractionOutline
   - type: Sprite
-    drawdepth: WallTops
+    drawdepth: OverMobs
     sprite: Objects/counterstrike/Structures/Obstructions/OfficeFence.rsi
     state: full
   - type: Icon

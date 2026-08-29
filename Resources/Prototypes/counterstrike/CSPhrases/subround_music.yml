@@ -1,0 +1,5 @@
+- type: soundCollection
+  id: SOTICSSubRoundMusic
+  files:
+    - /Audio/SOTICSSubRoundMusic/track1.ogg
+

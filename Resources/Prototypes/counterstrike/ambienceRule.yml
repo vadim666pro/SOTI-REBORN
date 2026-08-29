@@ -1,0 +1,35 @@
+- type: entity
+  parent: BaseGameRule
+  id: InfernoAmbienceRule
+  name: InfernoAmbienceRule
+  components:
+  - type: GameRule
+  - type: RandomSoundRule
+    soundCollection: InfernoAmbience
+    minInterval: 5
+    maxInterval: 25
+    volume: 4
+
+- type: entity
+  parent: BaseGameRule
+  id: Dust2AmbienceRule
+  name: Dust2AmbienceRule
+  components:
+  - type: GameRule
+  - type: RandomSoundRule
+    soundCollection: Dust2Ambience
+    minInterval: 5
+    maxInterval: 25
+    volume: 4
+
+- type: entity
+  parent: BaseGameRule
+  id: MirageAmbienceRule
+  name: MirageAmbienceRule
+  components:
+  - type: GameRule
+  - type: RandomSoundRule
+    soundCollection: MirageAmbience
+    minInterval: 5
+    maxInterval: 25
+    volume: 4

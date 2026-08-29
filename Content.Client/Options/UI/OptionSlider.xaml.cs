@@ -19,4 +19,10 @@ public sealed partial class OptionSlider : Control
         get => NameLabel.Text;
         set => NameLabel.Text = value;
     }
+
+    public bool Disabled
+    {
+        get => Slider.Disabled;
+        set => Slider.Disabled = value;
+    }
 }

@@ -1,0 +1,6 @@
+- type: soundCollection
+  id: MySoundCollection
+  files:
+    - /Audio/MyCollection/track1.ogg
+    - /Audio/MyCollection/track2.ogg
+    - /Audio/MyCollection/track3.ogg

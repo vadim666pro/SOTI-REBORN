@@ -37,6 +37,7 @@ entities:
         - CsRoundControllerRuleCS
         - AutoRoundRestartRuleCS
         - RoleReveal
+        - InfernoAmbienceRule
       addInLobby: true
       startOnRoundStart: true
     - type: MetaData

@@ -61,6 +61,10 @@ public sealed partial class ContentAudioSystem
         Subs.CVar(_configManager, CCVars.AmbientMusicVolume, AmbienceCVarChanged, true);
         _sawmill = _logManager.GetSawmill("audio.ambience");
 
+        // Force ambient music volume to 0 (disabled)
+        _configManager.SetCVar(CCVars.AmbientMusicVolume.Name, 0f);
+        _volumeSlider = SharedAudioSystem.GainToVolume(0f);
+
         // Reset audio
         _nextAudio = TimeSpan.MaxValue;
 

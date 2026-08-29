@@ -66,6 +66,10 @@ public sealed partial class AudioTab : Control
         Control.AddOptionCheckBox(CCVars.BwoinkSoundEnabled, BwoinkSoundCheckBox);
 
         Control.Initialize();
+
+        // Disable ambient music slider - SOTI ambience replaces it
+        SliderVolumeAmbientMusic.Slider.Disabled = true;
+        SliderVolumeAmbientMusic.Slider.Value = 0f;
     }
 
     protected override void EnteredTree()

@@ -39,6 +39,7 @@ entities:
       - CsRoundControllerRuleCS
       - AutoRoundRestartRuleCS
       - RoleReveal
+      - MirageAmbienceRule
     - type: Map
       mapPaused: True
     - type: GridTree

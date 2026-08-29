@@ -1,0 +1,17 @@
+- type: soundCollection
+  id: InfernoAmbience
+  files:
+    - /Audio/SOTIambience/inferno1.ogg
+    - /Audio/SOTIambience/inferno2.ogg
+
+- type: soundCollection
+  id: Dust2Ambience
+  files:
+    - /Audio/SOTIambience/dust2_1.ogg
+    - /Audio/SOTIambience/dust2_2.ogg
+
+- type: soundCollection
+  id: MirageAmbience
+  files:
+    - /Audio/SOTIambience/mirage1.ogg
+    - /Audio/SOTIambience/dust2_2.ogg

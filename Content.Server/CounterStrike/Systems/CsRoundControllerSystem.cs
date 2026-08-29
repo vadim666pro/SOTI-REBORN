@@ -25,6 +25,9 @@ using Robust.Shared.Utility;
 using Content.Server.Store.Systems;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.CounterStrike.Systems;
 
@@ -50,11 +53,14 @@ public sealed class CsRoundControllerSystem : EntitySystem
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly StoreSystem _store = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-round-controller");
 
     private bool _frozenThisRound;
     private bool _bombPlanted;
+    private EntityUid? _currentMusicStream;
 
     public override void Initialize()
     {
@@ -260,6 +266,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
                 break;
             case CsRoundPhase.PostAction:
                 UnfreezeAllPlayers();
+                StopSubRoundMusic();
+                RaiseNetworkEvent(new CsSubRoundResultClearEvent());
                 break;
         }
     }
@@ -271,6 +279,9 @@ public sealed class CsRoundControllerSystem : EntitySystem
             case CsRoundPhase.FreezeTime:
                 FreezeAllPlayers();
                 OpenAllUplinks();
+                break;
+            case CsRoundPhase.PostAction:
+                PlaySubRoundMusic();
                 break;
         }
     }
@@ -373,6 +384,99 @@ public sealed class CsRoundControllerSystem : EntitySystem
                 controller.TotalRoundsPlayed + 1));
 
             TransitionToPhase(uid, controller, CsRoundPhase.PostAction, CsRoundControllerComponent.PostActionDuration);
+            BroadcastSubRoundResult(winnerTeam);
+        }
+    }
+
+    private void BroadcastSubRoundResult(string winnerTeam)
+    {
+        var ctAlive = 0;
+        var tAlive = 0;
+        var allPlayerNames = new List<string>();
+
+        var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
+        while (query.MoveNext(out var bodyUid, out _, out var mindContainer))
+        {
+            if (!mindContainer.HasMind)
+                continue;
+
+            var mindId = mindContainer.Mind!.Value;
+            if (!TryComp(mindId, out MindComponent? mind))
+                continue;
+
+            if (!_jobs.MindTryGetJobId(mindId, out var jobId) || jobId is null)
+                continue;
+
+            var isCt = CounterStrikeTeams.CtJobs.Contains(jobId.Value);
+            var isT = CounterStrikeTeams.TJobs.Contains(jobId.Value);
+            if (!isCt && !isT)
+                continue;
+
+            var name = MetaData(bodyUid).EntityName;
+            if (!string.IsNullOrWhiteSpace(name))
+                allPlayerNames.Add(name);
+
+            if (!TryComp(bodyUid, out MobStateComponent? mobState) || !_mobState.IsAlive(bodyUid, mobState))
+                continue;
+
+            if (isCt)
+                ctAlive++;
+            else if (isT)
+                tAlive++;
+        }
+
+        var funnyPlayer = allPlayerNames.Count > 0 ? _random.Pick(allPlayerNames) : "???";
+        var funnyPhrase = PickRandomPhrase(funnyPlayer);
+        var imagePath = PickRandomImage();
+
+        RaiseNetworkEvent(new CsSubRoundResultEvent(
+            winnerTeam,
+            ctAlive,
+            tAlive,
+            funnyPlayer,
+            funnyPhrase,
+            imagePath));
+    }
+
+    private string PickRandomPhrase(string playerName)
+    {
+        if (!_proto.TryIndex<CsPhrasesPrototype>("DefaultPhrases", out var phrasesProto)
+            || phrasesProto.Phrases.Count == 0)
+            return $"{playerName} был в этом раунде";
+
+        var template = _random.Pick(phrasesProto.Phrases);
+        return string.Format(template, playerName);
+    }
+
+    private string PickRandomImage()
+    {
+        if (!_proto.TryIndex<CsPhrasesPrototype>("DefaultPhrases", out var phrasesProto)
+            || phrasesProto.Images.Count == 0)
+            return "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result1.png";
+
+        return _random.Pick(phrasesProto.Images);
+    }
+
+    private void PlaySubRoundMusic()
+    {
+        StopSubRoundMusic();
+
+        if (!_proto.TryIndex<SoundCollectionPrototype>("SOTICSSubRoundMusic", out var collection)
+            || collection.PickFiles.Count == 0)
+            return;
+
+        var sound = new SoundCollectionSpecifier("SOTICSSubRoundMusic", AudioParams.Default.WithVolume(-4f));
+        var result = _audio.PlayGlobal(sound, Filter.Broadcast(), true, AudioParams.Default.WithVolume(-4f));
+        if (result.HasValue)
+            _currentMusicStream = result.Value.Entity;
+    }
+
+    private void StopSubRoundMusic()
+    {
+        if (_currentMusicStream != null)
+        {
+            _audio.Stop(_currentMusicStream.Value);
+            _currentMusicStream = null;
         }
     }
 

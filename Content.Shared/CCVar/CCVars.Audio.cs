@@ -46,7 +46,7 @@ public sealed partial class CCVars
         ///     Ambience music volume.
         /// </summary>
         public static readonly CVarDef<float> AmbientMusicVolume =
-            CVarDef.Create("ambience.music_volume", 1.5f, CVar.ARCHIVE | CVar.CLIENTONLY);
+            CVarDef.Create("ambience.music_volume", 0f, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /// <summary>
         ///     Lobby / round end music volume.

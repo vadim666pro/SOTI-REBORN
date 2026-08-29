@@ -655,7 +655,19 @@
   - type: RoundstartPlaySoundRule
     sound: "/Audio/Weapons/counterstrike/other/roundstart/ttt.ogg"
     volume: 10
-
+#ШАБЛОН ДЛЯ ЭМБИЕНТА
+- type: entity
+  parent: BaseGameRule
+  id: RandomSoundTemplate
+  name: Random Sound (Template)
+  components:
+  - type: GameRule
+  - type: RandomSoundRule
+    soundCollection: MySoundCollection
+    minInterval: 5
+    maxInterval: 25
+    volume: -8
+#ТТТ ВЕЩИ ДЛЯ ГРАЖДАНСКИХ
 - type: entity
   parent: BaseGameRule
   id: TTTCivilianItems

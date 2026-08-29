@@ -1,0 +1,16 @@
+- type: gameMap
+  id: de_sky
+  mapName: 'de_sky'
+  mapPath: /Maps/CS/de_sky.yml
+  minPlayers: 0
+  stations:
+   babatapa:
+      stationProto: StandardNanotrasenStation
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: "Building CEO Pidorovichi"
+        - type: StationJobs
+          availableJobs:
+            Boxer: [ -1, -1 ]
+            Chaplain: [-1, -1 ]
+

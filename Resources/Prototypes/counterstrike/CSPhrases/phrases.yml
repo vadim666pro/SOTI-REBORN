@@ -1,0 +1,9 @@
+- type: csPhrases
+  id: DefaultPhrases
+  phrases:
+    - "{0} поел сметаны в этом раунде"
+    - "{0} убрал снег за 17$"
+    - "{0} нарисовал мясо через ChatGPT"
+    - "{0} живот не сдержался от страха!!! чертовщина!!!"
+  images:
+    - "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result1.png"
