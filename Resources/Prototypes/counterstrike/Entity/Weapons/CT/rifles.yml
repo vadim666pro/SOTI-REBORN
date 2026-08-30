@@ -198,7 +198,7 @@
 - type: entity
   name: UMP-45
   parent: [BaseWeaponPistol, BaseSecurityContraband, BasePistolCS]
-  id: WeaponSMGUMP
+  id: WeaponSMGUMP45
   description: UMP-45 submachine gun.
   components:
   - type: Sprite

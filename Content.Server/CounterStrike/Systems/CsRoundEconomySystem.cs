@@ -18,6 +18,8 @@ using Content.Server.StoreDiscount.Systems;
 using Robust.Server.GameObjects;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Content.Shared.Mobs.Systems;
+using Content.Shared.Mobs.Components;
 
 namespace Content.Server.CounterStrike.Systems;
 
@@ -34,6 +36,7 @@ public sealed class CsRoundEconomySystem : EntitySystem
     [Dependency] private readonly StoreSystem _store = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-economy");
 
@@ -346,7 +349,18 @@ public sealed class CsRoundEconomySystem : EntitySystem
             int bonus = isWinner
                 ? CsRoundControllerComponent.WinBonusTC
                 : CsRoundControllerComponent.LossBonusTC;
-
+            bool isAlive = false;
+            EntityUid? bodyForCheck = mind.CurrentEntity;
+            if (bodyForCheck is { } currentBodyForCheck)
+            {
+                if (TryComp(currentBodyForCheck, out MobStateComponent? mobState) && mobState != null)
+                    isAlive = _mobState.IsAlive(currentBodyForCheck, mobState);
+            }
+            if (isAlive && bodyForCheck != null)
+            {
+                bonus += CsRoundControllerComponent.SurvivalBonusTC;
+                Sawmill.Info($"[CS Economy] {ToPrettyString(bodyForCheck!)} survived sub-round, got a bonus +{CsRoundControllerComponent.SurvivalBonusTC} TC");
+            }
             // Try to store pending bonus on the player's current body
             if (mind.CurrentEntity is { } currentBody && TryComp(currentBody, out CsRoundEconomyComponent? economy))
             {

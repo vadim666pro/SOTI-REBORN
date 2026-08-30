@@ -459,3 +459,22 @@
     capacity: 50
     proto: CartridgeCSP90
     soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# NOVA magazine
+- type: entity
+  id: BoxCSNova
+  parent: BaseStorageItem
+  name: box of shotgun shells for Nova
+  description: Contains 6 shotgun shells.
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/box_shotgun.rsi
+    state: icon
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,2,2
+  - type: StorageFill
+    contents:
+    - id: ShellCSShotgun
+      amount: 12
