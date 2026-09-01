@@ -11,6 +11,9 @@
             "name": "base"
         },
         {
+            "name": "mag-1"
+        },
+        {
             "name": "inhand-left-mag",
             "directions": 4
         },

@@ -5,7 +5,7 @@
   description: GOLDEN DEAGLE
   productEntity: WeaponCaseDeagle
   cost:
-    Telecrystal: 18
+    Telecrystal: 7
   categories:
   - UplinkSecondaryT
 
@@ -15,7 +15,7 @@
   description: buy it now
   productEntity: WeaponCaseGlock
   cost:
-    Telecrystal: 9
+    Telecrystal: 2
   categories:
   - UplinkSecondaryT
 
@@ -25,7 +25,7 @@
   description: buy it now
   productEntity: WeaponCaseTec9
   cost:
-    Telecrystal: 12
+    Telecrystal: 5
   categories:
   - UplinkSecondaryT
 
@@ -35,7 +35,7 @@
   description: buy it now
   productEntity: WeaponCaseBeretta
   cost:
-    Telecrystal: 12
+    Telecrystal: 3
   categories:
   - UplinkSecondaryT
 
@@ -46,7 +46,7 @@
   description: buy it now
   productEntity: WeaponCaseAK47
   cost:
-    Telecrystal: 30
+    Telecrystal: 27
   categories:
   - UplinkPrimaryT
 
@@ -56,7 +56,7 @@
   description: buy it now
   productEntity: WeaponCaseMac10
   cost:
-    Telecrystal: 18
+    Telecrystal: 11
   categories:
   - UplinkPrimaryT
 
@@ -66,17 +66,7 @@
   description: buy it now
   productEntity: WeaponCaseSG553
   cost:
-    Telecrystal: 36
-  categories:
-  - UplinkPrimaryT
-
-- type: listing
-  id: UplinkNovaT
-  name: Nova
-  description: buy it now
-  productEntity: WeaponCaseNova
-  cost:
-    Telecrystal: 24
+    Telecrystal: 30
   categories:
   - UplinkPrimaryT
 
@@ -86,7 +76,17 @@
   description: buy it now
   productEntity: WeaponCaseP90
   cost:
-    Telecrystal: 21
+    Telecrystal: 23
+  categories:
+  - UplinkPrimaryT
+
+- type: listing
+  id: UplinkSawedOff
+  name: SawedOff
+  description: buy it now
+  productEntity: WeaponCaseSawedOff
+  cost:
+    Telecrystal: 11
   categories:
   - UplinkPrimaryT
 
@@ -97,6 +97,6 @@
   description: This body armor was made with crazy Dog's fat
   productEntity: ClothingOuterVestWeb
   cost:
-    Telecrystal: 9
+    Telecrystal: 10
   categories:
   - UplinkEquipmentCSGO

@@ -1,9 +1,4 @@
 - type: soundCollection
   id: LobbyMusic
   files:
-    - /Audio/Lobby/ACrimewareIsComing.ogg
-    - /Audio/Lobby/godsyriabashar.ogg
-    - /Audio/Lobby/minecraft.ogg
-    - /Audio/Lobby/fnaf.ogg
-    - /Audio/Lobby/russia.ogg
-    - /Audio/Lobby/rus.ogg
+    - /Audio/Lobby/golos.ogg

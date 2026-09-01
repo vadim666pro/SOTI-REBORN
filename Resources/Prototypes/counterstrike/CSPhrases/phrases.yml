@@ -5,5 +5,11 @@
     - "{0} убрал снег за 17$"
     - "{0} нарисовал мясо через ChatGPT"
     - "{0} живот не сдержался от страха!!! чертовщина!!!"
+    - "{0}, Чем отличается клоун от капитана?"
+    - "{0} сказал кс СУРС"
+    - "{0}, не сурс СОРС" 
+    - "{0}, Иди к мамке титьку потрогай lmao"
   images:
     - "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result1.png"
+    - "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result2.png"
+    - "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result3.png"

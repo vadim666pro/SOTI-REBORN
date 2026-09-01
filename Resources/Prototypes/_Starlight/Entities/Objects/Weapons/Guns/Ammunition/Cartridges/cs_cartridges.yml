@@ -113,6 +113,35 @@
   - type: Appearance
   - type: SpentAmmoVisuals
 
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSAWP
+  name: cartridge (awp)
+  components:
+  - type: Tag
+    tags: [ CartridgeMagnum ]
+  - type: CartridgeAmmo
+    proto: BulletCSAWP
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeCSScout
+  name: cartridge (scout)
+  components:
+  - type: Tag
+    tags: [ CartridgeMagnum ]
+  - type: CartridgeAmmo
+    proto: BulletCSScout
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
 # ══════════════════════════════════════════════════════════════════════════════
 # RIFLE CARTRIDGES
 # ══════════════════════════════════════════════════════════════════════════════
@@ -171,6 +200,21 @@
     tags: [ CartridgeLightRifle ]
   - type: CartridgeAmmo
     proto: BulletCSSG553
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  parent: [BaseCartridge, BaseSecurityContraband]
+  id: CartridgeAmmoFamas
+  name: cartridge (famas)
+  components:
+  - type: Tag
+    tags: [ CartridgeLightRifle ]
+  - type: CartridgeAmmo
+    proto: BulletCSFamas
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
     layers: [ { state: base, map: ["enum.AmmoVisualLayers.Base"] } ]
@@ -259,6 +303,22 @@
     proto: PelletCSShotgunSpread
   - type: SpentAmmoVisuals
     state: "base"
+
+- type: entity
+  parent: [BaseShellShotgun, BaseSecurityContraband, ShellCSShotgun]
+  id: ShellCSXM1014
+  name: shell (xm1014)
+  components:
+  - type: CartridgeAmmo
+    proto: PelletCSXM1014Spread
+
+- type: entity
+  parent: [BaseShellShotgun, BaseSecurityContraband, ShellCSShotgun]
+  id: ShellCSDB
+  name: shell (double barrel)
+  components:
+  - type: CartridgeAmmo
+    proto: PelletCSDBSpread
 
 # ══════════════════════════════════════════════════════════════════════════════
 # MAGAZINES
@@ -452,6 +512,8 @@
   id: MagazineCSP90
   name: magazine (p90)
   components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/Ammunition/p90magazine.rsi
   - type: Tag
     tags: [ MagazineRifle ]
   - type: BallisticAmmoProvider
@@ -460,21 +522,66 @@
     proto: CartridgeCSP90
     soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
 
-# NOVA magazine
+# NOVA box
 - type: entity
   id: BoxCSNova
-  parent: BaseStorageItem
+  parent: BaseAmmoProvider
   name: box of shotgun shells for Nova
   description: Contains 6 shotgun shells.
   components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    proto: ShellCSShotgun
+    capacity: 16
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/box_shotgun.rsi
-    state: icon
+    sprite: Objects/counterstrike/Weapons/Ammunition/ammobox.rsi
+    state: base
   - type: Storage
     maxItemSize: Small
     grid:
     - 0,0,2,2
-  - type: StorageFill
-    contents:
-    - id: ShellCSShotgun
-      amount: 12
+
+# XM1014 box
+- type: entity
+  id: BoxCSXM1014
+  parent: BoxCSNova
+  name: box of shotgun shells for XM1014
+  description: Contains 6 shotgun shells for XM1014.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/Ammunition/ammobox.rsi
+    state: base
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    proto: ShellCSXM1014
+    capacity: 16
+
+#DOUBLE BARREL box
+- type: entity
+  id: BoxCSDB
+  parent: BaseAmmoProvider
+  name: box of shotgun shells for DB
+  description: Contains 6 shotgun shells for DB.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/Ammunition/ammobox.rsi
+    state: base
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    proto: ShellCSDB
+    capacity: 16
+
+# FAMAS magazine
+- type: entity
+  id: MagazineCSFamas
+  parent: BaseMagazineLightRifle
+  name: magazine (famas)
+  description: Contains 25 cartridges for FAMAS.
+  components:
+  - type: Tag
+    tags: [ MagazineLightRifle ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ CartridgeLightRifle ] }
+    capacity: 25
+    proto: CartridgeAmmoFamas
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }

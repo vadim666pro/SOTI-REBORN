@@ -11,12 +11,12 @@ namespace Content.Client.Stylesheets
 
         public Stylesheet SheetNano { get; private set; } = default!;
         public Stylesheet SheetSpace { get; private set; } = default!;
-
+        public Stylesheet SheetContra { get; private set; } = default!;
         public void Initialize()
         {
             SheetNano = new StyleNano(_resourceCache).Stylesheet;
             SheetSpace = new StyleSpace(_resourceCache).Stylesheet;
-
+            SheetContra = new StyleContra(_resourceCache).Stylesheet;
             _userInterfaceManager.Stylesheet = SheetNano;
         }
     }

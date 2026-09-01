@@ -31,7 +31,7 @@ public sealed partial class CsRoundControllerComponent : Component
     /// <summary>
     /// Starting Telecrystals for each player.
     /// </summary>
-    public const int StartingTC = 19;
+    public const int StartingTC = 8;
 
     /// <summary>
     /// Maximum Telecrystals a player can hold.
@@ -41,16 +41,16 @@ public sealed partial class CsRoundControllerComponent : Component
     /// <summary>
     /// TC reward for winning a sub-round.
     /// </summary>
-    public const int WinBonusTC = 35;
+    public const int WinBonusTC = 30;
 
     /// <summary>
     /// TC reward for losing a sub-round.
     /// </summary>
-    public const int LossBonusTC = 25;
+    public const int LossBonusTC = 20;
     /// <summary>
     /// TC reward for surviving a sub-round.
     /// </summary>
-    public const int SurvivalBonusTC = 5;
+    public const int SurvivalBonusTC = 7;
     /// <summary>
     /// Current phase of the CS round cycle.
     /// </summary>

@@ -1,0 +1,36 @@
+- type: entity
+  name: XM1014
+  parent: [BaseWeaponShotgun, BaseGunWieldable, BaseSecurityContraband]
+  id: WeaponShotgunXM1014
+  description: XM1014 from CSGO.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/PrimaryCT/xm1014/xm1014.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/PrimaryCT/xm1014/xm1014.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Item
+    sprite: Objects/counterstrike/Weapons/PrimaryCT/xm1014/xm1014x64.rsi
+  - type: GunRequiresWield
+  - type: GunSpreadModifier
+    spread: 2
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/counterstrike/guns/xm1014.ogg
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+      - ShellShotgun
+    capacity: 6
+    proto: ShellCSXM1014
+    soundInsert:
+      path: /Audio/Weapons/Guns/MagIn/shotgun_insert.ogg

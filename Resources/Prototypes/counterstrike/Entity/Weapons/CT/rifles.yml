@@ -75,7 +75,7 @@
     angleDecay: 15
     selectedMode: FullAuto
     availableModes: [ FullAuto ]
-    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/p90.ogg }
   - type: Clothing
     sprite: Objects/counterstrike/Weapons/PrimaryCT/p90.rsi
   - type: ChamberMagazineAmmoProvider
@@ -121,7 +121,7 @@
     angleDecay: 15
     selectedMode: FullAuto
     availableModes: [ FullAuto ]
-    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/aug.ogg }
   - type: GunWieldBonus
     minAngle: -1
     maxAngle: -1
@@ -170,7 +170,7 @@
     angleDecay: 15
     selectedMode: FullAuto
     availableModes: [ FullAuto ]
-    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/mac.ogg }
   - type: Clothing
     sprite: Objects/counterstrike/Weapons/PrimaryCT/mp9.rsi
   - type: ChamberMagazineAmmoProvider
@@ -216,7 +216,7 @@
     angleDecay: 15
     selectedMode: FullAuto
     availableModes: [ FullAuto ]
-    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/mac.ogg }
   - type: Clothing
     sprite: Objects/counterstrike/Weapons/PrimaryCT/ump.rsi
   - type: ChamberMagazineAmmoProvider
@@ -240,3 +240,57 @@
     containers:
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
+
+- type: entity
+  name: FAMAS
+  parent: [BaseWeaponRifle, BaseSecurityContraband, BaseRiffleCS]
+  id: WeaponRifleFamas
+  description: FAMAS rifle.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/PrimaryCT/famas.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 7
+    minAngle: 3
+    maxAngle: 50
+    angleIncrease: 5
+    angleDecay: 15
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/p90.ogg }
+  - type: GunWieldBonus
+    minAngle: -1
+    maxAngle: -1
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/PrimaryCT/famas.rsi
+  - type: ChamberMagazineAmmoProvider
+    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineCSFamas
+        insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+        ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
+        priority: 2
+        whitelist: { tags: [ MagazineLightRifle ] }
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeAmmoFamas
+        priority: 1
+        whitelist: { tags: [ CartridgeLightRifle ] }
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance

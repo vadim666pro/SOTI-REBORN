@@ -6,7 +6,7 @@
   description: GOLDEN DEAGLE
   productEntity: WeaponCaseDeagle
   cost:
-    Telecrystal: 18
+    Telecrystal: 7
   categories:
   - UplinkSecondaryCT
 
@@ -16,7 +16,7 @@
   description: not silenced
   productEntity: WeaponCaseUSP
   cost:
-    Telecrystal: 9
+    Telecrystal: 2
   categories:
   - UplinkSecondaryCT
 
@@ -26,7 +26,7 @@
   description: Automatic pistol
   productEntity: WeaponCaseFiveSeven
   cost:
-    Telecrystal: 12
+    Telecrystal: 5
   categories:
   - UplinkSecondaryCT
 
@@ -36,7 +36,7 @@
   description: Is there two Berettas?
   productEntity: WeaponCaseBeretta
   cost:
-    Telecrystal: 12
+    Telecrystal: 3
   categories:
   - UplinkSecondaryCT
 
@@ -59,7 +59,7 @@
   description: gun with scope
   productEntity: WeaponCaseAug
   cost:
-    Telecrystal: 36
+    Telecrystal: 33
   categories:
   - UplinkPrimaryCT
 
@@ -70,7 +70,7 @@
   description: ghez
   productEntity: WeaponCaseP90
   cost:
-    Telecrystal: 21
+    Telecrystal: 23
   categories:
   - UplinkPrimaryCT
 
@@ -80,7 +80,7 @@
   description: Shotgun
   productEntity: WeaponCaseNova
   cost:
-    Telecrystal: 24
+    Telecrystal: 11
   categories:
   - UplinkPrimaryCT
 
@@ -90,10 +90,29 @@
   description: Good SMG
   productEntity: WeaponCaseUMP
   cost:
-    Telecrystal: 18
+    Telecrystal: 12
   categories:
   - UplinkPrimaryCT
 
+- type: listing
+  id: UplinkCtFamas
+  name: FAMAS
+  description: Good SMG
+  productEntity: WeaponCaseFamas
+  cost:
+    Telecrystal: 20
+  categories:
+  - UplinkPrimaryCT
+
+- type: listing
+  id: UplinkCTXM1014
+  name: XM1014
+  description: Shotgun
+  productEntity: WeaponCaseXm1014
+  cost:
+    Telecrystal: 18
+  categories:
+  - UplinkPrimaryCT
 #GRENADES (их нету)
 
 #EQUIPMENT

@@ -1,5 +1,7 @@
 - type: soundCollection
   id: SOTICSSubRoundMusic
   files:
-    - /Audio/SOTICSSubRoundMusic/track1.ogg
-
+    - /Audio/SOTICSSubRoundMusic/zombieserver.ogg
+    - /Audio/SOTICSSubRoundMusic/AtTSStatu.ogg
+    - /Audio/SOTICSSubRoundMusic/matadora.ogg
+    - /Audio/SOTICSSubRoundMusic/barmicva.ogg

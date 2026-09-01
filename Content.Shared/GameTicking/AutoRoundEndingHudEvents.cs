@@ -26,7 +26,10 @@ public sealed class AutoRoundEndingHudEvent : EntityEventArgs
     [DataField]
     public string? HudIconState;
 
-    public AutoRoundEndingHudEvent() {}
+    public AutoRoundEndingHudEvent()
+    {
+
+    }
 
     public AutoRoundEndingHudEvent(TimeSpan startTime, float delaySeconds, string? label, string? hudIconRsi, string? hudIconState)
     {

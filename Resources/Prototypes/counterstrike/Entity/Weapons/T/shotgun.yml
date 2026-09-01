@@ -18,10 +18,10 @@
   - type: GunSpreadModifier
     spread: 2
   - type: Gun
-    fireRate: 1
-    selectedMode: SemiAuto
+    fireRate: 2
+    selectedMode: FullAuto
     availableModes:
-    - SemiAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/counterstrike/guns/shotgun.ogg
     soundEmpty:
@@ -34,3 +34,41 @@
     proto: ShellCSShotgun
     soundInsert:
       path: /Audio/Weapons/Guns/MagIn/shotgun_insert.ogg
+
+- type: entity
+  name: Sawed Off
+  parent: [BaseWeaponShotgun, BaseGunWieldable, BaseSecurityContraband]
+  id: WeaponShotgunDoubleBarrel
+  description: Sawed Off from CSGO. (in code it is DB(Double Barrel)) - minor mistake
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/PrimaryT/db/db.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/PrimaryT/db/db.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Item
+    sprite: Objects/counterstrike/Weapons/PrimaryT/db/dbx64.rsi
+  - type: GunRequiresWield
+  - type: GunSpreadModifier
+    spread: 2
+  - type: Gun
+    fireRate: 2
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/counterstrike/guns/shotgun.ogg
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+      - ShellShotgun
+    capacity: 7
+    proto: ShellCSDB
+    soundInsert:
+      path: /Audio/Weapons/Guns/MagIn/shotgun_insert.ogg
+

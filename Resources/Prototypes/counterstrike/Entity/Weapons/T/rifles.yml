@@ -75,7 +75,7 @@
     angleDecay: 15
     selectedMode: FullAuto
     availableModes: [ FullAuto ]
-    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/ak.ogg }
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/aug.ogg }
   - type: GunWieldBonus
     minAngle: -1
     maxAngle: -1
@@ -129,7 +129,7 @@
     angleDecay: 15
     selectedMode: FullAuto
     availableModes: [ FullAuto ]
-    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/m4s.ogg }
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/mac.ogg }
   - type: Clothing
     sprite: Objects/counterstrike/Weapons/PrimaryT/mac10.rsi
   - type: ChamberMagazineAmmoProvider
