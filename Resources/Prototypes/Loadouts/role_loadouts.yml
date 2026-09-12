@@ -164,14 +164,7 @@
 - type: roleLoadout
   id: JobSalvageSpecialist
   groups:
-  - GroupTankHarness
-  - SalvageSpecialistBackpack
-  - SalvageSpecialistOuterClothing
-  - SalvageSpecialistShoes
-  - Glasses
-  - Survival
-  - Trinkets
-  - GroupSpeciesBreathTool
+  - CargoTechnicianShoes
 
 # Engineering
 - type: roleLoadout

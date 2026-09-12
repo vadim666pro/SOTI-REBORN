@@ -1,0 +1,53 @@
+- type: entity
+  name: AWP
+  parent: [BaseWeaponRifle, BaseSecurityContraband, BaseRiffleCS]
+  id: WeaponSniperAWP
+  description: AWP.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/PrimaryCT/awp.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 1
+    minAngle: 10
+    maxAngle: 70
+    angleIncrease: 5
+    angleDecay: 15
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/counterstrike/guns/awp.ogg }
+  - type: GunWieldBonus
+    minAngle: -9
+    maxAngle: -68
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/PrimaryCT/awp.rsi
+  - type: ChamberMagazineAmmoProvider
+    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineCSAK47
+        insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+        ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
+        priority: 2
+        whitelist: { tags: [ MagazineLightRifle ] }
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeCSAK47
+        priority: 1
+        whitelist: { tags: [ CartridgeLightRifle ] }
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
