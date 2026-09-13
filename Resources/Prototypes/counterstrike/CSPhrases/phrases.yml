@@ -10,6 +10,7 @@
     - "{0}, не сурс СОРС" 
     - "{0}, Иди к мамке титьку потрогай lmao"
   images:
+    - "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result.png"
     - "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result1.png"
     - "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result2.png"
     - "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result3.png"
