@@ -10,6 +10,6 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Walls/tint.rsi
     state: icon
-    drawdepth: Walls
+    drawdepth: Overdoors
   - type: Clickable
 

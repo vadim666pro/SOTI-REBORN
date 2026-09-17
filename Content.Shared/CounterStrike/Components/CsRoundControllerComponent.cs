@@ -21,7 +21,7 @@ public sealed partial class CsRoundControllerComponent : Component
     /// <summary>
     /// Seconds until bomb explodes after planting.
     /// </summary>
-    public const float BombTimerDuration = 40f;
+    public const float BombTimerDuration = 60f;
 
     /// <summary>
     /// Wins needed by one team to end the match.

@@ -4,8 +4,14 @@
   params:
     variation: 0.125
   sounds:
-    Scream:
-      collection: MaleScreams
+    ScreamSOTI: #есть на соти
+      collection: ScreamsSOTI
+    HelpSOTI: #суд и милиция на помощь1!!
+      collection: HelpsSOTI
+    LaughSOTI:
+      path: /Audio/SotiAudio/laugh.ogg
+    Scream: #нет на соти
+      collection: ScreamsSOTI
     Laugh:
       collection: MaleLaugh
     Sneeze:
@@ -46,6 +52,12 @@
   params:
     variation: 0.125
   sounds:
+    ScreamSOTI: #есть на соти
+      collection: ScreamsSOTI
+    HelpSOTI: #суд и милиция на помощь1!!
+      collection: HelpsSOTI
+    LaughSOTI:
+      path: /Audio/SotiAudio/laugh.ogg
     Scream:
       collection: FemaleScreams
     Laugh:

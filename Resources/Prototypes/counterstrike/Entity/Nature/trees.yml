@@ -1,0 +1,33 @@
+- type: entity
+  id: BaseTreeSoti
+  description: Yep, it's a tree.
+  abstract: true
+  components:
+  - type: SpriteFade
+  - type: Clickable
+  - type: Sprite
+    noRot: true
+    sprite: Objects/counterstrike/Nature/tree.rsi
+    drawdepth: Overdoors
+    offset: 0,0.9
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.4,0.35,0.4"
+        density: 1000
+        layer:
+        - WallLayer
+
+- type: entity
+  id: CSTreeInf1
+  parent: BaseTreeSoti
+  description: tree.
+  abstract: false
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Nature/tree.rsi
+    state: tree1

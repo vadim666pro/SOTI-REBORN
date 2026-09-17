@@ -1,0 +1,13 @@
+- type: soundCollection
+  id: ScreamsSOTI
+  files:
+    - /Audio/SotiAudio/Scream/krik.ogg
+    - /Audio/SotiAudio/Scream/krik1.ogg
+    - /Audio/SotiAudio/Scream/krik2.ogg
+    - /Audio/SotiAudio/Scream/krik3.ogg
+    - /Audio/SotiAudio/Scream/krik4.ogg
+
+- type: soundCollection
+  id: HelpsSOTI
+  files:
+    - /Audio/SotiAudio/help.ogg

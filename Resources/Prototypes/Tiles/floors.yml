@@ -2251,4 +2251,4 @@
   # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
   footstepSounds:
     collection: FootstepAsteroid    # Меняем звук шагов с металла на камень (Stone)
-  heatCapacity: 25000   
+  heatCapacity: 25000

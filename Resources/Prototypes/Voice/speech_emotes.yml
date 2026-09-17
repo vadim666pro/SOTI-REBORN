@@ -1,3 +1,73 @@
+# SOTI EMOTES
+- type: emote
+  id: ScreamSOTI
+  name: КРИЧАТЬ!!
+  category: Vocal
+  icon: Interface/Emotes/scream.png
+  whitelist:
+    components:
+    - Vocal
+  chatMessages:
+    - "КРИЧИТ"
+  chatTriggers:
+    - крикнуть
+    - кричит
+    - кричать
+    - аа
+    - scream
+    - screams
+    - screaming
+    - screamed
+    - shriek
+    - shrieks
+    - shrieking
+    - shrieked
+    - screech
+    - screeches
+    - screeching
+    - screeched
+    - yell
+    - yells
+    - yelled
+    - yelling
+
+- type: emote
+  id: HelpSOTI
+  name: НА ПОМОЩЬ!!
+  category: Vocal
+  icon: Interface/Emotes/scream.png
+  whitelist:
+    components:
+    - Vocal
+  chatMessages:
+    - "МОЛИТ О ПОМОЩИ"
+  chatTriggers:
+    - help
+    - help me
+    - помоги
+    - помогите
+
+- type: emote
+  id: LaughSOTI
+  name: СМЕЯТЬСЯ
+  category: Vocal
+  icon: Interface/Emotes/scream.png
+  whitelist:
+    components:
+    - Vocal
+  chatMessages:
+    - "СМЕЕТСЯ"
+  chatTriggers:
+    - laugh
+    - laughes
+    - смеется
+    - смех
+    - ха
+    - хаха
+    - хахаха
+    - хахахаха
+
+
 # vocal emotes
 - type: emote
   id: Scream
@@ -25,6 +95,7 @@
     - yells
     - yelled
     - yelling
+  available: false
 
 - type: emote
   id: Laugh
@@ -54,8 +125,10 @@
     - chortle
     - chortles
     - chortling
+  available: false
 
 - type: emote
+  available: false
   id: Honk
   name: chat-emote-name-honk
   category: Vocal
@@ -74,6 +147,7 @@
     - honking
 
 - type: emote
+  available: false
   id: Sigh
   name: chat-emote-name-sigh
   category: Vocal
@@ -91,6 +165,7 @@
     - sighed
 
 - type: emote
+  available: false
   id: Whistle
   name: chat-emote-name-whistle
   category: Vocal
@@ -108,6 +183,7 @@
     - whistleblowing
 
 - type: emote
+  available: false
   id: Crying
   name: chat-emote-name-crying
   category: Vocal
@@ -128,10 +204,10 @@
     - sobbing
 
 - type: emote
+  available: false
   id: Squish
   name: chat-emote-name-squish
   category: Vocal
-  available: false
   icon: Interface/Emotes/squish.png
   whitelist:
     components:
@@ -146,10 +222,10 @@
     - squishes
 
 - type: emote
+  available: false
   id: Chitter
   name: chat-emote-name-chitter
   category: Vocal
-  available: false
   icon: Interface/Emotes/chitter.png
   whitelist:
     components:
@@ -164,10 +240,10 @@
    - chittered
 
 - type: emote
+  available: false
   id: Squeak
   name: chat-emote-name-squeak
   category: Vocal
-  available: false
   icon: Interface/Emotes/squeak.png
   whitelist:
     components:
@@ -182,10 +258,10 @@
    - squeaked
 
 - type: emote
+  available: false
   id: Click
   name: chat-emote-name-click
   category: Vocal
-  available: false
   icon: Interface/Emotes/click.png
   whitelist:
     components:
@@ -200,6 +276,7 @@
 
 # hand emotes
 - type: emote
+  available: false
   id: Clap
   name: chat-emote-name-clap
   category: Hands
@@ -217,6 +294,7 @@
     - clapped
 
 - type: emote
+  available: false
   id: ClapSingle
   name: chat-emote-name-clap-single
   category: Hands
@@ -236,6 +314,7 @@
     - claps its hands together
 
 - type: emote
+  available: false
   id: Snap
   name: chat-emote-name-snap
   category: Hands
@@ -262,10 +341,10 @@
     - snapped fingers
 
 - type: emote
+  available: false
   id: Thump
   name: chat-emote-name-thump
   category: Hands
-  available: false
   icon: Interface/Emotes/tailslap.png
   whitelist:
     components:
@@ -287,6 +366,7 @@
     - thumps its tail
 
 - type: emote
+  available: false
   id: Salute
   name: chat-emote-name-salute
   category: Hands
@@ -303,6 +383,7 @@
     - salutes
 
 - type: emote
+  available: false
   id: Gasp
   name: chat-emote-name-gasp
   whitelist:
@@ -315,6 +396,7 @@
    - gasped
 
 - type: emote
+  available: false
   id: DefaultDeathgasp
   name: chat-emote-name-deathgasp
   icon: Interface/Emotes/deathgasp.png
@@ -326,6 +408,7 @@
   - deathgasp
 
 - type: emote
+  available: false
   id: MonkeyDeathgasp
   name: chat-emote-name-deathgasp
   icon: Interface/Emotes/deathgasp.png

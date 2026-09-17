@@ -18,7 +18,7 @@ public sealed partial class CsBombComponent : Component
     /// Seconds required to defuse the bomb.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float DefuseTime = 10f;
+    public float DefuseTime = 7f;
 
     /// <summary>
     /// Whether the bomb has been planted on a site.

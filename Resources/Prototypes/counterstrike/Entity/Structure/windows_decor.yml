@@ -1,0 +1,31 @@
+- type: entity
+  id: CSWindowInferno1
+  name: WindowInferno
+  description: window 1.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/window.rsi
+    state: window1
+    drawdepth: Overdoors
+  - type: Transform
+    anchored: true
+  - type: WallMount
+  - type: Clickable
+
+- type: entity
+  parent: CSWindowInferno1
+  id: CSWindowInferno2
+  name: WindowInferno
+  description: window 2.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/window.rsi
+    state: window2

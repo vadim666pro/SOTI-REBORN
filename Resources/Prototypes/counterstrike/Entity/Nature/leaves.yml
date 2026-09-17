@@ -1,0 +1,17 @@
+- type: entity
+  id: CSWallmountLeaves
+  name: Leaves on wall
+  description: leaves.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Nature/leaves.rsi
+    state: leaves1
+    drawdepth: Overdoors
+  - type: Transform
+    anchored: true
+  - type: WallMount
+  - type: Clickable
