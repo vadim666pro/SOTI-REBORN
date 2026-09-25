@@ -8,6 +8,10 @@
     {
       "name": "train0",
       "directions": 4
+    },
+    {
+      "name": "train1",
+      "directions": 4
     }
   ]
 }

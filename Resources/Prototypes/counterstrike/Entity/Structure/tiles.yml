@@ -1,0 +1,107 @@
+- type: tile
+  id: CSMetalFloor1
+  name: metal floor 1
+  sprite: /Textures/Objects/counterstrike/Tiles/metalfloorA/floor.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating              # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
+  footstepSounds:
+    collection: FootstepPlating    # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000
+
+- type: tile
+  id: CSMetalFloor2
+  name: metal floor 2
+  sprite: /Textures/Objects/counterstrike/Tiles/metalfloorA/floor1.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating              # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
+  footstepSounds:
+    collection: FootstepPlating   # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000
+
+- type: tile
+  id: CSOfficeTile1
+  name: office tile 1
+  sprite: /Textures/Objects/counterstrike/Tiles/officetile/floor.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating              # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
+  footstepSounds:
+    collection: FootstepTile   # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000
+
+- type: tile
+  id: CSWoodFloor1
+  name: wood floor 1
+  sprite: /Textures/Objects/counterstrike/Tiles/woodflr/floor.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating              # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
+  footstepSounds:
+    collection: FootstepWood    # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000
+
+- type: tile
+  id: CSPalaceFloor1
+  name: palace floor 1
+  sprite: /Textures/Objects/counterstrike/Tiles/palace/floor.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating              # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
+  footstepSounds:
+    collection: FootstepTile   # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000
+
+- type: tile
+  id: CSPalaceFloor2
+  name: palace floor 2
+  sprite: /Textures/Objects/counterstrike/Tiles/palace/floor1.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating              # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  # Строку deconstructTools: [ Prying ] мы удалили. Лом теперь не сработает!
+  footstepSounds:
+    collection: FootstepTile   # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000

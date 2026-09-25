@@ -9,8 +9,9 @@
   components:
   - type: Sprite
     noRot: false
+    drawdepth: LargeObjects
   - type: Physics
-    mass: 3000
+    mass: 1000
   - type: Fixtures
     fixtures:
       fix1:
@@ -23,17 +24,7 @@
         layer:
         - MidImpassable
         - BulletImpassable
-  - type: InteractionOutline
-  - type: Damageable
-    damageContainer: StructuralInorganic
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1000
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        - WallLayer
   - type: Anchorable
 # это родитель для больших препятствий
 
@@ -121,17 +112,46 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/Cars/train.rsi
     state: train0
+    drawdepth: Doors
   - type: Fixtures
     fixtures:
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-4,-1.5,4,1.5"
+          bounds: "-4,-1.5,4,1.25"
         density: 190
         mask:
         - MachineMask
         layer:
         - MidImpassable
         - BulletImpassable
+        - WallLayer
+  - type: Physics
+    mass: 1000
+
+- type: entity
+  id: ObstructionBigTrain1
+  parent: ObstructionBigTrain0
+  name: Train 1
+  description: from hl2.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/train.rsi
+    state: train1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-3.8,-1.5,3.8,1.25"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+        - WallLayer
   - type: Physics
     mass: 1000

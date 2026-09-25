@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "BY vadim666pro",
+  "states":
+  [
+    {
+      "name": "window1"
+    },
+    {
+      "name": "window2"
+    },
+    {
+      "name": "window3"
+    },
+    {
+      "name": "window4"
+    },
+    {
+      "name": "window5"
+    }
+  ]
+}

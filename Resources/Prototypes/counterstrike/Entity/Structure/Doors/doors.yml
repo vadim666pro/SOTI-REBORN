@@ -90,3 +90,71 @@
   - type: Occluder
     enabled: false
   - type: BlockWeather
+
+- type: entity
+  parent: CSMetalDoor
+  id: CSShipDoor
+  name: ship airlock
+  description: project Big Baba Tapa
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Doors/ship_door.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+
+- type: entity
+  parent: CSMetalDoor
+  id: CSLabDoor1
+  name: doors
+  description: project Big Baba Tapa
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Doors/labdoor1.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+  - type: Occluder
+    enabled: false
+  - type: Door
+    bumpOpen: false
+    clickOpen: true
+    canCrush: false
+    occludes: false
+    closeTimeOne: 0.2
+    closeTimeTwo: 0.6
+    openTimeOne: 0.6
+    openTimeTwo: 0.2
+    openingAnimationTime: 1.2
+    closingAnimationTime: 1.2
+
+- type: entity
+  parent: CSMetalDoor
+  id: CSLabDoor2
+  name: doors
+  description: project Big Baba Tapa
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Doors/labdoor2.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+  - type: Occluder
+    enabled: false
+  - type: Door
+    bumpOpen: false
+    clickOpen: true
+    canCrush: false
+    occludes: false
+    closeTimeOne: 0.2
+    closeTimeTwo: 0.6
+    openTimeOne: 0.6
+    openTimeTwo: 0.2
+    openingAnimationTime: 1.2
+    closingAnimationTime: 1.2

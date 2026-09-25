@@ -1,0 +1,33 @@
+- type: tile
+  id: CSFakeWallShip
+  name: Fake Wall Ship
+  sprite: /Textures/Objects/counterstrike/Tiles/FakeWall/shipA.png
+  variants: 1
+  placementVariants:
+  - 1.0
+  baseTurf: Space            # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  isSpace: true # чтобы игроки проваливались.
+  friction: 0.0                 # Трение пола = 0 (игрок теряет сцепление с поверхностью)
+  mobFriction: 0.0              # Трение для передвижения мобов = 0
+  mobAcceleration: 0.0  
+  footstepSounds:
+    collection: FootstepAsteroid    # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000
+
+- type: tile
+  id: CSFakeWallShipRed
+  name: Fake Wall Ship Red
+  sprite: /Textures/Objects/counterstrike/Tiles/FakeWall/shipB.png
+  variants: 1
+  placementVariants:
+  - 1.0
+  baseTurf: Space            # Что останется под ней, если уничтожить взрывом
+  isSubfloor: false
+  isSpace: true # чтобы игроки проваливались.
+  friction: 0.0                 # Трение пола = 0 (игрок теряет сцепление с поверхностью)
+  mobFriction: 0.0              # Трение для передвижения мобов = 0
+  mobAcceleration: 0.0  
+  footstepSounds:
+    collection: FootstepAsteroid    # Меняем звук шагов с металла на камень (Stone)
+  heatCapacity: 25000

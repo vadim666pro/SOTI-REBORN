@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Created by vadik pro for soti reborn",
+    "size": {
+      "x": 32,
+      "y": 32
+    },
+    "states": [
+      {
+        "name": "full"
+      },
+      {
+        "name": "ship0",
+        "directions": 4
+      },
+      {
+        "name": "ship1",
+        "directions": 4
+      },
+      {
+        "name": "ship2",
+        "directions": 4
+      },
+      {
+        "name": "ship3",
+        "directions": 4
+      },
+      {
+        "name": "ship4",
+        "directions": 4
+      },
+      {
+        "name": "ship5",
+        "directions": 4
+      },
+      {
+        "name": "ship6",
+        "directions": 4
+      },
+      {
+        "name": "ship7",
+        "directions": 4
+      }
+    ]
+  }
+  

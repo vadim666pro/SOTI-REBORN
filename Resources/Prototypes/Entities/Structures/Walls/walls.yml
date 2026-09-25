@@ -1561,18 +1561,6 @@
     sprite: Structures/Walls/cobblebrick.rsi
   - type: Icon
     sprite: Structures/Walls/cobblebrick.rsi
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 100
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
   - type: IconSmooth
     key: cobblebricks
     base: cobblebrick
@@ -1655,6 +1643,19 @@
   - type: IconSmooth
     key: cobblebricks
     base: cobblebrick
+
+- type: entity
+  parent: WallCobblebrick
+  id: CSWallShip
+  name: Ship wall
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/ship_wall.rsi
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/Walls/ship_wall.rsi
+  - type: IconSmooth
+    key: ship
+    base: ship
 
 # Cardboard
 

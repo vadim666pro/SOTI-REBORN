@@ -29,3 +29,73 @@
   - type: Sprite
     sprite: Objects/counterstrike/window.rsi
     state: window2
+
+- type: entity
+  parent: CSWindowInferno1
+  id: CSWindowDeTrain1
+  name: WindowDeTrain
+  description: window.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/detrainwindows.rsi
+    state: window1
+
+- type: entity
+  parent: CSWindowInferno1
+  id: CSWindowDeTrain2
+  name: WindowDeTrain
+  description: window.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/detrainwindows.rsi
+    state: window2
+
+- type: entity
+  parent: CSWindowInferno1
+  id: CSWindowDeTrain3
+  name: WindowDeTrain
+  description: window.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/detrainwindows.rsi
+    state: window3
+
+- type: entity
+  parent: CSWindowInferno1
+  id: CSWindowDeTrain64x1
+  name: WindowDeTrain2
+  description: window.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/detrainwindows64.rsi
+    state: window4
+
+- type: entity
+  parent: CSWindowInferno1
+  id: CSWindowDeTrain64x2
+  name: WindowDeTrain2
+  description: window.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/detrainwindows64.rsi
+    state: window5

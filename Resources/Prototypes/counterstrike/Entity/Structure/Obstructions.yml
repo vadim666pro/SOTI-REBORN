@@ -9,6 +9,7 @@
   components:
   - type: Sprite
     noRot: true
+    drawdepth: Objects
   - type: Physics
     mass: 100
   - type: Fixtures
@@ -24,16 +25,6 @@
         - MidImpassable
         - BulletImpassable
   - type: InteractionOutline
-  - type: Damageable
-    damageContainer: StructuralInorganic
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 500
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
   - type: Anchorable
 # это родитель для всех добавленных препятствий на соти
 
@@ -629,6 +620,7 @@
         layer:
         - MidImpassable
         - BulletImpassable
+        - WallLayer
 #
 - type: entity
   id: ObstructionCraftingTable

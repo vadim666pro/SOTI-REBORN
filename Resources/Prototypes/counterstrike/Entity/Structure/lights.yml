@@ -1,0 +1,30 @@
+- type: entity
+  id: CSLamppost
+  name: Lamppost
+  description: "Lamppost"
+  suffix: Always Powered
+  parent: BaseTreeSoti
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/lights.rsi
+    snapCardinals: true
+    drawdepth: Objects
+    noRot: true
+    state: light1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.4,0.35,0.4"
+        density: 1000
+        layer:
+        - WallLayer
+  - type: PointLight
+    radius: 20
+    energy: 2
+    softness: 0.8
+    color: "#fcf49a"
+  - type: HitscanPassthrough

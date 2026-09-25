@@ -1,0 +1,69 @@
+- type: entity
+  id: CSVentBase
+  parent: BaseStructure
+  name: Vent
+  description: metal.
+  components:
+  - type: SpriteFade
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/vent.rsi
+    state: base
+    drawdepth: OverMobs
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 55
+        mask:
+        - FullTileMask
+        layer:
+        - MidImpassable
+  - type: HitscanPassthrough
+
+- type: entity
+  parent: BaseStructure
+  id: BaseVentWall
+  name: vent wall
+  description: wall with a hole.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection:
+          MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection:
+          MetalLaserImpact
+  - type: IsRoof
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/vent.rsi
+    state: ventwall1
+    drawdepth: Doors
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - MidImpassable
+        density: 1000
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: SpriteFade
+  - type: HitscanPassthrough

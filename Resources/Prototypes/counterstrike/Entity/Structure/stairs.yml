@@ -1,0 +1,8 @@
+- type: entity
+  id: CSStairCement1
+  parent: Stairs
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/stairs.rsi
+    state: cement1
+    drawdepth: FloorTiles
