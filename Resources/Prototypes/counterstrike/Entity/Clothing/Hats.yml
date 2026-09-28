@@ -8,6 +8,7 @@
     sprite: Objects/counterstrike/Clothing/Hats/dust2.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Hats/dust2.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadBase
@@ -19,6 +20,7 @@
     sprite: Objects/counterstrike/Clothing/Hats/kufiamasked.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Hats/kufiamasked.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadHelmetBase
@@ -33,6 +35,7 @@
     sprite: Objects/counterstrike/Clothing/Hats/balaklava.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Hats/balaklava.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadHelmetBase
@@ -246,6 +249,7 @@
   - type: HideLayerClothing
     layers:
       Hair : HEAD
+  - type: Unremoveable
         
 - type: entity
   parent: ClothingHeadBase
@@ -257,3 +261,4 @@
     sprite: Objects/counterstrike/Clothing/Hats/PolicemanCap.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Hats/PolicemanCap.rsi
+  - type: Unremoveable

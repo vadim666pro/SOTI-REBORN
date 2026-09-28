@@ -682,6 +682,7 @@
     - state: icon-up
       map: ["foldedLayer"]
       visible: false
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadBase

@@ -848,8 +848,8 @@
 - type: entity
   parent: [UnsensoredClothingUniformBase, BaseSyndicateContraband]
   id: ClothingUniformJumpsuitOperative
-  name: operative jumpsuit
-  description: Uniform for elite syndicate operatives performing tactical operations in deep space.
+  name: Baba Tapa INC Security uniform.
+  description: Designed by Yarik Salager
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuit/operative.rsi
@@ -857,6 +857,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/operative.rsi
   - type: StaticPrice
     price: 500
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -877,7 +878,7 @@
   parent: [ ClothingUniformBase ]
   id: ClothingUniformJumpsuitMercenary
   name: mercenary jumpsuit
-  description: Clothing for real mercenaries who have gone through fire, water and the jungle of planets flooded with dangerous monsters or targets for which a reward has been assigned.
+  description: baba tapa.
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuit/mercenary.rsi

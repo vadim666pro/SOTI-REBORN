@@ -331,6 +331,7 @@
         Blunt: 0.2
         Slash: 0.2
         Piercing: 0.2
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingOuterBase
@@ -353,6 +354,7 @@
         Blunt: 0.2
         Slash: 0.2
         Piercing: 0.2
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingOuterBase
@@ -376,6 +378,7 @@
         Slash: 0.1
         Piercing: 0.1
         Heat: 0.5
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingOuterBase
@@ -398,6 +401,7 @@
         Blunt: 0.2
         Slash: 0.2
         Piercing: 0.2
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingOuterBase
@@ -420,6 +424,7 @@
         Blunt: 0.2
         Slash: 0.2
         Piercing: 0.2
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingOuterBase
@@ -445,6 +450,7 @@
         Heat: 0.01
         fire: 0.01
         Cold: 0.01
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingOuterBase
@@ -470,3 +476,4 @@
         Heat: 0.01
         fire: 0.01
         Cold: 0.01
+  - type: Unremoveable

@@ -402,6 +402,7 @@
     - Hair
     - HeadTop
     - HeadSide
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadBase
@@ -420,6 +421,7 @@
     - Hair
     - HeadTop
     - HeadSide
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadBase
@@ -438,6 +440,7 @@
     - Hair
     - HeadTop
     - HeadSide
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadBase
@@ -456,6 +459,7 @@
     - Hair
     - HeadTop
     - HeadSide
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadBase
@@ -474,6 +478,7 @@
     - Hair
     - HeadTop
     - HeadSide
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingHeadBase
@@ -492,3 +497,4 @@
     - Hair
     - HeadTop
     - HeadSide
+  - type: Unremoveable

@@ -8,6 +8,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/dust2.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/dust2.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -19,6 +20,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/mojahed.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/mojahed.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -30,6 +32,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/theraPirates.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/theraPirates.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -41,6 +44,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/theraCT.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/theraCT.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -52,6 +56,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/fsb.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/fsb.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -63,6 +68,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/bdsm.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/bdsm.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -90,6 +96,7 @@
           pink: ""
           purple: ""
           cyan: ""
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -101,6 +108,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/Radiant.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/Radiant.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -112,6 +120,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/Dire.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/Dire.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -123,6 +132,7 @@
     sprite: Objects/counterstrike/Clothing/Uniform/Anarchist.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/Anarchist.rsi
+  - type: Unremoveable
 
 - type: entity
   parent: ClothingUniformBase
@@ -134,3 +144,4 @@
     sprite: Objects/counterstrike/Clothing/Uniform/Policeman.rsi
   - type: Clothing
     sprite: Objects/counterstrike/Clothing/Uniform/Policeman.rsi
+  - type: Unremoveable
