@@ -1,44 +1,48 @@
 - type: entity
   id: CsTrainSpeedingKillZone
-  parent: BaseMeteor
-  name: Поезд с собачьим жиром
+  name: Speeding Train
   components:
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/Cars/train.rsi
     state: train0
     drawdepth: Doors
+  - type: TimedDespawn
+    lifetime: 7
+  - type: Physics
+    bodyType: Dynamic
+    bodyStatus: InAir
+    angularDamping: 0
+    linearDamping: 0
   - type: Fixtures
     fixtures:
-      projectile:
+      train:
         shape:
           !type:PhysShapeAabb
           bounds: "-4,-1.5,4,1.25"
         density: 500
-        hard: true
+        hard: false
         layer:
-        - MidImpassable
+        - MobLayer
         mask:
-        - Impassable
-  - type: Meteor
-    damageTypes:
+        - MobMask
+  - type: CsTrainKillZone
+    speed: 4
+    damage:
       types:
         Piercing: 200
-  - type: Destructible
-    thresholds: []
-  - type: Explosive
-    maxIntensity: 0
-    totalIntensity: 0
-
-
 
 - type: entity
-  id: CsTrainSpawnerTimer
-  name: speeding train spawner
+  id: CsTrainSpeedingSpawner
+  name: Speeding Train Spawner
   components:
   - type: Sprite
     sprite: Markers/markers.rsi
     state: spawn
     visible: false
-  - type: AutoSpawner
-    prototype: TrainBulunskEastbound
-    interval: 60
+  - type: Timer
+  - type: TimedSpawner
+    prototypes:
+    - CsTrainSpeedingKillZone
+    intervalSeconds: 180
+    minimumEntitiesSpawned: 1
+    maximumEntitiesSpawned: 1

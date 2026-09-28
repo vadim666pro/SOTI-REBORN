@@ -191,6 +191,8 @@ namespace Content.Shared.Damage
             if (before.Cancelled)
                 return null;
 
+            damage = before.Damage;
+
             // Apply resistances
             if (!ignoreResistances)
             {

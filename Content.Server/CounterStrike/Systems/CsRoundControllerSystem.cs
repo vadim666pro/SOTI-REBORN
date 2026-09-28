@@ -5,6 +5,8 @@ using Content.Server.Station.Systems;
 using Content.Shared.CounterStrike;
 using Content.Shared.CounterStrike.Components;
 using Content.Shared.CounterStrike.Events;
+using Content.Shared.Damage;
+using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Content.Shared.Item;
@@ -61,6 +63,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
     private bool _frozenThisRound;
     private bool _bombPlanted;
     private EntityUid? _currentMusicStream;
+    private readonly Dictionary<EntityUid, FixedPoint2> _friendlyDamage = new();
+    private readonly HashSet<EntityUid> _disarmedFriendlyFirePlayers = new();
 
     public override void Initialize()
     {
@@ -71,6 +75,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
         SubscribeLocalEvent<CsBombPlantedEvent>(OnBombPlanted);
         SubscribeLocalEvent<CsBombDefusedEvent>(OnBombDefused);
         SubscribeLocalEvent<CsBombExplodedEvent>(OnBombExploded);
+        SubscribeLocalEvent<DamageableComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
+        SubscribeLocalEvent<DamageableComponent, DamageChangedEvent>(OnDamageChanged);
     }
 
     private void OnFrozenRefreshSpeed(EntityUid uid, CsFrozenComponent component, RefreshMovementSpeedModifiersEvent args)
@@ -142,9 +148,67 @@ public sealed class CsRoundControllerSystem : EntitySystem
         if (ev.New == GameRunLevel.PreRoundLobby)
         {
             _frozenThisRound = false;
+            _friendlyDamage.Clear();
+            _disarmedFriendlyFirePlayers.Clear();
             UnfreezeAllPlayers();
             ClearHud();
         }
+    }
+
+    private void OnBeforeDamageChanged(EntityUid victim, DamageableComponent component, ref BeforeDamageChangedEvent args)
+    {
+        if (args.Origin is not { } attacker || attacker == victim || !AreTeammates(attacker, victim))
+            return;
+
+        args.Damage = DamageSpecifier.GetPositive(args.Damage) * 0.5f + DamageSpecifier.GetNegative(args.Damage);
+    }
+
+    private void OnDamageChanged(EntityUid victim, DamageableComponent component, DamageChangedEvent args)
+    {
+        if (!args.DamageIncreased || args.DamageDelta is not { } damage ||
+            args.Origin is not { } attacker || attacker == victim || !AreTeammates(attacker, victim))
+        {
+            return;
+        }
+
+        var dealtDamage = DamageSpecifier.GetPositive(damage).GetTotal();
+        if (dealtDamage <= FixedPoint2.Zero || _disarmedFriendlyFirePlayers.Contains(attacker))
+            return;
+
+        _friendlyDamage.TryGetValue(attacker, out var totalDamage);
+        totalDamage += dealtDamage;
+        _friendlyDamage[attacker] = totalDamage;
+
+        if (totalDamage <= FixedPoint2.New(100))
+            return;
+
+        _disarmedFriendlyFirePlayers.Add(attacker);
+        _hands.RemoveHands(attacker);
+        Sawmill.Info($"[CS Round] Removed hands from {ToPrettyString(attacker)} after dealing over 100 damage to teammates.");
+    }
+
+    private bool AreTeammates(EntityUid first, EntityUid second)
+    {
+        var firstTeam = GetTeam(first);
+        return firstTeam != null && firstTeam == GetTeam(second);
+    }
+
+    private string? GetTeam(EntityUid player)
+    {
+        if (!TryComp<MindContainerComponent>(player, out var mindContainer) || !mindContainer.HasMind)
+            return null;
+
+        var mindId = mindContainer.Mind!.Value;
+        if (!_jobs.MindTryGetJobId(mindId, out var jobId) || jobId is null)
+            return null;
+
+        if (CounterStrikeTeams.CtJobs.Contains(jobId.Value))
+            return "CT";
+
+        if (CounterStrikeTeams.TJobs.Contains(jobId.Value))
+            return "T";
+
+        return null;
     }
 
     public override void Update(float frameTime)
@@ -488,6 +552,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
     {
         Sawmill.Info("[CS Round] Resetting for next sub-round.");
 
+        _friendlyDamage.Clear();
+        _disarmedFriendlyFirePlayers.Clear();
         _bombPlanted = false;
         controller.BombTimer = 0f;
         CleanupRoundItems();
