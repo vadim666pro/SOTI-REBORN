@@ -1,13 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Content.Server.Administration.Logs;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking.Presets;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Random;
 using Content.Shared.CCVar;
-using Content.Shared.Database;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Configuration;
@@ -20,8 +18,6 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-
     private string _ruleCompName = default!;
 
     public override void Initialize()
@@ -33,32 +29,7 @@ public sealed class SecretRuleSystem : GameRuleSystem<SecretRuleComponent>
     protected override void Added(EntityUid uid, SecretRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
         base.Added(uid, component, gameRule, args);
-        var weights = _configurationManager.GetCVar(CCVars.SecretWeightPrototype);
-
-        if (!TryPickPreset(weights, out var preset))
-        {
-            Log.Error($"{ToPrettyString(uid)} failed to pick any preset. Removing rule.");
-            Del(uid);
-            return;
-        }
-
-        Log.Info($"Selected {preset.ID} as the secret preset.");
-        _adminLogger.Add(LogType.EventStarted, $"Selected {preset.ID} as the secret preset.");
-
-        foreach (var rule in preset.Rules)
-        {
-            EntityUid ruleEnt;
-
-            // if we're pre-round (i.e. will only be added)
-            // then just add rules. if we're added in the middle of the round (or at any other point really)
-            // then we want to start them as well
-            if (GameTicker.RunLevel <= GameRunLevel.InRound)
-                ruleEnt = GameTicker.AddGameRule(rule);
-            else
-                GameTicker.StartGameRule(rule, out ruleEnt);
-
-            component.AdditionalGameRules.Add(ruleEnt);
-        }
+        Log.Info("Secret gamerule selected; no additional rules will be added.");
     }
 
     protected override void Ended(EntityUid uid, SecretRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)

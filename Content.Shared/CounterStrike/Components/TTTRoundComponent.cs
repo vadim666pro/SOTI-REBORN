@@ -16,6 +16,7 @@ public sealed partial class TTTRuleComponent : Component
 
     public float PolicePhaseTimer = 90f;
     public bool PolicePhaseActive;
+    public float HudUpdateTimer;
 }
 
 public enum TTTPhase : byte

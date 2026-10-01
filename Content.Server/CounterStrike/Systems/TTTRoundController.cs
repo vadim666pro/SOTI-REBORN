@@ -6,6 +6,7 @@ using Content.Server.Station.Systems;
 using Content.Server.Mind;
 using Content.Server.Mobs;
 using Content.Shared.CounterStrike.Components;
+using Content.Shared.CounterStrike.Events;
 using Content.Shared.Humanoid;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
@@ -36,6 +37,12 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("ttt-round");
 
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(OnRunLevelChanged);
+    }
+
     protected override void Added(EntityUid uid, TTTRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
         base.Added(uid, component, gameRule, args);
@@ -45,6 +52,7 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
         component.PoliceSpawned = false;
         component.PolicePhaseActive = false;
         component.Phase = TTTPhase.FreePhase;
+        component.HudUpdateTimer = 0f;
 
         Sawmill.Info("[TTT] Правило активировано. Свободная фаза 2:30.");
     }
@@ -63,6 +71,11 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
             if (!GameTicker.IsGameRuleActive(uid, gameRule))
                 continue;
 
+            component.HudUpdateTimer -= frameTime;
+            var updateHud = component.HudUpdateTimer <= 0f;
+            if (updateHud)
+                component.HudUpdateTimer = 0.5f;
+
             if (!component.PoliceSpawned && component.Phase == TTTPhase.FreePhase)
             {
                 component.Timer -= frameTime;
@@ -75,6 +88,9 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
                     component.PolicePhaseTimer = TTTRuleComponent.PolicePhaseDuration;
                     _chat.DispatchGlobalAnnouncement("Полиция приехала. До конца раунда 90 секунд", sender: "ПОЛИЦИЯ");
                 }
+
+                if (updateHud)
+                    RaiseNetworkEvent(new TTTHudEvent(component.Timer, component.PoliceSpawned));
                 continue;
             }
             if (component.PolicePhaseActive)
@@ -86,7 +102,22 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
                 }
 
             }
+
+            if (updateHud)
+                RaiseNetworkEvent(new TTTHudEvent(component.PolicePhaseTimer, component.PoliceSpawned));
         }
+    }
+
+    protected override void Ended(EntityUid uid, TTTRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    {
+        base.Ended(uid, component, gameRule, args);
+        RaiseNetworkEvent(new TTTHudClearEvent());
+    }
+
+    private void OnRunLevelChanged(GameRunLevelChangedEvent ev)
+    {
+        if (ev.New != GameRunLevel.InRound)
+            RaiseNetworkEvent(new TTTHudClearEvent());
     }
 
     private void SpawnPolice(TTTRuleComponent component)

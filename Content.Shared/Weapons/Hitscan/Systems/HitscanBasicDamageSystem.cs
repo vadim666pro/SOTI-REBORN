@@ -24,7 +24,7 @@ public sealed class HitscanBasicDamageSystem : EntitySystem
         var target = args.Data.HitEntity.Value;
         var damage = hitscan.Comp.Damage;
 
-        _damageable.TryChangeDamage(target, damage, origin: args.Data.Gun);
+        _damageable.TryChangeDamage(target, damage, origin: args.Data.Shooter ?? args.Data.Gun);
 
         var ev = new HitscanDamageDealtEvent
         {

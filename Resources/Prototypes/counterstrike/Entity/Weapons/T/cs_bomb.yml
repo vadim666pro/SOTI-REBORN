@@ -26,9 +26,9 @@
       keysIn:
       - timer
     - type: TimerTrigger
-      delay: 40
+      delay: 60
       delayOptions:
-        - 40
+        - 60
       initialBeepDelay: 0
       beepSound: /Audio/Machines/timer.ogg
     - type: Item

@@ -114,10 +114,11 @@ public sealed class RiotRoundControllerSystem : GameRuleSystem<RiotRoundControll
             return;
         }
 
-        var balancedPlayers = CounterStrikeTeamBalancer.ShuffleAndSplit(RobustRandom, players, out var civilianCount);
-        for (var i = 0; i < balancedPlayers.Count; i++)
+        RobustRandom.Shuffle(players);
+        var civilianCount = (players.Count + 1) / 2;
+        for (var i = 0; i < players.Count; i++)
         {
-            var (session, oldBody) = balancedPlayers[i];
+            var (session, oldBody) = players[i];
             Del(oldBody);
             GameTicker.MakeJoinGame(session, station, i < civilianCount ? CivilianJobId : CopJobId, silent: true);
         }

@@ -5,8 +5,10 @@ using Content.Server.Station.Systems;
 using Content.Shared.CounterStrike;
 using Content.Shared.CounterStrike.Components;
 using Content.Shared.CounterStrike.Events;
+using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
+using Content.Shared.GameTicking.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Content.Shared.Item;
@@ -14,6 +16,7 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Roles;
@@ -77,6 +80,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
         SubscribeLocalEvent<CsBombExplodedEvent>(OnBombExploded);
         SubscribeLocalEvent<DamageableComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
         SubscribeLocalEvent<DamageableComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<MobStateComponent, MobStateChangedEvent>(OnMobStateChanged);
     }
 
     private void OnFrozenRefreshSpeed(EntityUid uid, CsFrozenComponent component, RefreshMovementSpeedModifiersEvent args)
@@ -140,7 +144,6 @@ public sealed class CsRoundControllerSystem : EntitySystem
 
             _frozenThisRound = true;
             _bombPlanted = false;
-            BalanceStartingTeams();
             FreezeAllPlayers();
             AssignBombToRandomT();
             Sawmill.Info("[CS Round] Round started — freezing all players, bomb assigned.");
@@ -156,55 +159,9 @@ public sealed class CsRoundControllerSystem : EntitySystem
         }
     }
 
-    private void BalanceStartingTeams()
-    {
-        var station = _station.GetStations().FirstOrDefault();
-        if (station == default)
-        {
-            Sawmill.Error("[CS Round] No station found; teams were not balanced.");
-            return;
-        }
-
-        var players = new List<(ICommonSession Session, EntityUid Body)>();
-        var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
-        while (query.MoveNext(out var body, out _, out var mindContainer))
-        {
-            if (!mindContainer.HasMind || mindContainer.Mind is not { } mindId ||
-                !TryComp<MindComponent>(mindId, out var mind) || mind.UserId is not { } userId ||
-                !_playerManager.TryGetSessionById(userId, out var session))
-            {
-                continue;
-            }
-
-            players.Add((session, body));
-        }
-
-        if (players.Count < 2)
-        {
-            Sawmill.Warning($"[CS Round] Expected at least two players, found {players.Count}.");
-            return;
-        }
-
-        var balancedPlayers = CounterStrikeTeamBalancer.ShuffleAndSplit(_random, players, out var ctCount);
-        var ctJobs = CounterStrikeTeams.CtJobs.ToList();
-        var tJobs = CounterStrikeTeams.TJobs.ToList();
-
-        for (var i = 0; i < balancedPlayers.Count; i++)
-        {
-            var (session, oldBody) = balancedPlayers[i];
-            Del(oldBody);
-
-            var jobPool = i < ctCount ? ctJobs : tJobs;
-            var jobId = _random.Pick(jobPool).ToString();
-            _gameTicker.MakeJoinGame(session, station, jobId, silent: true);
-        }
-
-        Sawmill.Info($"[CS Round] Balanced teams: {ctCount} CT and {players.Count - ctCount} T.");
-    }
-
     private void OnBeforeDamageChanged(EntityUid victim, DamageableComponent component, ref BeforeDamageChangedEvent args)
     {
-        if (args.Origin is not { } attacker || attacker == victim || !AreTeammates(attacker, victim))
+        if (!IsCsRoundActive() || args.Origin is not { } attacker || attacker == victim || !AreTeammates(attacker, victim))
             return;
 
         args.Damage = DamageSpecifier.GetPositive(args.Damage) * 0.5f + DamageSpecifier.GetNegative(args.Damage);
@@ -213,7 +170,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
     private void OnDamageChanged(EntityUid victim, DamageableComponent component, DamageChangedEvent args)
     {
         if (!args.DamageIncreased || args.DamageDelta is not { } damage ||
-            args.Origin is not { } attacker || attacker == victim || !AreTeammates(attacker, victim))
+            !IsCsRoundActive() || args.Origin is not { } attacker || attacker == victim || !AreTeammates(attacker, victim))
         {
             return;
         }
@@ -226,12 +183,39 @@ public sealed class CsRoundControllerSystem : EntitySystem
         totalDamage += dealtDamage;
         _friendlyDamage[attacker] = totalDamage;
 
-        if (totalDamage <= FixedPoint2.New(100))
+        if (totalDamage <= FixedPoint2.New(75))
             return;
 
         _disarmedFriendlyFirePlayers.Add(attacker);
         _hands.RemoveHands(attacker);
-        Sawmill.Info($"[CS Round] Removed hands from {ToPrettyString(attacker)} after dealing over 100 damage to teammates.");
+        Sawmill.Info($"[CS Round] Removed hands from {ToPrettyString(attacker)} after dealing over 75 damage to teammates.");
+    }
+
+    private void OnMobStateChanged(EntityUid victim, MobStateComponent component, MobStateChangedEvent args)
+    {
+        if (!IsCsRoundActive() || args.NewMobState != MobState.Dead || args.Origin is not { } attacker || attacker == victim ||
+            !AreTeammates(attacker, victim))
+        {
+            return;
+        }
+
+        EnsureComp<PacifiedComponent>(attacker);
+        Sawmill.Info($"[CS Round] Applied pacifism to {ToPrettyString(attacker)} for killing a teammate.");
+    }
+
+    private bool IsCsRoundActive()
+    {
+        if (_gameTicker.RunLevel != GameRunLevel.InRound)
+            return false;
+
+        var query = EntityQueryEnumerator<CsRoundControllerComponent, GameRuleComponent>();
+        while (query.MoveNext(out var uid, out _, out var gameRule))
+        {
+            if (_gameTicker.IsGameRuleActive(uid, gameRule))
+                return true;
+        }
+
+        return false;
     }
 
     private bool AreTeammates(EntityUid first, EntityUid second)

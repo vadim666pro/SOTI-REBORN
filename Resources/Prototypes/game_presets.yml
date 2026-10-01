@@ -4,8 +4,7 @@
   showInVote: true
   description: secret-description
   supportedMaps: VotableMapPool
-  rules:
-  - BasicRoundstartVariation
+  rules: []
 
 - type: gamePreset
   id: Sandbox
