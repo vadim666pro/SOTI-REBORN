@@ -10,6 +10,12 @@
     },
     {
       "name": "blue"
+    },
+    {
+      "name": "red_up"
+    },
+    {
+      "name": "blue_up"
     }
   ]
 }

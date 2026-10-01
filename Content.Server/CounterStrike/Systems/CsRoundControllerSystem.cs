@@ -140,6 +140,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
 
             _frozenThisRound = true;
             _bombPlanted = false;
+            BalanceStartingTeams();
             FreezeAllPlayers();
             AssignBombToRandomT();
             Sawmill.Info("[CS Round] Round started — freezing all players, bomb assigned.");
@@ -153,6 +154,52 @@ public sealed class CsRoundControllerSystem : EntitySystem
             UnfreezeAllPlayers();
             ClearHud();
         }
+    }
+
+    private void BalanceStartingTeams()
+    {
+        var station = _station.GetStations().FirstOrDefault();
+        if (station == default)
+        {
+            Sawmill.Error("[CS Round] No station found; teams were not balanced.");
+            return;
+        }
+
+        var players = new List<(ICommonSession Session, EntityUid Body)>();
+        var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
+        while (query.MoveNext(out var body, out _, out var mindContainer))
+        {
+            if (!mindContainer.HasMind || mindContainer.Mind is not { } mindId ||
+                !TryComp<MindComponent>(mindId, out var mind) || mind.UserId is not { } userId ||
+                !_playerManager.TryGetSessionById(userId, out var session))
+            {
+                continue;
+            }
+
+            players.Add((session, body));
+        }
+
+        if (players.Count < 2)
+        {
+            Sawmill.Warning($"[CS Round] Expected at least two players, found {players.Count}.");
+            return;
+        }
+
+        var balancedPlayers = CounterStrikeTeamBalancer.ShuffleAndSplit(_random, players, out var ctCount);
+        var ctJobs = CounterStrikeTeams.CtJobs.ToList();
+        var tJobs = CounterStrikeTeams.TJobs.ToList();
+
+        for (var i = 0; i < balancedPlayers.Count; i++)
+        {
+            var (session, oldBody) = balancedPlayers[i];
+            Del(oldBody);
+
+            var jobPool = i < ctCount ? ctJobs : tJobs;
+            var jobId = _random.Pick(jobPool).ToString();
+            _gameTicker.MakeJoinGame(session, station, jobId, silent: true);
+        }
+
+        Sawmill.Info($"[CS Round] Balanced teams: {ctCount} CT and {players.Count - ctCount} T.");
     }
 
     private void OnBeforeDamageChanged(EntityUid victim, DamageableComponent component, ref BeforeDamageChangedEvent args)

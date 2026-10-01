@@ -8,13 +8,32 @@
     - Wallmount
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/window.rsi
+    sprite: Objects/counterstrike/FakeWindows/window.rsi
     state: window1
     drawdepth: Overdoors
   - type: Transform
     anchored: true
   - type: WallMount
   - type: Clickable
+
+- type: entity
+  id: CSMailbox1
+  name: Mailbox
+  description: ...
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/housewares.rsi
+    state: mailbox1
+    drawdepth: Overdoors
+  - type: Transform
+    anchored: true
+  - type: WallMount
+  - type: Clickable
+
 
 - type: entity
   parent: CSWindowInferno1
@@ -27,7 +46,7 @@
     - Wallmount
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/window.rsi
+    sprite: Objects/counterstrike/FakeWindows/window.rsi
     state: window2
 
 - type: entity
@@ -41,7 +60,7 @@
     - Wallmount
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/detrainwindows.rsi
+    sprite: Objects/counterstrike/FakeWindows/detrainwindows.rsi
     state: window1
 
 - type: entity
@@ -55,7 +74,7 @@
     - Wallmount
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/detrainwindows.rsi
+    sprite: Objects/counterstrike/FakeWindows/detrainwindows.rsi
     state: window2
 
 - type: entity
@@ -69,7 +88,7 @@
     - Wallmount
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/detrainwindows.rsi
+    sprite: Objects/counterstrike/FakeWindows/detrainwindows.rsi
     state: window3
 
 - type: entity
@@ -83,7 +102,7 @@
     - Wallmount
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/detrainwindows64.rsi
+    sprite: Objects/counterstrike/FakeWindows/detrainwindows64.rsi
     state: window4
 
 - type: entity
@@ -97,5 +116,5 @@
     - Wallmount
   components:
   - type: Sprite
-    sprite: Objects/counterstrike/detrainwindows64.rsi
+    sprite: Objects/counterstrike/FakeWindows/detrainwindows64.rsi
     state: window5

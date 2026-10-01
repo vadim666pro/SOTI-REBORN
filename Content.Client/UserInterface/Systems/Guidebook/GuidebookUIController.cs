@@ -5,6 +5,7 @@ using Content.Client.Guidebook.Controls;
 using Content.Client.Lobby;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Client.UserInterface.Controls;
+using Content.Client.UserInterface.Systems.Info;
 using Content.Shared.CCVar;
 using Content.Shared.Guidebook;
 using Content.Shared.Input;
@@ -182,8 +183,17 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
 
         if (guides == null)
         {
-            guides = _prototypeManager.EnumeratePrototypes<GuideEntryPrototype>()
-                .ToDictionary(x => new ProtoId<GuideEntryPrototype>(x.ID), x => (GuideEntry) x);
+            var rules = UIManager.GetUIController<InfoUIController>().GetCoreRuleEntry();
+            var rulesId = new ProtoId<GuideEntryPrototype>(rules.ID);
+            var loreId = new ProtoId<GuideEntryPrototype>("SOTILore");
+            var lore = _prototypeManager.Index(loreId);
+            var modesId = new ProtoId<GuideEntryPrototype>("SOTIGameModes");
+            var modes = _prototypeManager.Index(modesId);
+            guides = new() { [rulesId] = rules, [loreId] = lore, [modesId] = modes };
+            rootEntries = new() { rulesId, loreId, modesId };
+            selected = rulesId;
+            RecursivelyAddChildren(lore, guides);
+            RecursivelyAddChildren(modes, guides);
         }
         else if (includeChildren)
         {

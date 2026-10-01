@@ -663,3 +663,104 @@
     sprite: Objects/counterstrike/Structures/Obstructions/WoodenBarrel.rsi
     state: base-0
   - type: HitscanPassthrough
+
+- type: entity
+  id: ObstructionVending1
+  parent: ObstructionBase
+  name: Water dispencer
+  description: its tasty.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/vendings.rsi
+    state: Water
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3, -0.45, 0.3, 0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: InteractionOutline
+  - type: Anchorable
+
+- type: entity
+  id: ObstructionVending2
+  parent: ObstructionBase
+  name: Cafe machine
+  description: its tasty.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/vendings.rsi
+    state: Cafe
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3, -0.45, 0.3, 0.45"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+  - type: InteractionOutline
+  - type: Anchorable
+
+- type: entity
+  id: ObstructionLaundryMachine1
+  parent: ObstructionBase
+  name: Laundry Machine 1
+  description: works...
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/housewares.rsi
+    state: laundry1
+  - type: HitscanPassthrough
+
+- type: entity
+  id: ObstructionControlPanel1
+  parent: ObstructionBase
+  name: Control Panel 1
+  description: control.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/controlpanels.rsi
+    state: panel1
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+
+- type: entity
+  id: ObstructionControlPanel2
+  parent: ObstructionBase
+  name: Control Panel 2
+  description: control.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/controlpanels.rsi
+    state: panel2
+
+- type: entity
+  id: ObstructionControlPanel3
+  parent: ObstructionBase
+  name: Control Panel 3
+  description: control.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/controlpanels.rsi
+    state: panel3

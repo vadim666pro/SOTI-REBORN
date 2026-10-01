@@ -4,6 +4,8 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.ContentPack;
+using Robust.Shared.IoC;
+using Robust.Shared.Utility;
 
 namespace Content.Client.Info
 {
@@ -43,13 +45,12 @@ namespace Content.Client.Info
 
         private void PopulateTutorial(Info tutorialList)
         {
-            AddSection(tutorialList, Loc.GetString("ui-info-header-intro"), "Intro.txt");
-            var infoControlSection = new InfoControlsSection();
-            tutorialList.InfoContainer.AddChild(infoControlSection);
-            AddSection(tutorialList, Loc.GetString("ui-info-header-gameplay"), "Gameplay.txt", true);
-            AddSection(tutorialList, Loc.GetString("ui-info-header-sandbox"), "Sandbox.txt", true);
+            AddSection(tutorialList, string.Empty, "Intro.txt", true);
 
-            infoControlSection.ControlsButton.OnPressed += _ => UserInterfaceManager.GetUIController<OptionsUIController>().OpenWindow();
+            const string discordUrl = "https://discord.gg/Ne8xSUjFb4";
+            var discordButton = new Button { Text = $"{discordUrl} ↗" };
+            discordButton.OnPressed += _ => IoCManager.Resolve<IUriOpener>().OpenUri(discordUrl);
+            tutorialList.InfoContainer.AddChild(discordButton);
         }
 
         private static void AddSection(Info info, Control control)

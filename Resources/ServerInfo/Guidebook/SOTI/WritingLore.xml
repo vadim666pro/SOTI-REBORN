@@ -1,0 +1,23 @@
+<Document>
+# Как добавить лор
+
+## 1. Создайте страницу
+
+Создайте XML-файл в папке [color=cyan]Resources/ServerInfo/Guidebook/SOTI/[/color]. Например: [color=cyan]MyStory.xml[/color]. Оберните текст страницы в корневой тег [color=cyan]Document[/color].
+
+## 2. Подключите страницу
+
+Откройте [color=cyan]Resources/Prototypes/Guidebook/soti_lore.yml[/color] и добавьте prototype типа [color=cyan]guideEntry[/color]. Укажите уникальный [color=cyan]id[/color], ключ [color=cyan]name[/color] и путь к XML в поле [color=cyan]text[/color]. Добавьте ID новой страницы в список [color=cyan]children[/color] у [color=cyan]SOTILore[/color], чтобы она появилась внутри раздела.
+
+## 3. Добавьте название
+
+Создайте один и тот же ключ в файлах [color=cyan]Resources/Locale/ru-RU/guidebook/soti_lore.ftl[/color] и [color=cyan]Resources/Locale/en-US/guidebook/soti_lore.ftl[/color]. Так название будет отображаться на русском и английском.
+
+## 4. Оформите историю
+
+Используйте заголовки, списки и цвета. Для ссылки на другую страницу используйте [color=cyan][textlink="название ссылки" link="GuideEntryId"][/color]. ID в ссылке должен совпадать с [color=cyan]id[/color] prototype этой страницы.
+
+## Перед публикацией
+
+Проверьте орфографию, имена и хронологию. Отделяйте подтверждённые события от слухов или легенд персонажей. Не добавляйте новые факты в существующий канон молча: согласуйте крупные изменения с ответственными за лор.
+</Document>

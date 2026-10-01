@@ -1,0 +1,46 @@
+- type: entity
+  parent: BaseGameRule
+  id: RiotRoundController
+  name: RIOT Round Controller
+  components:
+  - type: GameRule
+    minPlayers: 2
+  - type: RiotRoundController
+    roundDuration: 300
+    swatArrivalDelay: 180
+
+- type: entity
+  parent: MarkerBase
+  id: RiotControlPoint
+  name: RIOT Control Point
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/controlpanels.rsi
+    state: panel1
+    visible: true
+  - type: RiotControlPoint
+    captureRadius: 5
+
+- type: entity
+  id: SpawnPointRiotPuzogradCivilian
+  parent: SpawnPointPassenger
+  name: Puzograd civilian spawn point
+  components:
+  - type: SpawnPoint
+    job_id: RiotPuzogradCivilian
+
+- type: entity
+  id: SpawnPointRiotPuzogradCop
+  parent: SpawnPointSecurityOfficer
+  name: Puzograd cop spawn point
+  components:
+  - type: SpawnPoint
+    job_id: RiotPuzogradCop
+
+- type: entity
+  id: SpawnPointRiotPuzogradSoldier
+  parent: SpawnPointSecurityOfficer
+  name: Puzograd SWAT spawn point
+  components:
+  - type: SpawnPoint
+    job_id: RiotPuzogradSoldier

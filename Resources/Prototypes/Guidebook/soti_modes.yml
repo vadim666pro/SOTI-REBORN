@@ -1,0 +1,24 @@
+- type: guideEntry
+  id: SOTIGameModes
+  name: guide-entry-soti-modes
+  priority: 30
+  text: "/ServerInfo/Guidebook/SOTI/GameModes.xml"
+  children:
+  - SOTIModeCS
+  - SOTIModeTTT
+  - SOTIModeRaid
+
+- type: guideEntry
+  id: SOTIModeCS
+  name: guide-entry-soti-mode-cs
+  text: "/ServerInfo/Guidebook/SOTI/ModeCS.xml"
+
+- type: guideEntry
+  id: SOTIModeTTT
+  name: guide-entry-soti-mode-ttt
+  text: "/ServerInfo/Guidebook/SOTI/ModeTTT.xml"
+
+- type: guideEntry
+  id: SOTIModeRaid
+  name: guide-entry-soti-mode-raid
+  text: "/ServerInfo/Guidebook/SOTI/ModeRaid.xml"

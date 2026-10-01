@@ -6,7 +6,7 @@ namespace Content.Server.CounterStrike.Trains;
 public sealed partial class CsTrainKillZoneComponent : Component
 {
     [DataField]
-    public float Speed = 4f;
+    public float Speed = 8f;
 
     [DataField]
     public DamageSpecifier Damage = new();

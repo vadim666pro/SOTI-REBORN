@@ -1,0 +1,29 @@
+- type: job
+  id: RiotPuzogradCivilian
+  name: job-name-riot-puzograd-civilian
+  description: job-description-riot-puzograd-civilian
+  playTimeTracker: JobRiotPuzogradCivilian
+  startingGear: PassengerGear
+  icon: JobIconPassenger
+  supervisors: job-supervisors-everyone
+  canBeAntag: false
+
+- type: job
+  id: RiotPuzogradCop
+  name: job-name-riot-puzograd-cop
+  description: job-description-riot-puzograd-cop
+  playTimeTracker: JobRiotPuzogradCop
+  startingGear: SecurityOfficerGear
+  icon: JobIconSecurityOfficer
+  supervisors: job-supervisors-security
+  canBeAntag: false
+
+- type: job
+  id: RiotPuzogradSoldier
+  name: job-name-riot-puzograd-soldier
+  description: job-description-riot-puzograd-soldier
+  playTimeTracker: JobRiotPuzogradSoldier
+  startingGear: SecurityOfficerGear
+  icon: JobIconSecurityOfficer
+  supervisors: job-supervisors-security
+  canBeAntag: false

@@ -23,3 +23,48 @@
         - WallLayer
   - type: Physics
     bodyType: Static
+
+- type: entity
+  id: ObstructionContainer1
+  parent: ObstructionContainer
+  name: container 1
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Containers.rsi
+    state: red
+    drawdepth: Doors
+
+- type: entity
+  id: ObstructionContainerUp
+  parent: ObstructionContainer
+  name: container UP
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Containers.rsi
+    state: red_up
+    drawdepth: Doors
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.1,-2.1,1.1,1.9"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+        - WallLayer
+  - type: Physics
+    bodyType: Static
+
+- type: entity
+  id: ObstructionContainerUp1
+  parent: ObstructionContainerUp
+  name: container UP 1
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Containers.rsi
+    state: blue_up
+    drawdepth: Doors

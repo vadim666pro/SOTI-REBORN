@@ -150,3 +150,14 @@
   - Psychologist
   primary: false
   editorHidden: true
+
+- type: department
+  id: Riot
+  name: department-Riot
+  description: department-Riot-description
+  color: "#D64B3C"
+  weight: 30
+  roles:
+  - RiotPuzogradCivilian
+  - RiotPuzogradCop
+  - RiotPuzogradSoldier

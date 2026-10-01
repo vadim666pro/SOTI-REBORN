@@ -1,0 +1,18 @@
+- type: guideEntry
+  id: SOTILore
+  name: guide-entry-soti-lore
+  priority: 25
+  text: "/ServerInfo/Guidebook/SOTI/Lore.xml"
+  children:
+  - SOTILoreWritingGuide
+  - SOTILoreTankerAttack
+
+- type: guideEntry
+  id: SOTILoreWritingGuide
+  name: guide-entry-soti-lore-writing-guide
+  text: "/ServerInfo/Guidebook/SOTI/WritingLore.xml"
+
+- type: guideEntry
+  id: SOTILoreTankerAttack
+  name: guide-entry-soti-lore-tanker-attack
+  text: "/ServerInfo/Guidebook/SOTI/TankerAttack.xml"

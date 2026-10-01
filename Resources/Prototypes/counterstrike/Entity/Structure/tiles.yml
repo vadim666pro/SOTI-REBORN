@@ -105,3 +105,73 @@
   footstepSounds:
     collection: FootstepTile   # Меняем звук шагов с металла на камень (Stone)
   heatCapacity: 25000
+
+- type: tile
+  id: CSTrainRailwayL1
+  name: Railway L Up
+  sprite: /Textures/Objects/counterstrike/Tiles/train/l.png
+  variants: 2
+  placementVariants:
+  - 1.0
+  - 1.0
+  baseTurf: Plating             
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepAsteroid 
+  heatCapacity: 25000
+
+- type: tile
+  id: CSTrainRailwayR1
+  name: Railway R Up
+  sprite: /Textures/Objects/counterstrike/Tiles/train/r.png
+  variants: 2
+  placementVariants:
+  - 1.0
+  - 1.0
+  baseTurf: Plating            
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepAsteroid 
+  heatCapacity: 25000
+
+- type: tile
+  id: CSTrainRailwayL2
+  name: Railway L Horizontal
+  sprite: /Textures/Objects/counterstrike/Tiles/train/l1.png
+  variants: 2
+  placementVariants:
+  - 1.0
+  - 1.0
+  baseTurf: Plating            
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepAsteroid 
+  heatCapacity: 25000
+
+- type: tile
+  id: CSTrainRailwayR2
+  name: Railway R Horizontal
+  sprite: /Textures/Objects/counterstrike/Tiles/train/r1.png
+  variants: 2
+  placementVariants:
+  - 1.0
+  - 1.0
+  baseTurf: Plating            
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepAsteroid 
+  heatCapacity: 25000
+
+- type: tile
+  id: CSTrainRailwayMiddle
+  name: Railway Middle
+  sprite: /Textures/Objects/counterstrike/Tiles/train/middle.png
+  variants: 2
+  placementVariants:
+  - 1.0
+  - 1.0
+  baseTurf: Plating            
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepAsteroid 
+  heatCapacity: 25000

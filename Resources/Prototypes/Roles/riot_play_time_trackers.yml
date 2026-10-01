@@ -1,0 +1,8 @@
+- type: playTimeTracker
+  id: JobRiotPuzogradCivilian
+
+- type: playTimeTracker
+  id: JobRiotPuzogradCop
+
+- type: playTimeTracker
+  id: JobRiotPuzogradSoldier
