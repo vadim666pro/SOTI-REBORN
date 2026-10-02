@@ -175,3 +175,20 @@
   footstepSounds:
     collection: FootstepAsteroid 
   heatCapacity: 25000
+
+- type: tile
+  id: CSDirtFloor
+  name: Dirt Floor
+  sprite: /Textures/Objects/counterstrike/Tiles/dirt/floor.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating            
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepAsteroid 
+  heatCapacity: 25000

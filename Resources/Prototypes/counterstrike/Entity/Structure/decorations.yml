@@ -11,3 +11,43 @@
   - type: Sprite
     sprite: Objects/counterstrike/decorINF.rsi
     state: laundry
+
+- type: entity
+  parent: CSLaundry
+  id: CSVentDecor1
+  name: Ventilation
+  description: jopa.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/decorVents.rsi
+    state: vent1
+
+- type: entity
+  parent: CSLaundry
+  id: CSVentDecor2
+  name: Ventilation
+  description: jopa.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/decorVents.rsi
+    state: vent2
+
+- type: entity
+  parent: CSLaundry
+  id: CSVentDecor3
+  name: Ventilation
+  description: jopa.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/decorVents.rsi
+    state: vent3
+
+- type: entity
+  parent: CSLaundry
+  id: CSVentDecor4
+  name: Ventilation
+  description: jopa.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/decorVents.rsi
+    state: vent4

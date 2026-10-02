@@ -80,7 +80,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
         SubscribeLocalEvent<CsBombExplodedEvent>(OnBombExploded);
         SubscribeLocalEvent<DamageableComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
         SubscribeLocalEvent<DamageableComponent, DamageChangedEvent>(OnDamageChanged);
-        SubscribeLocalEvent<MobStateComponent, MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
     }
 
     private void OnFrozenRefreshSpeed(EntityUid uid, CsFrozenComponent component, RefreshMovementSpeedModifiersEvent args)
@@ -191,10 +191,10 @@ public sealed class CsRoundControllerSystem : EntitySystem
         Sawmill.Info($"[CS Round] Removed hands from {ToPrettyString(attacker)} after dealing over 75 damage to teammates.");
     }
 
-    private void OnMobStateChanged(EntityUid victim, MobStateComponent component, MobStateChangedEvent args)
+    private void OnMobStateChanged(MobStateChangedEvent args)
     {
-        if (!IsCsRoundActive() || args.NewMobState != MobState.Dead || args.Origin is not { } attacker || attacker == victim ||
-            !AreTeammates(attacker, victim))
+        if (!IsCsRoundActive() || args.NewMobState != MobState.Dead || args.Origin is not { } attacker ||
+            attacker == args.Target || !AreTeammates(attacker, args.Target))
         {
             return;
         }

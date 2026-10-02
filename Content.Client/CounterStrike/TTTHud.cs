@@ -32,7 +32,8 @@ public sealed class TTTHud : Control
         MouseFilter = MouseFilterMode.Ignore;
 
         var cache = IoCManager.Resolve<IResourceCache>();
-        _icon = cache.GetTexture(new ResPath("/Textures/Objects/counterstrike/Other/interface.rsi/ttt.png"));
+        var rsi = cache.GetResource<RSIResource>("/Textures/Objects/counterstrike/Other/interface.rsi").RSI;
+        _icon = rsi["ttt"].Frame0;
         var font = cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Regular.ttf");
         _labelFont = new VectorFont(font, 15);
         _valueFont = new VectorFont(font, 20);
