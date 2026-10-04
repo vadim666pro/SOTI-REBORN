@@ -6,11 +6,11 @@
   placementVariants:
   - 1.0
   baseTurf: Space            # Что останется под ней, если уничтожить взрывом
-  isSubfloor: false
+  isSubfloor: true
   isSpace: true # чтобы игроки проваливались.
-  friction: 0.0                 # Трение пола = 0 (игрок теряет сцепление с поверхностью)
+  friction: 0.0    
   mobFriction: 0.0              # Трение для передвижения мобов = 0
-  mobAcceleration: 0.0  
+  mobAcceleration: 0.0               # Трение пола = 0 (игрок теряет сцепление с поверхностью)
   footstepSounds:
     collection: FootstepAsteroid    # Меняем звук шагов с металла на камень (Stone)
   heatCapacity: 25000
@@ -23,11 +23,11 @@
   placementVariants:
   - 1.0
   baseTurf: Space            # Что останется под ней, если уничтожить взрывом
-  isSubfloor: false
+  isSubfloor: true
   isSpace: true # чтобы игроки проваливались.
-  friction: 0.0                 # Трение пола = 0 (игрок теряет сцепление с поверхностью)
+  friction: 0.0     
   mobFriction: 0.0              # Трение для передвижения мобов = 0
-  mobAcceleration: 0.0  
+  mobAcceleration: 0.0              # Трение пола = 0 (игрок теряет сцепление с поверхностью)
   footstepSounds:
     collection: FootstepAsteroid    # Меняем звук шагов с металла на камень (Stone)
   heatCapacity: 25000

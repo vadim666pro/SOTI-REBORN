@@ -33,6 +33,7 @@ using Content.Shared.Store.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Timing;
 
 namespace Content.Server.CounterStrike.Systems;
 
@@ -60,6 +61,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
     [Dependency] private readonly StoreSystem _store = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("cs-round-controller");
 
@@ -68,6 +70,10 @@ public sealed class CsRoundControllerSystem : EntitySystem
     private EntityUid? _currentMusicStream;
     private readonly Dictionary<EntityUid, FixedPoint2> _friendlyDamage = new();
     private readonly HashSet<EntityUid> _disarmedFriendlyFirePlayers = new();
+    private bool _isCsRoundActiveCached;
+    private TimeSpan _lastCsRoundActiveCheck;
+    private CsPhrasesPrototype? _cachedPhrasesProto;
+    private float _hudUpdateTimer;
 
     public override void Initialize()
     {
@@ -205,17 +211,31 @@ public sealed class CsRoundControllerSystem : EntitySystem
 
     private bool IsCsRoundActive()
     {
+        // Cache for 1 second to avoid repeated queries
+        if (_timing.CurTime - _lastCsRoundActiveCheck < TimeSpan.FromSeconds(1))
+            return _isCsRoundActiveCached;
+
         if (_gameTicker.RunLevel != GameRunLevel.InRound)
+        {
+            _isCsRoundActiveCached = false;
+            _lastCsRoundActiveCheck = _timing.CurTime;
             return false;
+        }
 
         var query = EntityQueryEnumerator<CsRoundControllerComponent, GameRuleComponent>();
+        var result = false;
         while (query.MoveNext(out var uid, out _, out var gameRule))
         {
             if (_gameTicker.IsGameRuleActive(uid, gameRule))
-                return true;
+            {
+                result = true;
+                break;
+            }
         }
 
-        return false;
+        _isCsRoundActiveCached = result;
+        _lastCsRoundActiveCheck = _timing.CurTime;
+        return result;
     }
 
     private bool AreTeammates(EntityUid first, EntityUid second)
@@ -279,7 +299,13 @@ public sealed class CsRoundControllerSystem : EntitySystem
                     break;
             }
 
-            BroadcastHud(controller);
+            // Throttle HUD updates to 10 times per second
+            _hudUpdateTimer += frameTime;
+            if (_hudUpdateTimer >= 0.1f)
+            {
+                _hudUpdateTimer = 0f;
+                BroadcastHud(controller);
+            }
         }
     }
 
@@ -535,21 +561,23 @@ public sealed class CsRoundControllerSystem : EntitySystem
 
     private string PickRandomPhrase(string playerName)
     {
-        if (!_proto.TryIndex<CsPhrasesPrototype>("DefaultPhrases", out var phrasesProto)
-            || phrasesProto.Phrases.Count == 0)
+        _cachedPhrasesProto ??= _proto.TryIndex<CsPhrasesPrototype>("DefaultPhrases", out var proto) ? proto : null;
+
+        if (_cachedPhrasesProto == null || _cachedPhrasesProto.Phrases.Count == 0)
             return $"{playerName} был в этом раунде";
 
-        var template = _random.Pick(phrasesProto.Phrases);
+        var template = _random.Pick(_cachedPhrasesProto.Phrases);
         return string.Format(template, playerName);
     }
 
     private string PickRandomImage()
     {
-        if (!_proto.TryIndex<CsPhrasesPrototype>("DefaultPhrases", out var phrasesProto)
-            || phrasesProto.Images.Count == 0)
+        _cachedPhrasesProto ??= _proto.TryIndex<CsPhrasesPrototype>("DefaultPhrases", out var proto) ? proto : null;
+
+        if (_cachedPhrasesProto == null || _cachedPhrasesProto.Images.Count == 0)
             return "/Textures/Objects/counterstrike/CSSubRoundEndScreens/result1.png";
 
-        return _random.Pick(phrasesProto.Images);
+        return _random.Pick(_cachedPhrasesProto.Images);
     }
 
     private void PlaySubRoundMusic()

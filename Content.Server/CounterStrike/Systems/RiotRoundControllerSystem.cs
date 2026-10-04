@@ -31,14 +31,18 @@ public sealed class RiotRoundControllerSystem : GameRuleSystem<RiotRoundControll
     [Dependency] private readonly ChatSystem _chat = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("riot-round");
+    private EntityUid? _cachedStation;
 
     protected override void Started(EntityUid uid, RiotRoundControllerComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
         base.Started(uid, component, gameRule, args);
 
+        _cachedStation = _station.GetStations().FirstOrDefault();
+
         component.TimeRemaining = component.RoundDuration;
         component.TimeElapsed = 0f;
         component.CaptureCheckTimer = 0f;
+        component.TeamCheckTimer = 0f;
         component.SwatSpawned = false;
         component.RoundEnded = false;
         component.MissingPointWarned = false;
@@ -74,11 +78,16 @@ public sealed class RiotRoundControllerSystem : GameRuleSystem<RiotRoundControll
             UpdateControlPoint(component);
         }
 
-        var (civiliansAlive, lawEnforcementAlive) = CountLivingTeams();
-        if (civiliansAlive == 0 || lawEnforcementAlive == 0)
+        component.TeamCheckTimer -= frameTime;
+        if (component.TeamCheckTimer <= 0f)
         {
-            EndByElimination(component, civiliansAlive, lawEnforcementAlive);
-            return;
+            component.TeamCheckTimer = 0.5f;
+            var (civiliansAlive, lawEnforcementAlive) = CountLivingTeams();
+            if (civiliansAlive == 0 || lawEnforcementAlive == 0)
+            {
+                EndByElimination(component, civiliansAlive, lawEnforcementAlive);
+                return;
+            }
         }
 
         if (component.TimeRemaining <= 0f)
@@ -87,8 +96,7 @@ public sealed class RiotRoundControllerSystem : GameRuleSystem<RiotRoundControll
 
     private void AssignStartingTeams()
     {
-        var station = _station.GetStations().FirstOrDefault();
-        if (station == default)
+        if (_cachedStation == null)
         {
             Sawmill.Error("[RIOT] No station found; starting team roles were not assigned.");
             return;
@@ -120,7 +128,7 @@ public sealed class RiotRoundControllerSystem : GameRuleSystem<RiotRoundControll
         {
             var (session, oldBody) = players[i];
             Del(oldBody);
-            GameTicker.MakeJoinGame(session, station, i < civilianCount ? CivilianJobId : CopJobId, silent: true);
+            GameTicker.MakeJoinGame(session, _cachedStation.Value, i < civilianCount ? CivilianJobId : CopJobId, silent: true);
         }
 
         Sawmill.Info($"[RIOT] Assigned {civilianCount} civilians and {players.Count - civilianCount} cops.");
@@ -128,8 +136,7 @@ public sealed class RiotRoundControllerSystem : GameRuleSystem<RiotRoundControll
 
     private void SpawnSwatReinforcements()
     {
-        var station = _station.GetStations().FirstOrDefault();
-        if (station == default)
+        if (_cachedStation == null)
         {
             Sawmill.Error("[RIOT] No station found; SWAT reinforcements could not spawn.");
             return;
@@ -155,7 +162,7 @@ public sealed class RiotRoundControllerSystem : GameRuleSystem<RiotRoundControll
         foreach (var (session, oldBody) in deadPlayers.Take(reinforcements))
         {
             Del(oldBody);
-            GameTicker.MakeJoinGame(session, station, SoldierJobId, silent: true);
+            GameTicker.MakeJoinGame(session, _cachedStation.Value, SoldierJobId, silent: true);
         }
 
         _chat.DispatchGlobalAnnouncement($"SWAT has arrived. {reinforcements} fallen players have returned as reinforcements.", sender: "RIOT", playSound: false);

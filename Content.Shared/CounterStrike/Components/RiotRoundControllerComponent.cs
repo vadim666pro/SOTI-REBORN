@@ -12,6 +12,7 @@ public sealed partial class RiotRoundControllerComponent : Component
     public float TimeRemaining;
     public float TimeElapsed;
     public float CaptureCheckTimer;
+    public float TeamCheckTimer;
     public bool SwatSpawned;
     public bool RoundEnded;
     public bool MissingPointWarned;

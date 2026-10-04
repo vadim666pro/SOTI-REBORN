@@ -36,6 +36,8 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
     [Dependency] private readonly IRobustRandom _random = default!;
 
     private static readonly ISawmill Sawmill = Logger.GetSawmill("ttt-round");
+    private EntityUid? _activeRuleUid;
+    private EntityUid? _cachedStation;
 
     public override void Initialize()
     {
@@ -46,6 +48,9 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
     protected override void Added(EntityUid uid, TTTRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
         base.Added(uid, component, gameRule, args);
+
+        _activeRuleUid = uid;
+        _cachedStation = _station.GetStations().FirstOrDefault();
 
         // Инициализация
         ResetTimers(component);
@@ -65,52 +70,49 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
     {
         base.Update(frameTime);
 
-        var query = EntityQueryEnumerator<TTTRuleComponent, GameRuleComponent>();
-        while (query.MoveNext(out var uid, out var component, out var gameRule))
+        if (_activeRuleUid == null || !TryComp(_activeRuleUid, out TTTRuleComponent? component))
+            return;
+
+        component.HudUpdateTimer -= frameTime;
+        var updateHud = component.HudUpdateTimer <= 0f;
+        if (updateHud)
+            component.HudUpdateTimer = 0.5f;
+
+        if (!component.PoliceSpawned && component.Phase == TTTPhase.FreePhase)
         {
-            if (!GameTicker.IsGameRuleActive(uid, gameRule))
-                continue;
-
-            component.HudUpdateTimer -= frameTime;
-            var updateHud = component.HudUpdateTimer <= 0f;
-            if (updateHud)
-                component.HudUpdateTimer = 0.5f;
-
-            if (!component.PoliceSpawned && component.Phase == TTTPhase.FreePhase)
+            component.Timer -= frameTime;
+            if (component.Timer <= 0)
             {
-                component.Timer -= frameTime;
-                if (component.Timer <= 0)
-                {
-                    SpawnPolice(component);
-                    component.PoliceSpawned = true;
-                    component.Phase = TTTPhase.PolicePhase;
-                    component.PolicePhaseActive = true;
-                    component.PolicePhaseTimer = TTTRuleComponent.PolicePhaseDuration;
-                    _chat.DispatchGlobalAnnouncement("Полиция приехала. До конца раунда 90 секунд", sender: "ПОЛИЦИЯ");
-                }
-
-                if (updateHud)
-                    RaiseNetworkEvent(new TTTHudEvent(component.Timer, component.PoliceSpawned));
-                continue;
-            }
-            if (component.PolicePhaseActive)
-            {
-                component.PolicePhaseTimer -= frameTime;
-                if (component.PolicePhaseTimer <= 0 && _gameTicker.RunLevel == GameRunLevel.InRound)
-                {
-                    _gameTicker.EndRound($"Раунд завершен. Победа гражданских");
-                }
-
+                SpawnPolice(component);
+                component.PoliceSpawned = true;
+                component.Phase = TTTPhase.PolicePhase;
+                component.PolicePhaseActive = true;
+                component.PolicePhaseTimer = TTTRuleComponent.PolicePhaseDuration;
+                _chat.DispatchGlobalAnnouncement("Полиция приехала. До конца раунда 90 секунд", sender: "ПОЛИЦИЯ");
             }
 
             if (updateHud)
-                RaiseNetworkEvent(new TTTHudEvent(component.PolicePhaseTimer, component.PoliceSpawned));
+                RaiseNetworkEvent(new TTTHudEvent(component.Timer, component.PoliceSpawned));
+            return;
         }
+        if (component.PolicePhaseActive)
+        {
+            component.PolicePhaseTimer -= frameTime;
+            if (component.PolicePhaseTimer <= 0 && _gameTicker.RunLevel == GameRunLevel.InRound)
+            {
+                _gameTicker.EndRound($"Раунд завершен. Победа гражданских");
+            }
+
+        }
+
+        if (updateHud)
+            RaiseNetworkEvent(new TTTHudEvent(component.PolicePhaseTimer, component.PoliceSpawned));
     }
 
     protected override void Ended(EntityUid uid, TTTRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
         base.Ended(uid, component, gameRule, args);
+        _activeRuleUid = null;
         RaiseNetworkEvent(new TTTHudClearEvent());
     }
 
@@ -153,7 +155,7 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
 
             // Проверяем, не является ли игрок маньяком (Assassin)
             // Для этого проверяем наличие роли Assassin в Mind
-            if (HasComp<AssassinRoleComponent>(mindId) || HasComp<AssassinRoleComponent>(mindId))
+            if (HasComp<AssassinRoleComponent>(mindId))
                 continue; // пропускаем маньяка
 
             deadCandidates.Add(session);
@@ -168,8 +170,7 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
         var selected = deadCandidates.Take(TTTRuleComponent.PoliceCount).ToList();
         Sawmill.Info($"[TTT] Выбрано {selected.Count} полицейских из {deadCandidates.Count} мёртвых.");
 
-        var station = _station.GetStations().FirstOrDefault();
-        if (station == default)
+        if (_cachedStation == null)
         {
             Sawmill.Error("[TTT] Станция не найдена.");
             return;
@@ -182,7 +183,7 @@ public sealed class TTTRoundController : GameRuleSystem<TTTRuleComponent>
                 Del(oldEntity);
 
             // Спавним за утилизатора
-            _gameTicker.MakeJoinGame(session, station, "SalvageSpecialist", silent: true);
+            _gameTicker.MakeJoinGame(session, _cachedStation.Value, "SalvageSpecialist", silent: true);
         }
 
         _chat.DispatchGlobalAnnouncement(

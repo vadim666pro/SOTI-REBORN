@@ -1882,7 +1882,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 27.5,42.5
       parent: 2
-- proto: CSLaudry
+- proto: CSLaundry
   entities:
   - uid: 2282
     components:

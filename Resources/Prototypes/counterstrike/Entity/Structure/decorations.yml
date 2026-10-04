@@ -1,6 +1,6 @@
 - type: entity
   parent: CSWallmountLeaves
-  id: CSLaudry
+  id: CSLaundry
   name: Laundry
   description: jopa.
   placement:

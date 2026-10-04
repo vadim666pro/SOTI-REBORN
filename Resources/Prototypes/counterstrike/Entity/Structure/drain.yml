@@ -1,0 +1,14 @@
+- type: entity
+  id: CsCityDrain1
+  name: drain
+  description: drains.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/drain.rsi
+    state: drain1
+    drawdepth: Puddles
+  - type: Clickable
