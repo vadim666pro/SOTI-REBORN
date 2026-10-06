@@ -10,7 +10,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/lights.rsi
     snapCardinals: true
-    drawdepth: Objects
+    drawdepth: Overdoors
     noRot: true
     state: light1
   - type: Fixtures

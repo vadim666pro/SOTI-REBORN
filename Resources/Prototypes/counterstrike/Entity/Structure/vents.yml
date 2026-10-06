@@ -32,6 +32,7 @@
     snap:
     - Wall
   components:
+  - type: Occluder
   - type: RangedDamageSound
     soundGroups:
       Brute:
@@ -67,3 +68,18 @@
   - type: SunShadowCast
   - type: SpriteFade
   - type: HitscanPassthrough
+
+- type: entity
+  parent: BaseVentWall
+  id: VentWallTrain
+  name: vent wall
+  description: wall with a hole. (De_Train)
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/vent.rsi
+    state: ventwalldetrain1
+    drawdepth: Doors

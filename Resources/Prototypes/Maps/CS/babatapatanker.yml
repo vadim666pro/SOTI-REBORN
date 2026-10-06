@@ -8,7 +8,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: "Tanker Baba Tapa INC"
+          mapNameTemplate: "de_babatapatanker"
         - type: StationJobs
           availableJobs:
             Mime: [ -1, -1 ]

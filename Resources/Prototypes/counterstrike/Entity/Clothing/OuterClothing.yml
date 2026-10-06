@@ -251,7 +251,7 @@
 - type: entity
   parent: ClothingOuterStorageBase
   id: ClothingOuterBabaTapaRadSuit
-  name: BTAPA LP's suit.
+  name: BTAPA HZRS's suit.
   description: devyati shlyapnaya sobaka.
   components:
   - type: Sprite

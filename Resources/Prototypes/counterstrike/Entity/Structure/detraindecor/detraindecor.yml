@@ -1,0 +1,17 @@
+- type: entity
+  id: CSDeTrainDecorTrain
+  name: Train
+  description: Dont get too close.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/Cars/train.rsi
+    state: train0
+    drawdepth: BelowFloor
+  - type: Transform
+    anchored: true
+  - type: WallMount
+  - type: Clickable

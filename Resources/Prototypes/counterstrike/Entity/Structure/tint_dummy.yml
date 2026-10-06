@@ -13,3 +13,17 @@
     drawdepth: Overdoors
   - type: Clickable
 
+- type: entity
+  id: TintDummyDeTrainTrainDecor
+  name: Tint Dummy TRAIN DECOR
+  description: "Visual placeholder. No interaction."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Walls/tint.rsi
+    state: icon
+    drawdepth: FloorTiles
+  - type: Clickable
