@@ -37,7 +37,7 @@ public sealed class CsSubRoundResultUIController : UIController, IOnStateEntered
 
     private void OnResultEvent(CsSubRoundResultEvent ev, EntitySessionEventArgs args)
     {
-        _control?.ShowResult(ev.WinnerTeam, ev.SurvivorsCt, ev.SurvivorsT, ev.FunnyPlayerName, ev.FunnyPhrase, ev.ImagePath);
+        _control?.ShowResult(ev.WinnerTeam, ev.DamageCt, ev.DamageT, ev.FunnyPlayerName, ev.FunnyPhrase, ev.ImagePath);
     }
 
     private void OnResultClear(CsSubRoundResultClearEvent ev, EntitySessionEventArgs args)
@@ -53,8 +53,8 @@ public sealed class CsSubRoundResultUIController : UIController, IOnStateEntered
 
         private bool _visible;
         private string _winnerTeam = string.Empty;
-        private int _survivorsCt;
-        private int _survivorsT;
+        private int _damageCt;
+        private int _damageT;
         private string _funnyPlayerName = string.Empty;
         private string _funnyPhrase = string.Empty;
         private string _imagePath = string.Empty;
@@ -79,8 +79,8 @@ public sealed class CsSubRoundResultUIController : UIController, IOnStateEntered
         public void ShowResult(string winnerTeam, int survivorsCt, int survivorsT, string funnyPlayerName, string funnyPhrase, string imagePath)
         {
             _winnerTeam = winnerTeam;
-            _survivorsCt = survivorsCt;
-            _survivorsT = survivorsT;
+            _damageCt = survivorsCt;
+            _damageT = survivorsT;   
             _funnyPlayerName = funnyPlayerName;
             _funnyPhrase = funnyPhrase;
             _imagePath = imagePath;
@@ -121,9 +121,9 @@ public sealed class CsSubRoundResultUIController : UIController, IOnStateEntered
             cy += winnerDims.Y + 12f;
 
             // Survivors
-            var survivorsText = $"Выжило: КТ {_survivorsCt} | Т {_survivorsT}";
-            var survDims = handle.GetDimensions(_fontMedium, survivorsText, UIScale);
-            handle.DrawString(_fontMedium, new Vector2(cx + (panelWidth - padding * 2 - survDims.X) / 2f, cy), survivorsText, UIScale, SubTextColor);
+            var damageText = $"Нанесено урона: КТ {_damageCt} | Т {_damageT}";
+            var survDims = handle.GetDimensions(_fontMedium, damageText, UIScale);
+            handle.DrawString(_fontMedium, new Vector2(cx + (panelWidth - padding * 2 - survDims.X) / 2f, cy), damageText, UIScale, SubTextColor);
             cy += survDims.Y + 16f;
 
             // Funny phrase

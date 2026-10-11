@@ -7,6 +7,14 @@
   - /Audio/SotiAudio/SotiSounds/sand4.ogg
 
 - type: soundCollection
+  id: FootstepSand
+  files:
+  - /Audio/SotiAudio/SotiSounds/sand1.ogg
+  - /Audio/SotiAudio/SotiSounds/sand2.ogg
+  - /Audio/SotiAudio/SotiSounds/sand3.ogg
+  - /Audio/SotiAudio/SotiSounds/sand4.ogg
+
+- type: soundCollection
   id: FootstepWood
   files:
   - /Audio/SotiAudio/SotiSounds/wood1.ogg

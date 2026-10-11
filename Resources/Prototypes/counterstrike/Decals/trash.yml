@@ -1,0 +1,37 @@
+
+# CITY
+
+- type: decal
+  id: SotiCityTrash1
+  tags: ["station"]
+  sprite:
+    sprite: Decals/trash.rsi
+    state: trash1
+
+- type: decal
+  id: SotiCityTrash2
+  tags: ["station"]
+  sprite:
+    sprite: Decals/trash.rsi
+    state: trash2
+
+- type: decal
+  id: SotiCityTrash3
+  tags: ["station"]
+  sprite:
+    sprite: Decals/trash.rsi
+    state: trash3
+
+- type: decal
+  id: SotiCityTrash4
+  tags: ["station"]
+  sprite:
+    sprite: Decals/trash.rsi
+    state: trash4
+
+- type: decal
+  id: SotiCityTrash5
+  tags: ["station"]
+  sprite:
+    sprite: Decals/trash.rsi
+    state: trash5

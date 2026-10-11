@@ -192,3 +192,54 @@
   footstepSounds:
     collection: FootstepAsteroid 
   heatCapacity: 25000
+
+- type: tile
+  id: CSDustTempleFloor
+  name: Dust Tile Floor
+  sprite: /Textures/Objects/counterstrike/Tiles/dedust2floor/floor.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating            
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile 
+  heatCapacity: 25000
+
+- type: tile
+  id: CSDustTempleFloor1
+  name: Dust Tile Floor1
+  sprite: /Textures/Objects/counterstrike/Tiles/dedust2floor/floor1.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating            
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepAsteroid 
+  heatCapacity: 25000
+
+- type: tile
+  id: CSDustConcreteFloor
+  name: Concrete1
+  sprite: /Textures/Objects/counterstrike/Tiles/dedust2floor/floor2.png
+  variants: 5
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating            
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepAsteroid 
+  heatCapacity: 25000

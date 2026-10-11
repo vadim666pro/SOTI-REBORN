@@ -74,6 +74,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
     private TimeSpan _lastCsRoundActiveCheck;
     private CsPhrasesPrototype? _cachedPhrasesProto;
     private float _hudUpdateTimer;
+    private int _damageCt;
+    private int _damageT;
 
     public override void Initialize()
     {
@@ -176,25 +178,41 @@ public sealed class CsRoundControllerSystem : EntitySystem
     private void OnDamageChanged(EntityUid victim, DamageableComponent component, DamageChangedEvent args)
     {
         if (!args.DamageIncreased || args.DamageDelta is not { } damage ||
-            !IsCsRoundActive() || args.Origin is not { } attacker || attacker == victim || !AreTeammates(attacker, victim))
+        !IsCsRoundActive() || args.Origin is not { } attacker || attacker == victim)
         {
             return;
         }
 
         var dealtDamage = DamageSpecifier.GetPositive(damage).GetTotal();
-        if (dealtDamage <= FixedPoint2.Zero || _disarmedFriendlyFirePlayers.Contains(attacker))
+        if (dealtDamage <= FixedPoint2.Zero)
             return;
 
-        _friendlyDamage.TryGetValue(attacker, out var totalDamage);
-        totalDamage += dealtDamage;
-        _friendlyDamage[attacker] = totalDamage;
-
-        if (totalDamage <= FixedPoint2.New(75))
+        var attackerTeam = GetTeam(attacker);
+        var victimTeam = GetTeam(victim);
+        if (attackerTeam == null || victimTeam == null)
             return;
 
-        _disarmedFriendlyFirePlayers.Add(attacker);
-        _hands.RemoveHands(attacker);
-        Sawmill.Info($"[CS Round] Removed hands from {ToPrettyString(attacker)} after dealing over 75 damage to teammates.");
+        if (attackerTeam == "CT" && victimTeam == "T")  
+            _damageCt += (int)dealtDamage;
+        else if (attackerTeam == "T" && victimTeam == "CT")
+            _damageT += (int)dealtDamage;
+        else if (attackerTeam == victimTeam)
+        {
+            if (_disarmedFriendlyFirePlayers.Contains(attacker))
+                return;
+
+            _friendlyDamage.TryGetValue(attacker, out var totalDamage);
+            totalDamage += dealtDamage * 2;
+            _friendlyDamage[attacker] = totalDamage;
+
+            if (totalDamage <= FixedPoint2.New(75))
+                return;
+
+            EnsureComp<PacifiedComponent>(attacker);
+            _disarmedFriendlyFirePlayers.Add(attacker);
+            _hands.RemoveHands(attacker);
+            Sawmill.Info($"[CS Round] Removed hands from {ToPrettyString(attacker)} after dealing over 75 damage to teammates.");
+        }
     }
 
     private void OnMobStateChanged(MobStateChangedEvent args)
@@ -510,9 +528,7 @@ public sealed class CsRoundControllerSystem : EntitySystem
     }
 
     private void BroadcastSubRoundResult(string winnerTeam)
-    {
-        var ctAlive = 0;
-        var tAlive = 0;
+    {   
         var allPlayerNames = new List<string>();
 
         var query = EntityQueryEnumerator<HumanoidAppearanceComponent, MindContainerComponent>();
@@ -536,15 +552,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
             var name = MetaData(bodyUid).EntityName;
             if (!string.IsNullOrWhiteSpace(name))
                 allPlayerNames.Add(name);
-
-            if (!TryComp(bodyUid, out MobStateComponent? mobState) || !_mobState.IsAlive(bodyUid, mobState))
-                continue;
-
-            if (isCt)
-                ctAlive++;
-            else if (isT)
-                tAlive++;
         }
+
 
         var funnyPlayer = allPlayerNames.Count > 0 ? _random.Pick(allPlayerNames) : "???";
         var funnyPhrase = PickRandomPhrase(funnyPlayer);
@@ -552,8 +561,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
 
         RaiseNetworkEvent(new CsSubRoundResultEvent(
             winnerTeam,
-            ctAlive,
-            tAlive,
+            _damageCt,
+            _damageT,
             funnyPlayer,
             funnyPhrase,
             imagePath));
@@ -611,6 +620,8 @@ public sealed class CsRoundControllerSystem : EntitySystem
     {
         Sawmill.Info("[CS Round] Resetting for next sub-round.");
 
+        _damageCt = 0;
+        _damageT = 0;
         _friendlyDamage.Clear();
         _disarmedFriendlyFirePlayers.Clear();
         _bombPlanted = false;

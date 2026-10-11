@@ -1,4 +1,6 @@
 using Robust.Shared.Serialization;
+using System.Data;
+using Content.Shared.CounterStrike;
 
 namespace Content.Shared.CounterStrike.Events;
 
@@ -62,19 +64,19 @@ public sealed class CsRoundHudClearEvent : EntityEventArgs
 public sealed class CsSubRoundResultEvent : EntityEventArgs
 {
     public string WinnerTeam = string.Empty;
-    public int SurvivorsCt;
-    public int SurvivorsT;
+    public int DamageCt;
+    public int DamageT;
     public string FunnyPlayerName = string.Empty;
     public string FunnyPhrase = string.Empty;
     public string ImagePath = string.Empty;
 
     public CsSubRoundResultEvent() { }
 
-    public CsSubRoundResultEvent(string winnerTeam, int survivorsCt, int survivorsT, string funnyPlayerName, string funnyPhrase, string imagePath)
+    public CsSubRoundResultEvent(string winnerTeam, int damageCt, int damageT, string funnyPlayerName, string funnyPhrase, string imagePath)
     {
         WinnerTeam = winnerTeam;
-        SurvivorsCt = survivorsCt;
-        SurvivorsT = survivorsT;
+        DamageCt = damageCt;
+        DamageT = damageT;
         FunnyPlayerName = funnyPlayerName;
         FunnyPhrase = funnyPhrase;
         ImagePath = imagePath;

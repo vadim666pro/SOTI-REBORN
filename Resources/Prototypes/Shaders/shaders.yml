@@ -134,16 +134,6 @@
     damageFlash: 0.0
     glitchIntensity: 0.0
 
-# Desert mirage heat haze post-process shader
-- type: shader
-  id: DesertMirage
-  kind: source
-  path: "/Textures/Shaders/desert_mirage.swsl"
-  params:
-    Strength: 0.6
-    Speed: 1.0
-    DistortScale: 1.0
-    VerticalBias: 0.6
 
 # Bloom post-process shaders
 - type: shader

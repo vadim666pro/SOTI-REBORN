@@ -1,3 +1,4 @@
+using Content.Shared.Particles;
 using System.Numerics;
 using Content.Shared.CCVar;
 using Content.Shared.Gravity;
@@ -100,8 +101,15 @@ namespace Content.Shared.Friction
                 }
 
                 friction *= bodyModifier;
-
-                friction = Math.Max(_minDamping, friction);
+                // НЕБОЛЬШОЕ РАСШИРЕНИЕ И УСЛОВИЕ ДЛЯ PARTICLES
+                if (TryComp<ParticleComponent>(uid, out var particle))
+                {
+                    friction = particle.AirResistance;
+                }
+                else
+                {
+                    friction = Math.Max(_minDamping, friction);
+                }
 
                 PhysicsSystem.SetLinearDamping(uid, body, friction);
                 PhysicsSystem.SetAngularDamping(uid, body, friction);
