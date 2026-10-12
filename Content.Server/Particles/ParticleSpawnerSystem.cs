@@ -43,11 +43,11 @@ public sealed class ParticleSpawnerSystem : EntitySystem
 
             var finalInterval = Math.Round(interval, 2, MidpointRounding.AwayFromZero);
 
-            comp.NextFire = curTime + TimeSpan.FromSeconds(interval);
+            comp.NextFire = curTime + TimeSpan.FromSeconds(finalInterval);
             SpawnParticle(uid, comp, xform, curTime);
 
         }
-    }
+    }   
 
     private int CountParticles(EntityUid emmiter)
     {
