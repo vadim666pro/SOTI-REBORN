@@ -39,7 +39,9 @@ public sealed class ParticleSpawnerSystem : EntitySystem
             if (max < min)
                 (min, max) = (max, min);
 
-            var interval = min + (int)Math.Floor(_random.NextDouble() * (max - min + 1));
+            var interval = min + (double)(_random.NextDouble() * (max - min));
+
+            var finalInterval = Math.Round(interval, 2, MidpointRounding.AwayFromZero);
 
             comp.NextFire = curTime + TimeSpan.FromSeconds(interval);
             SpawnParticle(uid, comp, xform, curTime);
