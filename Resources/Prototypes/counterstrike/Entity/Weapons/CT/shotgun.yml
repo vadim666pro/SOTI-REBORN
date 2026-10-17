@@ -29,7 +29,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-      - ShellShotgun
+      - Shell_XM1014
     capacity: 6
     proto: ShellCSXM1014
     soundInsert:

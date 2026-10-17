@@ -37,13 +37,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazineRifle ] }
+        whitelist: { tags: [ Mag_M4 ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSM4
         priority: 1
-        whitelist: { tags: [ CartridgeRifle ] }
+        whitelist: { tags: [ Cart_M4 ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -88,13 +88,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazineRifle ] }
+        whitelist: { tags: [ Mag_P90 ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSP90
         priority: 1
-        whitelist: { tags: [ CartridgeRifle ] }
+        whitelist: { tags: [ Cart_P90 ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -137,13 +137,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazineLightRifle ] }
+        whitelist: { tags: [ Mag_AUG ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSAUG
         priority: 1
-        whitelist: { tags: [ CartridgeLightRifle ] }
+        whitelist: { tags: [ Cart_AUG ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -183,13 +183,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazinePistolSubMachineGun ] }
+        whitelist: { tags: [ Mag_MP9 ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSMP9
         priority: 1
-        whitelist: { tags: [ CartridgePistol ] }
+        whitelist: { tags: [ Cart_MP9 ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -229,13 +229,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazinePistolSubMachineGun ] }
+        whitelist: { tags: [ Mag_UMP45 ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSUMP
         priority: 1
-        whitelist: { tags: [ CartridgePistol ] }
+        whitelist: { tags: [ Cart_UMP45 ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -278,13 +278,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazineLightRifle ] }
+        whitelist: { tags: [ Mag_Famas ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeAmmoFamas
         priority: 1
-        whitelist: { tags: [ CartridgeLightRifle ] }
+        whitelist: { tags: [ Cart_Famas ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

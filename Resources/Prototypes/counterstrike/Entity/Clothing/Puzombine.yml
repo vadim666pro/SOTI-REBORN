@@ -1,0 +1,55 @@
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingVestCombine
+  name: Metrocop Suit
+  description: PUZO-17 MILITSIA.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Clothing/Suit/Combine.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Clothing/Suit/Combine.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.80
+        Slash: 0.90
+        Piercing: 0.7
+        Heat: 0.95
+        Caustic: 0.90
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingHeadHelmetBase
+  id: ClothingHeadHelmetCombine
+  name: Metrocop helmet
+  description: PUZO-17 helm
+  components:
+  - type: HideLayerClothing
+    layers:
+      Hair : HEAD
+  - type: Sprite
+    sprite: Objects/counterstrike/Clothing/Hats/Combine.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Clothing/Hats/Combine.rsi
+  - type: Armor #This is intentionally not spaceproof, when the time comes to port the values from SS13 this should be buffed from what it was.
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.90
+        Heat: 0.95
+        Radiation: 0.95
+        Caustic: 0.95
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitPuzombine
+  name: Puzombine uniform
+  description: puzo-17 police
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Clothing/Uniform/Puzombine.rsi
+  - type: Clothing
+    sprite: Objects/counterstrike/Clothing/Uniform/Puzombine.rsi
+  - type: Unremoveable

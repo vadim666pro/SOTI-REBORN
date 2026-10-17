@@ -41,7 +41,7 @@ public sealed partial class GunComponent : Component
     #region Recoil
 
     // These values are very small for now until we get a debug overlay and fine tune it
-
+    public int ShotIndex { get; set; }
     /// <summary>
     /// The base scalar value applied to the vector governing camera recoil.
     /// </summary>

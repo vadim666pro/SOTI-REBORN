@@ -1,0 +1,12 @@
+- type: entity
+  parent: BaseWall
+  id: CSFenceDust
+  name: Sandstone Fence
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/DecorDust/fence.rsi
+    state: fence1
+  - type: Icon
+    sprite: Objects/counterstrike/Structures/DecorDust/fence.rsi
+  - type: Occluder
+    enabled: false

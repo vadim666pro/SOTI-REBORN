@@ -28,13 +28,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazinePistol ] }
+        whitelist: { tags: [ Mag_USP ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSUSP
         priority: 1
-        whitelist: { tags: [ CartridgePistol ] }
+        whitelist: { tags: [ Cart_USP ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -70,13 +70,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazinePistol ] }
+        whitelist: { tags: [ Mag_Glock ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSGlock
         priority: 1
-        whitelist: { tags: [ CartridgePistol ] }
+        whitelist: { tags: [ Cart_Glock ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -110,13 +110,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazinePistol ] }
+        whitelist: { tags: [ Mag_Beretta ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSBeretta
         priority: 1
-        whitelist: { tags: [ CartridgePistol ] }
+        whitelist: { tags: [ Cart_Beretta ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -150,13 +150,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazinePistolHighCapacity ] }
+        whitelist: { tags: [ Mag_FiveSeven ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSFiveSeven
         priority: 1
-        whitelist: { tags: [ CartridgePistol ] }
+        whitelist: { tags: [ Cart_FiveSeven ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

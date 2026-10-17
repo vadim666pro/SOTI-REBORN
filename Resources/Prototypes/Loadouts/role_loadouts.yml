@@ -103,7 +103,7 @@
 - type: roleLoadout
   id: JobJanitor
   groups:
-  - FSBloadout
+  - Deltaloadout
 
 - type: roleLoadout
   id: JobBotanist

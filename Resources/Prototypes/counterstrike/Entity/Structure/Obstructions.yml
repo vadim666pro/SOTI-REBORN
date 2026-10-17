@@ -764,3 +764,26 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/controlpanels.rsi
     state: panel3
+
+- type: entity
+  id: ObstructionDustBox
+  parent: ObstructionBase
+  name: Dust Box
+  description: you can't jump on it
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/Obstructions/DustBox.rsi
+    state: box
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - BulletImpassable
+        - WallLayer

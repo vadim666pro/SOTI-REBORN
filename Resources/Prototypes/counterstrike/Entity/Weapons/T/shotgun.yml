@@ -29,7 +29,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-      - ShellShotgun
+      - Shell_Nova
     capacity: 6
     proto: ShellCSShotgun
     soundInsert:
@@ -66,9 +66,8 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-      - ShellShotgun
+      - Shell_DB
     capacity: 7
     proto: ShellCSDB
     soundInsert:
       path: /Audio/Weapons/Guns/MagIn/shotgun_insert.ogg
-

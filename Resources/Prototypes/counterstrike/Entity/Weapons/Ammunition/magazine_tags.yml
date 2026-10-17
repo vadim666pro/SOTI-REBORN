@@ -1,0 +1,46 @@
+# CS Per-Weapon Magazine Tags
+
+- type: Tag
+  id: Mag_USP
+
+- type: Tag
+  id: Mag_Glock
+
+- type: Tag
+  id: Mag_Beretta
+
+- type: Tag
+  id: Mag_FiveSeven
+
+- type: Tag
+  id: Mag_Tec9
+
+- type: Tag
+  id: Mag_Deagle
+
+- type: Tag
+  id: Mag_AK47
+
+- type: Tag
+  id: Mag_M4
+
+- type: Tag
+  id: Mag_AUG
+
+- type: Tag
+  id: Mag_SG553
+
+- type: Tag
+  id: Mag_MAC10
+
+- type: Tag
+  id: Mag_MP9
+
+- type: Tag
+  id: Mag_UMP45
+
+- type: Tag
+  id: Mag_P90
+
+- type: Tag
+  id: Mag_Famas

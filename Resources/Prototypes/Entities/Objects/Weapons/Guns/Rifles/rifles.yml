@@ -16,7 +16,6 @@
     slots:
     - Back
     - suitStorage
-  - type: AmmoCounter
   - type: Gun
     fireRate: 5
     selectedMode: FullAuto

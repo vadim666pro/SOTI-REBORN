@@ -10,7 +10,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/FakeWindows/window.rsi
     state: window1
-    drawdepth: Overdoors
+    drawdepth: BlastDoors
   - type: Transform
     anchored: true
   - type: WallMount
@@ -28,7 +28,7 @@
   - type: Sprite
     sprite: Objects/counterstrike/Structures/Obstructions/housewares.rsi
     state: mailbox1
-    drawdepth: Overdoors
+    drawdepth: BlastDoors
   - type: Transform
     anchored: true
   - type: WallMount

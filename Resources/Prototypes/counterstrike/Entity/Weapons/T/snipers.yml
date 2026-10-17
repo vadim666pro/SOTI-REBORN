@@ -25,29 +25,10 @@
     maxAngle: -68
   - type: Clothing
     sprite: Objects/counterstrike/Weapons/PrimaryCT/awp.rsi
-  - type: ChamberMagazineAmmoProvider
-    soundRack: { path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg }
-  - type: ItemSlots
-    slots:
-      gun_magazine:
-        name: Magazine
-        startingItem: MagazineCSAK47
-        insertSound: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
-        ejectSound: { path: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg }
-        priority: 2
-        whitelist: { tags: [ MagazineLightRifle ] }
-        whitelistFailPopup: gun-magazine-whitelist-fail
-      gun_chamber:
-        name: Chamber
-        startingItem: CartridgeCSAK47
-        priority: 1
-        whitelist: { tags: [ CartridgeLightRifle ] }
-  - type: ContainerContainer
-    containers:
-      gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
-  - type: MagazineVisuals
-    magState: mag
-    steps: 1
-    zeroVisible: true
-  - type: Appearance
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+      - Cart_AWP
+    capacity: 10
+    proto: CartridgeCSAWP
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }

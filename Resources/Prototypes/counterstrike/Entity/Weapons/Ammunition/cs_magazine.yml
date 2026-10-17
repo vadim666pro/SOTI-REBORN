@@ -1,0 +1,279 @@
+# CS Per-Weapon Magazines
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PISTOL MAGAZINES
+# ══════════════════════════════════════════════════════════════════════════════
+
+# USP magazine
+- type: entity
+  parent: BaseMagazinePistol
+  id: MagazineCSUSP
+  name: magazine (usp)
+  components:
+  - type: Tag
+    tags: [ Mag_USP ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_USP ] }
+    capacity: 12
+    proto: CartridgeCSUSP
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# Glock magazine
+- type: entity
+  parent: BaseMagazinePistol
+  id: MagazineCSGlock
+  name: magazine (glock)
+  components:
+  - type: Tag
+    tags: [ Mag_Glock ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_Glock ] }
+    capacity: 20
+    proto: CartridgeCSGlock
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# Beretta magazine
+- type: entity
+  parent: BaseMagazinePistol
+  id: MagazineCSBeretta
+  name: magazine (beretta)
+  components:
+  - type: Tag
+    tags: [ Mag_Beretta ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_Beretta ] }
+    capacity: 15
+    proto: CartridgeCSBeretta
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# FiveSeven magazine
+- type: entity
+  parent: BaseMagazinePistolHighCapacity
+  id: MagazineCSFiveSeven
+  name: magazine (fiveseven)
+  components:
+  - type: Tag
+    tags: [ Mag_FiveSeven ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_FiveSeven ] }
+    capacity: 20
+    proto: CartridgeCSFiveSeven
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# Tec9 magazine
+- type: entity
+  parent: BaseMagazinePistolHighCapacity
+  id: MagazineCSTec9
+  name: magazine (tec9)
+  components:
+  - type: Tag
+    tags: [ Mag_Tec9 ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_Tec9 ] }
+    capacity: 30
+    proto: CartridgeCSTec9
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# Deagle magazine
+- type: entity
+  parent: BaseMagazineMagnum
+  id: MagazineCSDeagle
+  name: magazine (deagle)
+  components:
+  - type: Tag
+    tags: [ Mag_Deagle ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_Deagle ] }
+    capacity: 7
+    proto: CartridgeCSDeagle
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
+
+# ══════════════════════════════════════════════════════════════════════════════
+# RIFLE MAGAZINES
+# ══════════════════════════════════════════════════════════════════════════════
+
+# AK47 magazine
+- type: entity
+  parent: BaseMagazineLightRifle
+  id: MagazineCSAK47
+  name: magazine (ak47)
+  components:
+  - type: Tag
+    tags: [ Mag_AK47 ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_AK47 ] }
+    capacity: 30
+    proto: CartridgeCSAK47
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# M4 magazine
+- type: entity
+  parent: BaseMagazineRifle
+  id: MagazineCSM4
+  name: magazine (m4)
+  components:
+  - type: Tag
+    tags: [ Mag_M4 ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_M4 ] }
+    capacity: 30
+    proto: CartridgeCSM4
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# AUG magazine
+- type: entity
+  parent: BaseMagazineLightRifle
+  id: MagazineCSAUG
+  name: magazine (aug)
+  components:
+  - type: Tag
+    tags: [ Mag_AUG ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_AUG ] }
+    capacity: 30
+    proto: CartridgeCSAUG
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# SG553 magazine
+- type: entity
+  parent: BaseMagazineLightRifle
+  id: MagazineCSSG553
+  name: magazine (sg553)
+  components:
+  - type: Tag
+    tags: [ Mag_SG553 ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_SG553 ] }
+    capacity: 30
+    proto: CartridgeCSSG553
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# FAMAS magazine
+- type: entity
+  id: MagazineCSFamas
+  parent: BaseMagazineLightRifle
+  name: magazine (famas)
+  description: Contains 25 cartridges for FAMAS.
+  components:
+  - type: Tag
+    tags: [ Mag_Famas ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_Famas ] }
+    capacity: 25
+    proto: CartridgeAmmoFamas
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SMG MAGAZINES
+# ══════════════════════════════════════════════════════════════════════════════
+
+# MAC10 magazine
+- type: entity
+  parent: BaseMagazinePistolSubMachineGun
+  id: MagazineCSMAC10
+  name: magazine (mac10)
+  components:
+  - type: Tag
+    tags: [ Mag_MAC10 ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_MAC10 ] }
+    capacity: 30
+    proto: CartridgeCSMAC10
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# MP9 magazine
+- type: entity
+  parent: BaseMagazinePistolSubMachineGun
+  id: MagazineCSMP9
+  name: magazine (mp9)
+  components:
+  - type: Tag
+    tags: [ Mag_MP9 ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_MP9 ] }
+    capacity: 30
+    proto: CartridgeCSMP9
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# UMP magazine
+- type: entity
+  parent: BaseMagazinePistolSubMachineGun
+  id: MagazineCSUMP
+  name: magazine (ump)
+  components:
+  - type: Tag
+    tags: [ Mag_UMP45 ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_UMP45 ] }
+    capacity: 25
+    proto: CartridgeCSUMP
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# P90 magazine
+- type: entity
+  parent: BaseMagazineRifle
+  id: MagazineCSP90
+  name: magazine (p90)
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/Ammunition/p90magazine.rsi
+  - type: Tag
+    tags: [ Mag_P90 ]
+  - type: BallisticAmmoProvider
+    whitelist: { tags: [ Cart_P90 ] }
+    capacity: 50
+    proto: CartridgeCSP90
+    soundInsert: { path: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg }
+
+# ══════════════════════════════════════════════════════════════════════════════
+# AMMO BOXES
+# ══════════════════════════════════════════════════════════════════════════════
+
+# NOVA box
+- type: entity
+  id: BoxCSNova
+  parent: BaseAmmoProvider
+  name: box of shotgun shells for Nova
+  description: Contains 6 shotgun shells.
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    proto: ShellCSShotgun
+    capacity: 16
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/Ammunition/ammobox.rsi
+    state: base
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,2,2
+
+# XM1014 box
+- type: entity
+  id: BoxCSXM1014
+  parent: BoxCSNova
+  name: box of shotgun shells for XM1014
+  description: Contains 6 shotgun shells for XM1014.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/Ammunition/ammobox.rsi
+    state: base
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    proto: ShellCSXM1014
+    capacity: 16
+
+# DOUBLE BARREL box
+- type: entity
+  id: BoxCSDB
+  parent: BaseAmmoProvider
+  name: box of shotgun shells for DB
+  description: Contains 6 shotgun shells for DB.
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Weapons/Ammunition/ammobox.rsi
+    state: base
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    proto: ShellCSDB
+    capacity: 16

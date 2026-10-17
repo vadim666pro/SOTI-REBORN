@@ -3,7 +3,7 @@
   name: job-name-riot-puzograd-civilian
   description: job-description-riot-puzograd-civilian
   playTimeTracker: JobRiotPuzogradCivilian
-  startingGear: PassengerGear
+  startingGear: CivilianPuzoGear
   icon: JobIconPassenger
   supervisors: job-supervisors-everyone
   canBeAntag: false
@@ -13,7 +13,7 @@
   name: job-name-riot-puzograd-cop
   description: job-description-riot-puzograd-cop
   playTimeTracker: JobRiotPuzogradCop
-  startingGear: SecurityOfficerGear
+  startingGear: PuzombineGear
   icon: JobIconSecurityOfficer
   supervisors: job-supervisors-security
   canBeAntag: false
@@ -23,7 +23,42 @@
   name: job-name-riot-puzograd-soldier
   description: job-description-riot-puzograd-soldier
   playTimeTracker: JobRiotPuzogradSoldier
-  startingGear: SecurityOfficerGear
+  startingGear: PuzombineSoldier
   icon: JobIconSecurityOfficer
   supervisors: job-supervisors-security
   canBeAntag: false
+
+#STARTING GEAR
+
+- type: startingGear
+  id: CivilianPuzoGear
+  equipment:
+    id: MusicianPDA
+    shoes: ClothingShoesColorBlack
+    belt: ClothingBeltSecurityWebbing
+    jumpsuit: ClothingUniformJumpsuitCity17
+    gloves: ClothingHandsGlovesFingerless
+
+- type: startingGear
+  id: PuzombineGear
+  equipment:
+    id: MusicianPDA
+    ears: ClothingHeadsetService
+    shoes: ClothingShoesBootsCombatFilled
+    belt: ClothingBeltMilitaryWebbing
+    head: ClothingHeadHelmetCombine
+    outerClothing: ClothingVestCombine
+    jumpsuit: ClothingUniformJumpsuitPuzombine
+    gloves: ClothingHandsGlovesCombat
+
+- type: startingGear
+  id: PuzombineSoldier
+  equipment:
+    id: MusicianPDA
+    ears: ClothingHeadsetService
+    shoes: ClothingShoesBootsCombatFilled
+    belt: ClothingBeltMilitaryWebbing
+    head: ClothingHeadHelmetCombine
+    outerClothing: ClothingVestCombine
+    jumpsuit: ClothingUniformJumpsuitPuzombine
+    gloves: ClothingHandsGlovesCombat

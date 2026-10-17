@@ -1390,8 +1390,8 @@
   - LoadoutSpeciesBreathToolSecurity
 
 - type: loadoutGroup
-  id: FSB
-  name: FSBloadout
+  id: Delta
+  name: Deltaloadout
   loadouts:
   - JanitorWebbing
   - JanitorJumpsuit

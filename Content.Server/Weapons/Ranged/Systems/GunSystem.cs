@@ -1,30 +1,31 @@
-using System.Linq;
-using System.Numerics;
 using Content.Server.Cargo.Systems;
 using Content.Server.Weapons.Ranged.Components;
 using Content.Shared.Cargo;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
 using Content.Shared.Effects;
+using Content.Shared.Physics;
 using Content.Shared.Projectiles;
+using Content.Shared.Weapons.Hitscan.Components;
+using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
-using Content.Shared.Weapons.Hitscan.Components;
-using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Reflect;
-using Content.Shared.Damage.Components;
 using Robust.Shared.Audio;
+using Robust.Shared.Containers;
+using Robust.Shared.Log;
 using Robust.Shared.Map;
-using Content.Shared.Physics;
 using Robust.Shared.Physics;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Robust.Shared.Containers;
+using System.Linq;
+using System.Numerics;
 
 namespace Content.Server.Weapons.Ranged.Systems;
 
@@ -81,12 +82,19 @@ public sealed partial class GunSystem : SharedGunSystem
         var toMap = TransformSystem.ToMapCoordinates(toCoordinates).Position;
         var mapDirection = toMap - fromMap.Position;
         var mapAngle = mapDirection.ToAngle();
+        var cooldownWindow = TimeSpan.FromSeconds(1f);
+        var recoilTime = Timing.CurTime - gun.LastFire;
+        if (recoilTime >= cooldownWindow) {
+            gun.ShotIndex = 0;
+            
+        }
         var angle = GetRecoilAngle(Timing.CurTime, gun, mapDirection.ToAngle());
-
+        gun.ShotIndex++; // считываем последующие выстрелы
+        Logger.Debug($"Gun {gunUid}: ShotIndex is now {gun.ShotIndex}");
         // If applicable, this ensures the projectile is parented to grid on spawn, instead of the map.
         var fromEnt = MapManager.TryFindGridAt(fromMap, out var gridUid, out _)
-            ? TransformSystem.WithEntityId(fromCoordinates, gridUid)
-            : new EntityCoordinates(_map.GetMapOrInvalid(fromMap.MapId), fromMap.Position);
+                ? TransformSystem.WithEntityId(fromCoordinates, gridUid)
+                : new EntityCoordinates(_map.GetMapOrInvalid(fromMap.MapId), fromMap.Position);
 
         // Update shot based on the recoil
         toMap = fromMap.Position + angle.ToVec() * mapDirection.Length();
@@ -493,6 +501,7 @@ public sealed partial class GunSystem : SharedGunSystem
     /// <param name="start">Start angle in degrees</param>
     /// <param name="end">End angle in degrees</param>
     /// <param name="intervals">How many shots there are</param>
+    ///
     private Angle[] LinearSpread(Angle start, Angle end, int intervals)
     {
         var angles = new Angle[intervals];
@@ -505,6 +514,13 @@ public sealed partial class GunSystem : SharedGunSystem
 
         return angles;
     }
+
+    #region Recoil Pattern
+
+
+
+
+    #endregion
 
     private Angle GetRecoilAngle(TimeSpan curTime, GunComponent component, Angle direction)
     {

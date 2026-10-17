@@ -30,13 +30,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazinePistolHighCapacity ] }
+        whitelist: { tags: [ Mag_Tec9 ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSTec9
         priority: 1
-        whitelist: { tags: [ CartridgePistol ] }
+        whitelist: { tags: [ Cart_Tec9 ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -70,13 +70,13 @@
         insertSound: { path: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg }
         ejectSound: { path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg }
         priority: 2
-        whitelist: { tags: [ MagazineMagnum ] }
+        whitelist: { tags: [ Mag_Deagle ] }
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCSDeagle
         priority: 1
-        whitelist: { tags: [ CartridgeMagnum ] }
+        whitelist: { tags: [ Cart_Deagle ] }
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

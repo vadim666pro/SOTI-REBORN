@@ -1,0 +1,55 @@
+- type: entity
+  id: CsDoorFakeDust1
+  name: door
+  parent: CSWindowInferno1
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/DecorDust/door32.rsi
+    state: door1
+    drawdepth: Doors
+
+- type: entity
+  id: CsDoorFakeDust2
+  name: door
+  parent: CSWindowInferno1
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/DecorDust/door32.rsi
+    state: door2
+    drawdepth: Doors
+
+- type: entity
+  id: CsDoorFakeDust3
+  name: door
+  parent: CSWindowInferno1
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/DecorDust/door64.rsi
+    state: door1
+    drawdepth: Doors
+
+- type: entity
+  id: CsDoorFakeDust4
+  name: door
+  parent: CSWindowInferno1
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Structures/DecorDust/door64.rsi
+    state: door2
+    drawdepth: Doors

@@ -1,5 +1,6 @@
 - type: entity
   id: BaseTreeSoti
+  name: tree
   description: Yep, it's a tree.
   abstract: true
   components:
@@ -17,7 +18,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.35,-0.4,0.35,0.4"
+          bounds: "-0.20,-0.4,0.20,0.4"
         density: 1000
         layer:
         - WallLayer
@@ -31,3 +32,35 @@
   - type: Sprite
     sprite: Objects/counterstrike/Nature/tree.rsi
     state: tree1
+
+- type: entity
+  id: CSTreeInf2
+  parent: BaseTreeSoti
+  description: tree.
+  abstract: false
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Nature/tree.rsi
+    state: tree2
+
+- type: entity
+  id: CSTreeDust1
+  name: Palm
+  parent: BaseTreeSoti
+  description: tree.
+  abstract: false
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Nature/tree.rsi
+    state: palm1
+
+- type: entity
+  id: CSTreeDust2
+  name: Palm
+  parent: BaseTreeSoti
+  description: tree.
+  abstract: false
+  components:
+  - type: Sprite
+    sprite: Objects/counterstrike/Nature/tree.rsi
+    state: palm2

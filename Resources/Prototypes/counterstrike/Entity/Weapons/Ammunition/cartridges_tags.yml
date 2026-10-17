@@ -1,0 +1,64 @@
+# CS Per-Weapon Cartridge Tags
+
+- type: Tag
+  id: Cart_USP
+
+- type: Tag
+  id: Cart_Glock
+
+- type: Tag
+  id: Cart_Beretta
+
+- type: Tag
+  id: Cart_FiveSeven
+
+- type: Tag
+  id: Cart_Tec9
+
+- type: Tag
+  id: Cart_Deagle
+
+- type: Tag
+  id: Cart_Nagan
+
+- type: Tag
+  id: Cart_AWP
+
+- type: Tag
+  id: Cart_Scout
+
+- type: Tag
+  id: Cart_AK47
+
+- type: Tag
+  id: Cart_M4
+
+- type: Tag
+  id: Cart_AUG
+
+- type: Tag
+  id: Cart_SG553
+
+- type: Tag
+  id: Cart_Famas
+
+- type: Tag
+  id: Cart_MAC10
+
+- type: Tag
+  id: Cart_MP9
+
+- type: Tag
+  id: Cart_UMP45
+
+- type: Tag
+  id: Cart_P90
+
+- type: Tag
+  id: Shell_Nova
+
+- type: Tag
+  id: Shell_XM1014
+
+- type: Tag
+  id: Shell_DB

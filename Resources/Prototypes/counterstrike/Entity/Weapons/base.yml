@@ -5,7 +5,6 @@
   parent: [BaseWeaponPistol, BaseSecurityContraband]
   id: BasePistolCS
   description: CS pistol base.
-  abstract: true
   components:
   - type: Gun
     fireRate: 5
@@ -21,20 +20,61 @@
 
 - type: entity
   name: BaseRiffleCS
-  parent: [BaseWeaponRifle, BaseSecurityContraband]
+  parent: [BaseItem, BaseGunWieldable]
   id: BaseRiffleCS
-  description: CS rifle base.
-  abstract: true
+  description: CS rifle base(ak47).
   components:
-  - type: Gun
+  - type: Item # SIZE
+    size: Huge
+    shape:
+    - 0,0,3,2
+  - type: Sprite  #SPRITES  ===================================
+    sprite: Objects/counterstrike/Weapons/PrimaryT/ak47.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: Objects/counterstrike/Weapons/PrimaryT/ak47.rsi 
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Gun #GUNSYSTEM ===================================
     fireRate: 7
-    minAngle: 5
-    maxAngle: 60
-    angleIncrease: 7
-    angleDecay: 15
+    #minAngle: 5
+    #maxAngle: 60
+    #angleIncrease: 7
+    #angleDecay: 15
     selectedMode: FullAuto
     availableModes: [ FullAuto ]
     soundGunshot: { path: /Audio/Weapons/counterstrike/guns/ak.ogg }
-  - type: GunWieldBonus
-    minAngle: -1
-    maxAngle: -1
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineCSAK47 #ВАЖНО ====================
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - Cart_AK47 #ВАЖНО =================== #ВАЖНО ====================
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeCSAK47 #ВАЖНО ====================
+        priority: 1
+        whitelist:
+          tags:
+          - Mag_AK47 #ВАЖНО ====================
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: AmmoCounter #НЕ ТРОГАТЬ
+  - type: GunRequiresWield #ПО ЖЕЛАНИЮ(ЖЕЛАТЕЛЬНО)
